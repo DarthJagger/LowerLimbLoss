@@ -1,8 +1,13 @@
 Project title: Lower Limb Loss
+
 Group members: Quinn Trate, Zachary Newman, Jagger Gilleland
+
 Sponsors: Prateek Grover MD PhD MHA
+
 Faculty advisor: Hien Nguyen, Ph.D.
+
 Technologies you intend to use: Python (Django Framework), and SQL
+
 Problem statement: This is to try and solve the complicated process of following the steps after a lower limb amputation. This is needed as there is a lot of fall-off during
 the path to obtain a prosthesis. This also includes tracking for the prosthesis to assess better the needs of a patient and what prosthesis will work best for them. 
 
