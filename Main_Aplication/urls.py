@@ -6,12 +6,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.nav, name="Navigation"),
+
+
+    """
+    Removed while updating to new HTML format
+    
     path("SensorScore/", views.sensor_score, name="Sensor Score"),
     path("SensorGraph/<step>/", views.sensor_graph, name="Sensor Score"),
     path("<step>/", views.self_score, name="Navigation"),
-
-
-
+    
+    """
 
 
 ]

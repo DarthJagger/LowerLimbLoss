@@ -4,9 +4,12 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def nav(request):
-    return render(request, "Navigation_Home.html")
+    return render(request, "Base_Template.html")
 
+"""
 
+Removed while updating to new HTML format 
+ 
 def self_score(request, step):
     if (step == "PS"):
         return render(request, "Self_Score_Base.html", {"step": "Postsurgical Stabilization"})
@@ -35,3 +38,4 @@ def sensor_graph(request,step):
     if (step == "StepHeight"):
         return render(request, "Sensor_Graph_Base.html", {"type": "Step Height"})
 
+"""
