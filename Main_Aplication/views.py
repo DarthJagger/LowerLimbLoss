@@ -6,6 +6,11 @@ from django.shortcuts import render, redirect
 def nav(request):
     return render(request, "Base_Template.html")
 
+def SignIn(request):
+    return render(request, "sign-in.html")
+def SignUp(request):
+    return render(request, "Create-Account.html")
+
 """
 
 Removed while updating to new HTML format 
