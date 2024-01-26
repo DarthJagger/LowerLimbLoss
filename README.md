@@ -15,7 +15,7 @@ Simplified SRS:
 https://pennstateoffice365-my.sharepoint.com/:w:/g/personal/qat5010_psu_edu/EVuVJNJUuY1GrBaTdB6T0mABfraJdL0_AY1-apRa9Y4wVw
 
 Video Overview of GUI:
-https://psu.mediaspace.kaltura.com/media/Jagger+Darth+Gilleland%27s+Zoom+Meeting/1_9xxh7d3d
+[https://psu.mediaspace.kaltura.com/media/Jagger+Darth+Gilleland%27s+Zoom+Meeting/1_9xxh7d3d](https://psu.mediaspace.kaltura.com/media/GMT20240126-000109_Recording_1920x1080/1_9kpk4vjd)
 
 Database Design
 ![image](https://github.com/DarthJagger/LowerLimbLoss/assets/143664202/9847c5d9-879a-4288-a538-77c4e3b1b039)
