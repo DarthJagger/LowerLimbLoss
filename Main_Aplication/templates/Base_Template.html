@@ -37,27 +37,28 @@
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="javascript:void(0)">Home</a>
-        </li>
           {% block nav %}
+        <li class="nav-item">
+          <a class="nav-link active" href="/home">Home</a>
+        </li>
+
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Steps in Detail</a>
             <div class="dropdown-menu bg-dark" >
-                <a href="#" class="dropdown-item text-light">Postsurgical Stabilization</a>
-                <a href="#" class="dropdown-item text-light">Preprosthetic Rehabilitation</a>
-                <a href="#" class="dropdown-item text-light">Limb Healing &  Maturation</a>
-                <a href="#" class="dropdown-item text-light">Prosthetic Fitting</a>
-                <a href="#" class="dropdown-item text-light">Prosthetic Rehabilitation</a>
+                <a href="/Postsurgical_Stabilization" class="dropdown-item text-light">Postsurgical Stabilization</a>
+                <a href="/Preprosthetic_Rehabilitation" class="dropdown-item text-light">Preprosthetic Rehabilitation</a>
+                <a href="/Limb_Healing" class="dropdown-item text-light">Limb Healing &  Maturation</a>
+                <a href="/Prosthetic_Fitting" class="dropdown-item text-light">Prosthetic Fitting</a>
+                <a href="/Prosthetic_Rehabilitation" class="dropdown-item text-light">Prosthetic Rehabilitation</a>
             </div>
         </li>
       </ul>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item">
-                <a href="/SignIn" class="nav-link" href="javascript:void(0)">Sign In</a>
+                <a href="/SignIn" class="nav-link" >Sign In</a>
             </li>
             <li class="nav-item">
-                <a href="/SignUp" class="nav-link " href="javascript:void(0)">Sign Up</a>
+                <a href="/SignUp" class="nav-link " >Sign Up</a>
             </li>
         </ul>
         {% endblock %}

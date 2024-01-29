@@ -17,6 +17,42 @@ def Patient(request):
 def Enter_scores(request):
     return render(request, "Patient_enter_scores.html")
 
+
+def Postsurgical_Stabilization(request):
+    return render(request, "Postsurgical_Stabilization.html")
+def Preprosthetic_Rehabilitation(request):
+    return render(request, "Preprosthetic_Rehabilitation.html")
+
+def Limb_Healing(request):
+    return render(request, "Limb_Healing.html")
+
+def Prosthetic_Fitting(request):
+    return render(request, "Prosthetic_Fitting.html")
+
+def Prosthetic_Rehabilitation(request):
+    return render(request, "Preprosthetic_Rehabilitation.html")
+
+
+
+def Patient_Appointments(request):
+    return render(request, "Patient_Appointments.html")
+
+def Patient_Postsurgical_Stabilization(request):
+    return render(request, "Patient_Postsurgical_Stabilization.html")
+def Patient_Preprosthetic_Rehabilitation(request):
+    return render(request, "Patient_Preprosthetic_Rehabilitation.html")
+
+def Patient_Limb_Healing(request):
+    return render(request, "Patient_Limb_Healing.html")
+
+def Patient_Prosthetic_Fitting(request):
+    return render(request, "Patient_Prosthetic_Fitting.html")
+
+def Patient_Prosthetic_Rehabilitation(request):
+    return render(request, "Patient_Prosthetic_Rehabilitation.html")
+
+
+
 """
 
 Removed while updating to new HTML format 
