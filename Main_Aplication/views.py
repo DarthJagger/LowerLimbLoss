@@ -30,7 +30,7 @@ def Prosthetic_Fitting(request):
     return render(request, "Prosthetic_Fitting.html")
 
 def Prosthetic_Rehabilitation(request):
-    return render(request, "Preprosthetic_Rehabilitation.html")
+    return render(request, "Prosthetic_Rehabilitation.html")
 
 
 
