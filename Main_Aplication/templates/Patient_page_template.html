@@ -1,0 +1,42 @@
+{% extends "Base_Template.html" %}
+{% block title %} Patient's Homepage {% endblock %}
+
+{% block header %}
+    <h1>Tracking for "Patient"</h1>
+{% endblock %}
+
+{% block nav %}
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Personal Step Tracking</a>
+        <div class="dropdown-menu bg-dark" >
+            <a href="#" class="dropdown-item text-light">1. Postsurgical Stabilization</a>
+            <a href="#" class="dropdown-item text-light">2. Preprosthetic Rehabilitation</a>
+            <a href="#" class="dropdown-item text-light">3. Limb Healing &  Maturation</a>
+            <a href="#" class="dropdown-item text-light">4. Prosthetic Fitting</a>
+            <a href="#" class="dropdown-item text-light">5. Prosthetic Rehabilitation</a>
+        </div>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Upcoming Appointments</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="/Enter_Scores">Enter Weekly Scores</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Sensor Input</a>
+    </li>
+
+    </ul>
+    <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+            <a href="/home" class="nav-link" href="javascript:void(0)">Sign Out</a>
+        </li>
+    </ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+{% endblock %}

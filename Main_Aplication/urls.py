@@ -9,6 +9,8 @@ urlpatterns = [
     path("home/", views.nav, name="Navigation"),
     path("SignIn", views.SignIn, name="Navigation"),
     path("SignUp", views.SignUp, name="Navigation"),
+    path("Patient", views.Patient, name="Navigation"),
+    path("Enter_Scores", views.Enter_scores, name="Navigation"),
 
 
 

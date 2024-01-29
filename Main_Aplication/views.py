@@ -11,6 +11,12 @@ def SignIn(request):
 def SignUp(request):
     return render(request, "Create-Account.html")
 
+def Patient(request):
+    return render(request, "Patient_page_template.html")
+
+def Enter_scores(request):
+    return render(request, "Patient_enter_scores.html")
+
 """
 
 Removed while updating to new HTML format 
