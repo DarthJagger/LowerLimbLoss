@@ -12,7 +12,7 @@ def SignUp(request):
     return render(request, "Create-Account.html")
 
 def Patient(request):
-    return render(request, "Patient_Home.html")git add
+    return render(request, "Patient_Home.html")
 
 def Enter_scores(request):
     return render(request, "Patient_enter_scores.html")
