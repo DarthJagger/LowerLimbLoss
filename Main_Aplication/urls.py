@@ -23,6 +23,7 @@ urlpatterns = [
     path("Patient_Prosthetic_Fitting", views.Patient_Prosthetic_Fitting, name="Navigation"),
     path("Patient_Prosthetic_Rehabilitation", views.Patient_Prosthetic_Rehabilitation, name="Navigation"),
     path("Patient_Appointments", views.Patient_Appointments, name="Navigation"),
+    path("Patient_Appointment_Info", views.Patient_Appointment_Info, name="Navigation"),
 
 
 

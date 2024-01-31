@@ -37,6 +37,9 @@ def Prosthetic_Rehabilitation(request):
 def Patient_Appointments(request):
     return render(request, "Patient_Appointments.html")
 
+def Patient_Appointment_Info(request):
+    return render(request, "Patient_Appointment_Info.html")
+
 def Patient_Postsurgical_Stabilization(request):
     return render(request, "Patient_Postsurgical_Stabilization.html")
 def Patient_Preprosthetic_Rehabilitation(request):

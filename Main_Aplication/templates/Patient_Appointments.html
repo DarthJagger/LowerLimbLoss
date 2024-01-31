@@ -9,22 +9,28 @@
 
 {% block content %}
 <div class="container-lg">
-    <div class="row justify-content-center" style="padding: 15px">
-        <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
-            <h1 class="text-center">PS Appointment</h1>
-            <p style="font-size: 20px"><b>Date:</b> 4/10/24, 10:00 AM</p>
-            <p style="font-size: 20px"><b>Team Members:</b> Surgeon, Prosthetist</p>
-            <p style="font-size: 20px"><b>Location:</b> HMC</p>
+    <!-- Each Appointment Block is a button/link that takes the user to the specific appointment info page -->
+    <a href="/Patient_Appointment_Info" style="text-decoration:none;color:rgb(0,0,0)">
+        <div class="row justify-content-center" style="padding: 15px">
+
+            <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
+                <h1 class="text-center">PS Appointment</h1>
+                <p style="font-size: 20px"><b>Date:</b> 4/10/24, 10:00 AM</p>
+                <p style="font-size: 20px"><b>Team Members:</b> Surgeon, Prosthetist</p>
+                <p style="font-size: 20px"><b>Location:</b> HMC</p>
+            </div>
         </div>
-    </div>
-    <div class="row justify-content-center" style="padding: 15px">
-        <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
-            <h1 class="text-center">PPR Appointment</h1>
-            <p style="font-size: 20px"><b>Date:</b> 5/15/24, 12:00 PM</p>
-            <p style="font-size: 20px"><b>Team Members:</b> _____</p>
-            <p style="font-size: 20px"><b>Location:</b> PSHRH</p>
+    </a>
+    <a href="/Patient_Appointment_Info" style="text-decoration:none;color:rgb(0,0,0)">
+        <div class="row justify-content-center" style="padding: 15px">
+            <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
+                <h1 class="text-center">PPR Appointment</h1>
+                <p style="font-size: 20px"><b>Date:</b> 5/15/24, 12:00 PM</p>
+                <p style="font-size: 20px"><b>Team Members:</b> _____</p>
+                <p style="font-size: 20px"><b>Location:</b> PSHRH</p>
+            </div>
         </div>
-    </div>
+    </a>
 </div>
 
 {% endblock %}
