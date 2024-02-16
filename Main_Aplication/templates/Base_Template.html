@@ -12,20 +12,29 @@
         body {margin:0;font-family:"Sitka Display"}
 
         .header {
-            background-color: rgb(2, 25, 52);
+            background-color: rgb(1, 29, 66);
+            background-image: linear-gradient(rgb(0, 47, 135), rgb(1, 29, 66));
             color: white;
             padding: 20px;
-            text-align: center;
-            font-size: 25px;
+            font-size: 3vw;
         }
 
     </style>
 </head>
 <body>
-<div class="header">
+<div class="container-fluid header">
+<div class="row">
+
+<div class="col-5 align-self-start">
+    <img style="align-content: start" src="static\Health_logo.png" class="img-fluid" alt="Responsive image">
+</div>
+<div class="col-11">
     {% block header %}
-    <h1>Patient Lower Limb-loss Rehabilitation Continuum Application</h1>
+    <h1 style="color: rgb(150,190, 230); text-align: end"> Limb Loss & Preservation Rehabilitation Continuum</h1>
+        <h3 style="text-align: end">Provider information for PM&R Specialty Limb Loss Consults</h3>
     {% endblock %}
+</div>
+</div>
 </div>
 
 
@@ -70,52 +79,46 @@
 
 {% block content %}
 
-    <div class="container-lg">
-        <div class="row justify-content-center" style="padding: 25px">
-            <div class="col align-self-center">
-                <h1 class="text-center ">General Lower Limb Amputation Information</h1>
+    <div class="container-fluid">
+        <div class="row" style="padding: 25px">
+            <div class="col-7">
+                <h2 class="text-start " style="color: rgb(30, 64, 124)">
+                    <strong class="fw-bold"> The Patient Journey: </strong>
+                    From Amputation Surgery to Independence</h2>
+                <br>
+                <p >
+                    <strong > 1. Postsurgical stabilization</strong>
+                    (acute care hospital): postsurgical
+                    care is provided to ensure medical stability.
+                </p>
+                <p >
+                    <strong> 2. Pre-prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/
+                    outpatient therapy): independence in mobility and daily
+                    activities is achieved with use of assistive devices (e.g.,
+                    wheelchair or walker for lower limb loss).
+                </p>
+                <p >
+                    <strong> 3. Limb healing and maturation </strong>
+                    (surgeon and Physical
+                    Medicine and Rehabilitation clinic visits, outpatient therapy
+                    if needed): sutures are removed, scabs resolve, functional
+                    evaluation for prosthetic device prescription is completed.
+                </p>
+                <p >
+                    <strong> 4. Prosthetic fitting </strong>
+                    (through O&P clinic): prosthetic device is
+                    made and fitted to patient.
+                </p>
+                <p >
+                    <strong > 5. Prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/outpatient
+                    therapy): independence in mobility and daily activities is
+                    achieved with use of the prosthetic device.
+                </p>
             </div>
-        </div>
-        <div class="row justify-content-start" style="padding: 25px">
-            <div class="col-7 align-self-start">
-                <h2 class="text-start">1. Postsurgical Stabilization</h2>
-                <p style="font-size: 20px">This step takes place at the acute hospital and
-                    involves surgery and stabilization thereafter, so that patients can
-                    be safely discharged to the next level of care.</p>
-            </div>
-        </div>
-        <div class="row justify-content-center" style="padding: 25px">
-            <div class="col-7 align-self-center">
-                <h2 class="text-center">2. Preprosthetic Rehabilitation</h2>
-                <p class="text-center" style="font-size: 20px">Preprosthetic Rehabilitation occurs at
-                    the Inpatient Rehabilitation Facility and aims for functional independence and
-                    medical stability at the wheelchair/walker level to ensure a safe discharge
-                    to the community.</p>
-            </div>
-        </div>
-        <div class="row justify-content-end" style="padding: 25px">
-            <div class="col-7 align-self-end">
-                <h2 class="text-end">3. Limb Healing &  Maturation</h2>
-                <p class="text-end" style="font-size: 20px">Limb Healing & Maturation
-                    happens in the community setting. Together, steps 2 and 3 correspond
-                    to the preprosthetic phase</p>
-            </div>
-        </div>
-        <div class="row justify-content-center" style="padding: 25px">
-            <div class="col-7 align-self-center">
-                <h2 class="text-center">4. Prosthetic Fitting</h2>
-                <p class="text-center" style="font-size: 20px">Prosthetic Fitting
-                    occurs in the community setting and involves prosthetic clinic
-                    visits and time taken to make a well-fitting prosthesis.</p>
-            </div>
-        </div>
-        <div class="row justify-content-start" style="padding: 25px">
-            <div class="col-7 align-self-start">
-                <h2 class="text-start">5. Prosthetic Rehabilitation</h2>
-                <p class="text-start" style="font-size: 20px">This step takes place at
-                    the Inpatient Rehabilitation Facility and aims to achieve
-                    functional independence and medical stability at the prosthetic
-                    device level for safe discharge to the community.</p>
+            <div class="col-5 ">
+                    <img style="align-content: center" src="static\HomepageImage.png" class="w-100" alt="Responsive image">
             </div>
         </div>
 
