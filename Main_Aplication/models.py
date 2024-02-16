@@ -12,7 +12,7 @@ class Patients(models.Model):
     patient_id = models.DecimalField(db_column='Patient_ID', primary_key=True, max_digits=9, decimal_places=0)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=255)  # Field name made lowercase.
     phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=255, blank=True, null=False)  # Field name made lowercase.
     password = models.CharField(db_column='Password', max_length=255)  # Field name made lowercase.
 
     class Meta:
@@ -24,7 +24,7 @@ class Providers(models.Model):
     provider_id = models.DecimalField(db_column='Provider_ID', primary_key=True, max_digits=9, decimal_places=0)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=255)  # Field name made lowercase.
     phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=255, blank=True, null=False)  # Field name made lowercase.
     specialty = models.CharField(db_column='Specialty', max_length=255, blank=True, null=True)  # Field name made lowercase.
     organization = models.CharField(db_column='Organization', max_length=255, blank=True, null=True)  # Field name made lowercase.
     password = models.CharField(db_column='Password', max_length=255)  # Field name made lowercase.
