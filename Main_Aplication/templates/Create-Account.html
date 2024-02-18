@@ -48,27 +48,29 @@
 
 <body style="background-color: rgb(173,173,173)">
 <div class="login-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action="{% url 'SignUp' %}" method="POST">
+        {% csrf_token %} <!-- Form  Security Token, I think-->
         <h2 class="text-center">Create Account</h2>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" required="required">
+            <input type="text" class="form-control" placeholder="Name" required="required" name="name">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Email" required="required">
+            <input type="text" class="form-control" placeholder="Email" required="required" name="email">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Phone Number" required="required">
+            <input type="text" class="form-control" placeholder="Phone Number" required="required" name="phone_number">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required">
+            <input type="password" class="form-control" placeholder="Password" required="required" name="password">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Repeat Password" required="required">
+            <input type="password" class="form-control" placeholder="Repeat Password" required="required" name="password_confirm">
         </div>
         <div class="form-group">
-            <!-- <button href="/" type="submit" class="btn btn-secondary btn-block">Create</button> -->
+            <button type="submit" class="btn btn-secondary btn-block">Create</button>
+            <!-- Using this form button for the proper form manipulation -->
         </div>
-        <a class="btn btn-secondary" href="/Patient" role="button">Create</a>
+        <!--<a class="btn btn-secondary" href="/Patient" role="button">Create</a>-->
 
     </form>
 </div>

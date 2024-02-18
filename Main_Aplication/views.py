@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-
+from django.utils import timezone
+from .forms import NewPatientForm
 
 # Create your views here.
 def nav(request):
@@ -9,6 +10,11 @@ def nav(request):
 def SignIn(request):
     return render(request, "sign-in.html")
 def SignUp(request):
+    if request.method == "POST":
+        form = NewPatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('SignIn')
     return render(request, "Create-Account.html")
 
 def Patient(request):
