@@ -8,6 +8,32 @@
 from django.db import models
 
 
+class Patients(models.Model):
+    patient_id = models.AutoField(db_column='Patient_ID', primary_key=True)  # Field name made lowercase.
+    pname = models.CharField(db_column='PName', max_length=255)  # Field name made lowercase.
+    phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='Email', unique=True, max_length=255, blank=True, null=True)  # Field name made lowercase.
+    ppassword = models.CharField(db_column='PPassword', max_length=255)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'patients'
+
+
+class Providers(models.Model):
+    provider_id = models.AutoField(db_column='Provider_ID', primary_key=True)  # Field name made lowercase.
+    pname = models.CharField(db_column='PName', max_length=255)  # Field name made lowercase.
+    phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='Email', unique=True, max_length=255, blank=True, null=True)  # Field name made lowercase.
+    specialty = models.CharField(db_column='Specialty', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    organization = models.CharField(db_column='Organization', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    ppassword = models.CharField(db_column='PPassword', max_length=255)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'providers'
+
+
 class AmpnoproScores(models.Model):
     patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
@@ -171,18 +197,6 @@ class PatientEntries(models.Model):
         unique_together = (('patient', 'entrydate'),)
 
 
-class Patients(models.Model):
-    patient_id = models.AutoField(db_column='Patient_ID', primary_key=True)  # Field name made lowercase.
-    pname = models.CharField(db_column='PName', max_length=255)  # Field name made lowercase.
-    phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', unique=True, max_length=255, blank=True, null=True)  # Field name made lowercase.
-    ppassword = models.CharField(db_column='PPassword', max_length=255)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'patients'
-
-
 class PlusMScores(models.Model):
     patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
@@ -192,20 +206,6 @@ class PlusMScores(models.Model):
         managed = False
         db_table = 'plus_m_scores'
         unique_together = (('patient', 'scoredate'),)
-
-
-class Providers(models.Model):
-    provider_id = models.AutoField(db_column='Provider_ID', primary_key=True)  # Field name made lowercase.
-    pname = models.CharField(db_column='PName', max_length=255)  # Field name made lowercase.
-    phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', unique=True, max_length=255, blank=True, null=True)  # Field name made lowercase.
-    specialty = models.CharField(db_column='Specialty', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    organization = models.CharField(db_column='Organization', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    ppassword = models.CharField(db_column='PPassword', max_length=255)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'providers'
 
 
 class SensorEntries(models.Model):

@@ -2,38 +2,62 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .forms import NewPatientForm
+from .models import Patients
+from django.contrib import messages
 
-# Create your views here.
 def nav(request):
     return render(request, "Base_Template.html")
 
+
 def SignIn(request):
+    if request.method == "POST":
+        inputEmail = request.POST["email"]
+        inputPassword = request.POST['ppassword']
+        try:
+            user = Patients.objects.get(email=inputEmail)
+            systemPassword = user.ppassword
+            if (inputPassword == systemPassword):
+                return redirect('/Patient')
+            else:
+                messages.success(request, "Incorrect Login Credentials (Password)")
+        except Patients.DoesNotExist:
+            messages.success(request, "Incorrect Login Credentials (Email)")
     return render(request, "sign-in.html")
+
+
 def SignUp(request):
     if request.method == "POST":
-        form = NewPatientForm(request.POST)
+        form = NewPatientForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return redirect('SignIn')
+            return redirect('/SignIn')
     return render(request, "Create-Account.html")
+
 
 def Patient(request):
     return render(request, "Patient_Home.html")
+
 
 def Enter_scores(request):
     return render(request, "Patient_enter_scores.html")
 
 
+
 def Postsurgical_Stabilization(request):
     return render(request, "Postsurgical_Stabilization.html")
+
+
 def Preprosthetic_Rehabilitation(request):
     return render(request, "Preprosthetic_Rehabilitation.html")
+
 
 def Limb_Healing(request):
     return render(request, "Limb_Healing.html")
 
+
 def Prosthetic_Fitting(request):
     return render(request, "Prosthetic_Fitting.html")
+
 
 def Prosthetic_Rehabilitation(request):
     return render(request, "Prosthetic_Rehabilitation.html")
@@ -43,19 +67,26 @@ def Prosthetic_Rehabilitation(request):
 def Patient_Time_Points(request):
     return render(request, "Patient_Time_Points.html")
 
+
 def Patient_Time_Point_Info(request):
     return render(request, "Patient_Time_Point_Info.html")
 
+
 def Patient_Postsurgical_Stabilization(request):
     return render(request, "Patient_Postsurgical_Stabilization.html")
+
+
 def Patient_Preprosthetic_Rehabilitation(request):
     return render(request, "Patient_Preprosthetic_Rehabilitation.html")
+
 
 def Patient_Limb_Healing(request):
     return render(request, "Patient_Limb_Healing.html")
 
+
 def Patient_Prosthetic_Fitting(request):
     return render(request, "Patient_Prosthetic_Fitting.html")
+
 
 def Patient_Prosthetic_Rehabilitation(request):
     return render(request, "Patient_Prosthetic_Rehabilitation.html")

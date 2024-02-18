@@ -48,24 +48,24 @@
 
 <body style="background-color: rgb(173,173,173)">
 <div class="login-form">
-    <form action="{% url 'SignUp' %}" method="POST">
+    <form method="POST" action="/SignUp">
         {% csrf_token %} <!-- Form  Security Token, I think-->
         <h2 class="text-center">Create Account</h2>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" required="required" name="name">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Email" required="required" name="email">
+            <input type="text" class="form-control" placeholder="Name" required="required" name="pname">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Phone Number" required="required" name="phone_number">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required" name="password">
+            <input type="text" class="form-control" placeholder="Email" required="required" name="email">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Repeat Password" required="required" name="password_confirm">
+            <input type="password" class="form-control" placeholder="Password" required="required" name="ppassword">
         </div>
+        <!--<div class="form-group">
+            <input type="password" class="form-control" placeholder="Repeat Password" required="required" name="password_confirm">
+        </div>-->
         <div class="form-group">
             <button type="submit" class="btn btn-secondary btn-block">Create</button>
             <!-- Using this form button for the proper form manipulation -->
