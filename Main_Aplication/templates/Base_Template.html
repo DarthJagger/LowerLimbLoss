@@ -26,7 +26,7 @@
 <div class="row">
 
 <div class="col-5 align-self-start">
-    <img style="align-content: start" src="static\Health_logo.png" class="img-fluid" alt="Responsive image">
+    <img style="align-content: start" src="/static/Health_logo.png" class="img-fluid" alt="Responsive image">
 </div>
 <div class="col-11">
     {% block header %}
@@ -51,7 +51,9 @@
           <a class="nav-link active" href="/home">Home</a>
         </li>
 
-        <li class="nav-item dropdown">
+
+
+       <!-- <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Steps in Detail</a>
             <div class="dropdown-menu bg-dark" >
                 <a href="/Postsurgical_Stabilization" class="dropdown-item text-light">Postsurgical Stabilization</a>
@@ -60,7 +62,7 @@
                 <a href="/Prosthetic_Fitting" class="dropdown-item text-light">Prosthetic Fitting</a>
                 <a href="/Prosthetic_Rehabilitation" class="dropdown-item text-light">Prosthetic Rehabilitation</a>
             </div>
-        </li>
+        </li> -->
       </ul>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item">
@@ -79,12 +81,24 @@
 
 {% block content %}
 
-    <div class="container-fluid">
+
+    <!-- Desktop homepage-->
+    <div class="container-fluid d-none d-lg-block">
         <div class="row" style="padding: 25px">
-            <div class="col-7">
+            <div class="col-1"></div>
+            <div class="col-5">
                 <h2 class="text-start " style="color: rgb(30, 64, 124)">
                     <strong class="fw-bold"> The Patient Journey: </strong>
-                    From Amputation Surgery to Independence</h2>
+                    From Amputation Surgery to Independence
+                </h2>
+                <br>
+                <h3 class="text-start " style="color: rgb(30, 64, 124)">
+                     Limb Loss Rehabilitation Continuum
+                </h3>
+                <p>
+                    The Penn State Health Limb Loss Rehabilitation Continuum (LLRC) is a structured framework to help
+patients complete their journey across the care delivery steps in a timely and effective manner.
+                </p>
                 <br>
                 <p >
                     <strong > 1. Postsurgical stabilization</strong>
@@ -116,15 +130,101 @@
                     therapy): independence in mobility and daily activities is
                     achieved with use of the prosthetic device.
                 </p>
+
             </div>
-            <div class="col-5 ">
-                    <img style="align-content: center" src="static\HomepageImage.png" class="w-100" alt="Responsive image">
+            <div class="col-md-5 ">
+                    <img style="align-content: center" src="/static/HomepageImage.png" class="" alt="Responsive image">
             </div>
+            <div class="col-1"></div>
         </div>
+    <div class="row">
+        <h3></h3>
+    </div>
 
     </div>
 
 
+<!-- mobile homepage-->
+    <div class="container-fluid d-block d-lg-none">
+    <div class="row">
+        <h2 class="" style="color: rgb(30, 64, 124); text-align: center">
+                    <strong class="fw-bold"> The Patient Journey: </strong>
+                    From Amputation Surgery to Independence
+                </h2>
+                <br>
+        <div class="col-3">
+            <img style="align-content: center" src="/static/Row Start.png" class="w-100" alt="Responsive image">
+
+        </div>
+        <div class="col-9">
+            <p >
+                <strong > 1. Postsurgical stabilization</strong>
+                (acute care hospital): postsurgical
+                care is provided to ensure medical stability.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+
+            <img style="align-content: center;object-fit: cover;" src="/static/Row middle.png" class="w-100" alt="Responsive image">
+
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong> 2. Pre-prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/
+                    outpatient therapy): independence in mobility and daily
+                    activities is achieved with use of assistive devices (e.g.,
+                    wheelchair or walker for lower limb loss).
+                </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <img style="align-content: center" src="/static/Row middle.png" class="h-auto w-100" alt="Responsive image">
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong> 3. Limb healing and maturation </strong>
+                    (surgeon and Physical
+                    Medicine and Rehabilitation clinic visits, outpatient therapy
+                    if needed): sutures are removed, scabs resolve, functional
+                    evaluation for prosthetic device prescription is completed.
+                </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <img style="align-content: center" src="/static/Row middle.png" class="w-100" alt="Responsive image">
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong> 4. Prosthetic fitting </strong>
+                    (through O&P clinic): prosthetic device is
+                    made and fitted to patient.
+                </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <img style="align-content: center" src="/static/Row middle.png" class="w-100" alt="Responsive image">
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong > 5. Prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/outpatient
+                    therapy): independence in mobility and daily activities is
+                    achieved with use of the prosthetic device.
+                </p>
+        </div>
+    </div>
+
+
+    </div>
 
 {% endblock %}
 
