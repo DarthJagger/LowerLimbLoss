@@ -54,13 +54,15 @@ def Logout(request):
     logout(request)
     return redirect('/home')
 
+
+@login_required
 def Patient(request):
     return render(request, "Patient_Home.html")
 
 
+@login_required
 def Enter_scores(request):
     return render(request, "Patient_enter_scores.html")
-
 
 
 def Postsurgical_Stabilization(request):
@@ -83,31 +85,37 @@ def Prosthetic_Rehabilitation(request):
     return render(request, "Prosthetic_Rehabilitation.html")
 
 
-
+@login_required
 def Patient_Time_Points(request):
     return render(request, "Patient_Time_Points.html")
 
 
+@login_required
 def Patient_Time_Point_Info(request):
     return render(request, "Patient_Time_Point_Info.html")
 
 
+@login_required
 def Patient_Postsurgical_Stabilization(request):
     return render(request, "Patient_Postsurgical_Stabilization.html")
 
 
+@login_required
 def Patient_Preprosthetic_Rehabilitation(request):
     return render(request, "Patient_Preprosthetic_Rehabilitation.html")
 
 
+@login_required
 def Patient_Limb_Healing(request):
     return render(request, "Patient_Limb_Healing.html")
 
 
+@login_required
 def Patient_Prosthetic_Fitting(request):
     return render(request, "Patient_Prosthetic_Fitting.html")
 
 
+@login_required
 def Patient_Prosthetic_Rehabilitation(request):
     return render(request, "Patient_Prosthetic_Rehabilitation.html")
 
