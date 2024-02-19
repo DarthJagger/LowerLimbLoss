@@ -4,6 +4,9 @@ from django.utils import timezone
 from .forms import NewPatientForm
 from .models import Patients
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required # Use @login_required to make a view require login
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 def nav(request):
     return render(request, "Base_Template.html")
@@ -17,11 +20,17 @@ def SignIn(request):
             user = Patients.objects.get(email=inputEmail)
             systemPassword = user.ppassword
             if (inputPassword == systemPassword):
-                return redirect('/Patient')
+                id = user.patient_id
+                user = authenticate(request, username=id, password=inputPassword)
+                if user is not None:
+                    login(request, user)
+                    return redirect('/Patient')
+                else:
+                    messages.success(request, "Login Unsuccessful")
             else:
-                messages.success(request, "Incorrect Login Credentials (Password)")
+                messages.success(request, "Login Unsuccessful")
         except Patients.DoesNotExist:
-            messages.success(request, "Incorrect Login Credentials (Email)")
+            messages.success(request, "Login Unsuccessful")
     return render(request, "sign-in.html")
 
 
@@ -29,10 +38,21 @@ def SignUp(request):
     if request.method == "POST":
         form = NewPatientForm(request.POST or None)
         if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['ppassword']
+            # TODO: Requires further error checking for emails (maybe) and passwords
             form.save()
+            userTemp = Patients.objects.get(email=email)
+            id = userTemp.patient_id
+            user = User.objects.create_user(id, email, password)
+            user.save()
             return redirect('/SignIn')
     return render(request, "Create-Account.html")
 
+
+def Logout(request):
+    logout(request)
+    return redirect('/home')
 
 def Patient(request):
     return render(request, "Patient_Home.html")

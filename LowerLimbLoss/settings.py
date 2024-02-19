@@ -127,3 +127,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/SignIn'
+LOGIN_REDIRECT_URL = '/Patients' # Where the program redirects to when a user logs in through Django's user system
