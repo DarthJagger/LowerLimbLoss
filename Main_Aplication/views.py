@@ -121,10 +121,6 @@ def Patient_Time_Points(request):
 
 
 @login_required
-def Patient_Time_Point_Info(request):
-    return render(request, "Patient_Time_Point_Info.html")
-
-@login_required
 def Patient_Time_Point_Info(request, timepointnum):
     if request.user.is_authenticated:  # Check if the user exists
         patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
