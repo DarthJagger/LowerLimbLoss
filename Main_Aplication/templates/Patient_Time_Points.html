@@ -10,18 +10,27 @@
 {% block content %}
 <div class="container-lg">
     <!-- Each Time Point Block is a button/link that takes the user to the specific appointment info page -->
-    <a href="/Patient_Time_Point_Info" style="text-decoration:none;color:rgb(0,0,0)">
+    <a href="/Patient_Create_Timepoint" style="text-decoration:none;color:rgb(0,0,0)">
         <div class="row justify-content-center" style="padding: 15px">
-
             <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
-                <h1 class="text-center">PS Time Point</h1>
-                <p style="font-size: 20px"><b>Date:</b> 4/10/24, 10:00 AM</p>
-                <p style="font-size: 20px"><b>Team Members:</b> Surgeon</p>
-                <p style="font-size: 20px"><b>Location:</b> HMC</p>
+            <h1 class="text-center">Create New Timepoint</h1>
             </div>
         </div>
     </a>
-    <a href="/Patient_Time_Point_Info" style="text-decoration:none;color:rgb(0,0,0)">
+    {% for item in time_points %} <!-- Dynamic render all time_points from the list-->
+    <a href="/Patient_Time_Point_Info/{{ item.timepointnum }}" style="text-decoration:none;color:rgb(0,0,0)">
+        <div class="row justify-content-center" style="padding: 15px">
+            <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
+                <h1 class="text-center">Time Point #{{ item.timepointnum }}</h1>
+                <p style="font-size: 20px"><b>Start Date:</b> {{ item.startdate}}</p>
+                <p style="font-size: 20px"><b>Start Date:</b> {{ item.enddate}}</p>
+                <p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
+                <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    <!--<a href="/Patient_Time_Point_Info" style="text-decoration:none;color:rgb(0,0,0)">
         <div class="row justify-content-center" style="padding: 15px">
             <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
                 <h1 class="text-center">PPR Time Point</h1>
@@ -30,7 +39,7 @@
                 <p style="font-size: 20px"><b>Location:</b> PSHRH</p>
             </div>
         </div>
-    </a>
+    </a>-->
 </div>
 
 {% endblock %}

@@ -18,6 +18,7 @@ class Patients(models.Model):
     class Meta:
         managed = False
         db_table = 'patients'
+        #permissions = (("view_patient_info"),)
 
 
 class Providers(models.Model):
@@ -32,6 +33,7 @@ class Providers(models.Model):
     class Meta:
         managed = False
         db_table = 'providers'
+        #permissions = (("view_provider_info"),)
 
 
 class AmpnoproScores(models.Model):

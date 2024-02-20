@@ -1,0 +1,36 @@
+{% extends "Patient_page_template.html" %}
+
+{% block header %}
+    <h1>Create Time Point</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container-lg">
+    <div class="row justify-content-center" style="padding: 15px;">
+    <form method="POST" action="/Patient_Create_Timepoint">
+        {% csrf_token %} <!-- Form  Security Token, I think-->
+        <h1 class="text-center">Create Time Point</h1>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Healthcare Provider ID" required="required" name="provider">
+        </div><br>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Location" required="required" name="tplocation">
+        </div><br>
+        <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input id="startDate" type="datetime-local" class="form-control" required="required" name="startdate">
+        </div><br>
+        <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input id="endDate" type="datetime-local" class="form-control" name="enddate">
+        </div><br>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Purpose/Type" required="required" name="timepointtype">
+        </div><br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary btn-block">Create Time Point</button>
+        </div>
+    </form>
+    </div>
+    </div>
+{% endblock %}

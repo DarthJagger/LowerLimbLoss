@@ -1,27 +1,46 @@
 {% extends "Patient_page_template.html" %}
 
 {% block header %}
-    <h1>PS Time Point Information</h1>
+    <h1>Time Point Information</h1>
 {% endblock %}
 
 {% block content %}
     <div class="container-lg">
     <div class="row justify-content-center" style="padding: 15px;">
-        <div class="col-9 align-self-center">
-            <h2 class="text-center">Postsurgical Stabalization Time Point Information</h2>
-            <p style="font-size: 20px"><b>Time Point Date:</b> 4/10/24, 10:00 AM</p>
-            <p style="font-size: 20px"><b>Team Member:</b></p>
-            <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
-                <li><b>Surgeon: </b> Firstname Lastname</li>
-                <!-- Contact Info for the user above - Surgeon-->
+        {% if time_point and provider %}
+            <div class="col-9 align-self-center">
+                <h2 class="text-center">Time Point #{{ time_point.timepointnum }} Information</h2>
+                <p style="font-size: 20px"><b>Time Point Start Date:</b> {{ time_point.startdate}}</p>
+                <p style="font-size: 20px"><b>Time Point End Date:</b> {{ time_point.enddate}}</p>
+                <p style="font-size: 20px"><b>Team Member:</b></p>
                 <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
-                    <li><b>Phone number: </b> (123) 456-7890 </li>
-                    <li><b>Email: </b> fmlastname@psu.edu </li>
-                    <li><b>Organization: </b> Penn State Health </li>
+                    <li><b>{{ provider.specialty }}: </b> {{ provider.pname}}</li>
+                    <!-- Contact Info for the user above - Surgeon-->
+                    <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
+                        <li><b>Phone number: </b> {{ provider.phone_number}} </li>
+                        <li><b>Email: </b> {{ provider.email}} </li>
+                        <li><b>Organization: </b> {{ provider.organization}} </li>
+                    </ul>
                 </ul>
-            </ul>
-            <p style="font-size: 20px"><b>Location:</b> HMC (full address info)</p>
-        </div>
+                <p style="font-size: 20px"><b>Location:</b> {{ time_point.tplocation}})</p>
+            </div>
+        {% else %}
+            <div class="col-9 align-self-center">
+                <h2 class="text-center">Default Time Point Information</h2>
+                <p style="font-size: 20px"><b>Time Point Date:</b> 4/10/24, 10:00 AM</p>
+                <p style="font-size: 20px"><b>Team Member:</b></p>
+                <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
+                    <li><b>Surgeon: </b> Firstname Lastname</li>
+                    <!-- Contact Info for the user above - Surgeon-->
+                    <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
+                        <li><b>Phone number: </b> (123) 456-7890 </li>
+                        <li><b>Email: </b> fmlastname@psu.edu </li>
+                        <li><b>Organization: </b> Penn State Health </li>
+                    </ul>
+                </ul>
+                <p style="font-size: 20px"><b>Location:</b> HMC (full address info)</p>
+            </div>
+        {% endif %}
     </div>
     </div>
 {% endblock %}

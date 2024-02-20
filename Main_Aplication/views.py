@@ -1,10 +1,10 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .forms import NewPatientForm
-from .models import Patients
+from .forms import NewPatientForm, TimePointsForm
+from .models import Patients, Providers, TimePoints
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required # Use @login_required to make a view require login
+from django.contrib.auth.decorators import login_required, permission_required # Use @login_required to make a view require login
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -17,19 +17,19 @@ def SignIn(request):
         inputEmail = request.POST["email"]
         inputPassword = request.POST['ppassword']
         try:
-            user = Patients.objects.get(email=inputEmail)
-            systemPassword = user.ppassword
-            if (inputPassword == systemPassword):
-                id = user.patient_id
-                user = authenticate(request, username=id, password=inputPassword)
+            user = Patients.objects.get(email=inputEmail) # Find the patient corresponding to the email
+            systemPassword = user.ppassword # Obtain the patient password in the database
+            if (inputPassword == systemPassword): # Check that the password put into the login is the same as the database
+                id = user.patient_id # Obtain the patient ID
+                user = authenticate(request, username=id, password=inputPassword) # Authenticate the patient as a user
                 if user is not None:
-                    login(request, user)
+                    login(request, user) # Log the user into the website if the user is correct
                     return redirect('/Patient')
-                else:
+                else: # error for patients who don't have user account
                     messages.success(request, "Login Unsuccessful")
-            else:
+            else: # error for when the password is incorrect
                 messages.success(request, "Login Unsuccessful")
-        except Patients.DoesNotExist:
+        except Patients.DoesNotExist: #error if the patient doesn't exist in the database
             messages.success(request, "Login Unsuccessful")
     return render(request, "sign-in.html")
 
@@ -38,14 +38,14 @@ def SignUp(request):
     if request.method == "POST":
         form = NewPatientForm(request.POST or None)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['ppassword']
+            email = form.cleaned_data['email'] # Obtain patient email
+            password = form.cleaned_data['ppassword'] # Obtain patient password
             # TODO: Requires further error checking for emails (maybe) and passwords
-            form.save()
+            form.save() # Creates a provider in the database
             userTemp = Patients.objects.get(email=email)
-            id = userTemp.patient_id
-            user = User.objects.create_user(id, email, password)
-            user.save()
+            id = userTemp.patient_id # TODO: Modifier to separate between Patient and Provider users
+            user = User.objects.create_user(id, email, password) # Create a new user in Django
+            user.save() # Creates a user in the django users database corresponding to the Patient
             return redirect('/SignIn')
     return render(request, "Create-Account.html")
 
@@ -86,13 +86,54 @@ def Prosthetic_Rehabilitation(request):
 
 
 @login_required
+def Patient_Create_Timepoint(request):
+    if request.method == "POST":
+        form = TimePointsForm(request.POST or None)
+        if form.is_valid():
+            timePoint = form.save(commit=False)  # Save new TimePoint into timePoint
+            id = form.cleaned_data['provider'].provider_id  # Obtain provider ID
+            providerTemp = Providers.objects.get(provider_id=id)  # obtain provider corresponding to ID
+            specialty = providerTemp.specialty  # Obtain provider specialty
+            if request.user.is_authenticated:  # Check if the user exists
+                patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+                # Obtain the list of previous timepoints
+                priorTimePoints = TimePoints.objects.filter(patient_id=patient_id).order_by('-timepointnum').values('timepointnum')
+                timePoint.timepointnum = len(priorTimePoints)+1  # Set the current timepointnum to the next timepoint num in the list
+                timePoint.specialty = specialty  # Set specialty in timePoint to the specialty of the provider
+                timePoint.patient_id = patient_id   # Set patient_id in timePoint to the ID of the user.
+                timePoint.save()  # Commit the timePoint into the database
+                return redirect('/Patient_Time_Points')
+            else: # Error if the user isn't authenticated
+                return redirect('/')
+        else: # Error if the inputted form isn't valid
+            return redirect('/Patient_Create_Timepoint.html')
+    return render(request, "Patient_Create_Timepoint.html")
+
+
+@login_required
 def Patient_Time_Points(request):
-    return render(request, "Patient_Time_Points.html")
+    if request.user.is_authenticated:  # Check if the user exists
+        patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+        time_points = TimePoints.objects.filter(patient_id=patient_id).order_by('-timepointnum')  # Obtain all of the patient's timepoints
+        return render(request, "Patient_Time_Points.html",{'time_points': time_points})
+    else:  # If the user isn't authenticated, redirect to home
+        return redirect('/')
 
 
 @login_required
 def Patient_Time_Point_Info(request):
     return render(request, "Patient_Time_Point_Info.html")
+
+@login_required
+def Patient_Time_Point_Info(request, timepointnum):
+    if request.user.is_authenticated:  # Check if the user exists
+        patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+        time_point = TimePoints.objects.get(patient_id=patient_id, timepointnum=timepointnum) # Get the time_point corresponded to the timepointnum of the page
+        provider_id = time_point.provider_id # get the provider_ID for the associated time_point
+        provider = Providers.objects.get(provider_id=provider_id) # get the provider information associated with the provider_ID form time_point
+        return render(request, "Patient_Time_Point_Info.html",{'time_point': time_point, 'provider': provider})
+    else:
+        return redirect('/')
 
 
 @login_required
