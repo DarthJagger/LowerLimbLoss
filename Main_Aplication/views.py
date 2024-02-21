@@ -122,9 +122,9 @@ def Patient_Create_Timepoint(request):
                 timePoint.save()  # Commit the timePoint into the database
                 return redirect('/Patient_Time_Points')
             else: # Error if the user isn't authenticated
-                return redirect('/')
+                messages.success(request, "Error. Unable to create time point. Please try again.")
         else: # Error if the inputted form isn't valid
-            return redirect('/Patient_Create_Timepoint.html')
+            messages.success(request, "Error. Unable to create time point. Please try again.")
     return render(request, "Patient_Create_Timepoint.html")
 
 
@@ -132,7 +132,7 @@ def Patient_Create_Timepoint(request):
 def Patient_Time_Points(request):
     if request.user.is_authenticated:  # Check if the user exists
         patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
-        time_points = TimePoints.objects.filter(patient_id=patient_id).order_by('-timepointnum')  # Obtain all of the patient's timepoints
+        time_points = TimePoints.objects.filter(patient_id=patient_id).order_by('timepointnum')  # Obtain all of the patient's timepoints
         return render(request, "Patient_Time_Points.html",{'time_points': time_points})
     else:  # If the user isn't authenticated, redirect to home
         return redirect('/')
