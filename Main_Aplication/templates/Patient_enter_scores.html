@@ -10,115 +10,180 @@
 
     <div class="container-md">
         <h1 class="text-center" style="padding: 20px">Tracking Scores</h1>
-        <form>
-
-            <!--For the Phantom Limb Pain Scale -->
+        {%  if messages %}
+            {% for message in messages %}
+                <div class="alert alert-primary" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="POST" action ="/Enter_Scores">
+            {% csrf_token %} <!-- Form  Security Token, I think-->
+            <!--For the Phantom Limb Pain Scale (average) -->
             <div class="row justify-content-between">
-                <h3 class="text-start" style="padding:5px; padding-top: 30px"  >Phantom Limb Pain Scale:</h3>
-                <p>Please rate your pain within the Phantom portion of your Limb from 0 to 10</p>
+                <h3 class="text-start" style="padding:5px; padding-top: 30px"  >Phantom Limb Pain Scale (Average):</h3>
+                <p>Please rate your daily average pain within the Phantom portion of your Limb from 0 to 10</p>
                 <div class="col-md-6 d-flex justify-content-between">
                     <div class="   form-check form-check-inline" >
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP0" value=0>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP0" value=0 required="required">
                         <label class="form-check-label" for="PLP0">0</label>
                     </div>
                     <div class="  form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP1" value=1>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP1" value=1>
                         <label class="form-check-label" for="PLP1">1</label>
                     </div>
                     <div class="  form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP2" value=2>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP2" value=2>
                         <label class="form-check-label" for="PLP2">2</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP3" value=3>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP3" value=3>
                         <label class="form-check-label" for="PLP3">3</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP4" value=4>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP4" value=4>
                         <label class="form-check-label" for="PLP4">4</label>
                     </div>
                     <div class=" form-check form-check-inline" >
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP5" value=5>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP5" value=5>
                         <label class="form-check-label" for="PLP5">5</label>
                     </div>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-between">
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP6" value=6>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP6" value=6>
                         <label class="form-check-label" for="PLP6">6</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP7" value=7>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP7" value=7>
                         <label class="form-check-label" for="PLP7">7</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP8" value=8>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP8" value=8>
                         <label class="form-check-label" for="PLP8">8</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP9" value=9>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP9" value=9>
                         <label class="form-check-label" for="PLP9">9</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="PLP" id="PLP10" value=10>
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_avg" id="PLP10" value=10>
                         <label class="form-check-label" for="PLP10">10</label>
                     </div>
                     <div></div>
                 </div>
             </div>
 
-
-            <!--For the Residual Limb Pain Scale -->
+            
+            <!--For the Phantom Limb Pain Scale (max) -->
             <div class="row justify-content-between">
-                    <h3 class="text-start" style="padding:5px; padding-top: 30px">Residual Limb Pain Scale:</h3>
-                <p>Please rate your pain within the Residing portion of your Limb from 0 to 10</p>
+                <h3 class="text-start" style="padding:5px; padding-top: 30px"  >Phantom Limb Pain Scale (Maximum):</h3>
+                <p>Please rate your daily maximum pain within the Phantom portion of your Limb from 0 to 10</p>
+                <div class="col-md-6 d-flex justify-content-between">
+                    <div class="   form-check form-check-inline" >
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP0" value=0 required="required">
+                        <label class="form-check-label" for="PLP0">0</label>
+                    </div>
+                    <div class="  form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP1" value=1>
+                        <label class="form-check-label" for="PLP1">1</label>
+                    </div>
+                    <div class="  form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP2" value=2>
+                        <label class="form-check-label" for="PLP2">2</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP3" value=3>
+                        <label class="form-check-label" for="PLP3">3</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP4" value=4>
+                        <label class="form-check-label" for="PLP4">4</label>
+                    </div>
+                    <div class=" form-check form-check-inline" >
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP5" value=5>
+                        <label class="form-check-label" for="PLP5">5</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-between">
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP6" value=6>
+                        <label class="form-check-label" for="PLP6">6</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP7" value=7>
+                        <label class="form-check-label" for="PLP7">7</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP8" value=8>
+                        <label class="form-check-label" for="PLP8">8</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP9" value=9>
+                        <label class="form-check-label" for="PLP9">9</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="phantom_limb_ps_max" id="PLP10" value=10>
+                        <label class="form-check-label" for="PLP10">10</label>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+
+            <br><br>
+            
+            <!--For the Residual Limb Pain Scale (average) -->
+            <div class="row justify-content-between">
+                    <h3 class="text-start" style="padding:5px; padding-top: 30px">Residual Limb Pain Scale (Average):</h3>
+                <p>Please rate your daily average pain within the Residing portion of your Limb from 0 to 10</p>
                 <div class="col-md-6 d-flex justify-content-between" >
                     <div class="  form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP0" value=0>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP0" value=0 required="required">
                         <label class="form-check-label" for="RLP0">0</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP1" value=1>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP1" value=1>
                         <label class="form-check-label" for="RLP1">1</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP2" value=2>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP2" value=2>
                         <label class="form-check-label" for="RLP2">2</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP3" value=3>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP3" value=3>
                         <label class="form-check-label" for="RLP3">3</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP4" value=4>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP4" value=4>
                         <label class="form-check-label" for="RLP4">4</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP5" value=5>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP5" value=5>
                         <label class="form-check-label" for="RLP5">5</label>
                     </div>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-between">
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP6" value=6>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP6" value=6>
                         <label class="form-check-label" for="RLP6">6</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP7" value=7>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP7" value=7>
                         <label class="form-check-label" for="RLP7">7</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP8" value=8>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP8" value=8>
                         <label class="form-check-label" for="RLP8">8</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP9" value=9>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP9" value=9>
                         <label class="form-check-label" for="RLP9">9</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="RLP" id="RLP10" value=10>
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_avg" id="RLP10" value=10>
                         <label class="form-check-label" for="RLP10">10</label>
                     </div>
                     <div></div>
@@ -126,56 +191,114 @@
             </div>
 
 
-            <!--For the Socket Comfort Score Scale -->
+            <!--For the Residual Limb Pain Scale (Maximum) -->
             <div class="row justify-content-between">
-                    <h3 class="text-start" style="padding:5px; padding-top: 30px">Socket Comfort Score Scale:</h3>
-                <p>Please rate your Socket Comfort from 0 to 10</p>
+                    <h3 class="text-start" style="padding:5px; padding-top: 30px">Residual Limb Pain Scale (Maximum):</h3>
+                <p>Please rate your daily maximum pain within the Residing portion of your Limb from 0 to 10</p>
+                <div class="col-md-6 d-flex justify-content-between" >
+                    <div class="  form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP0" value=0 required="required">
+                        <label class="form-check-label" for="RLP0">0</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP1" value=1>
+                        <label class="form-check-label" for="RLP1">1</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP2" value=2>
+                        <label class="form-check-label" for="RLP2">2</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP3" value=3>
+                        <label class="form-check-label" for="RLP3">3</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP4" value=4>
+                        <label class="form-check-label" for="RLP4">4</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP5" value=5>
+                        <label class="form-check-label" for="RLP5">5</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-between">
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP6" value=6>
+                        <label class="form-check-label" for="RLP6">6</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP7" value=7>
+                        <label class="form-check-label" for="RLP7">7</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP8" value=8>
+                        <label class="form-check-label" for="RLP8">8</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP9" value=9>
+                        <label class="form-check-label" for="RLP9">9</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="residual_limb_ps_max" id="RLP10" value=10>
+                        <label class="form-check-label" for="RLP10">10</label>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+
+            <br><br>
+            
+            <!--For the Socket Comfort Score Scale (Average) -->
+            <div class="row justify-content-between">
+                    <h3 class="text-start" style="padding:5px; padding-top: 30px">Socket Comfort Score Scale (Average):</h3>
+                <p>Please rate your daily average Socket Comfort from 0 to 10</p>
                 <div class="col-md-6 d-flex justify-content-between">
                     <div class="  form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS0" value=0>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS0" value=0 required="required">
                         <label class="form-check-label" for="SCS0">0</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS1" value=1>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS1" value=1>
                         <label class="form-check-label" for="SCS1">1</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS2" value=2>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS2" value=2>
                         <label class="form-check-label" for="SCS2">2</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS3" value=3>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS3" value=3>
                         <label class="form-check-label" for="SCS3">3</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS4" value=4>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS4" value=4>
                         <label class="form-check-label" for="SCS4">4</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS5" value=5>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS5" value=5>
                         <label class="form-check-label" for="SCS5">5</label>
                     </div>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-between">
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS6" value=6>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS6" value=6>
                         <label class="form-check-label" for="SCS6">6</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS7" value=7>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS7" value=7>
                         <label class="form-check-label" for="SCS7">7</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS8" value=8>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS8" value=8>
                         <label class="form-check-label" for="SCS8">8</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS9" value=9>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS9" value=9>
                         <label class="form-check-label" for="SCS9">9</label>
                     </div>
                     <div class=" form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="SCS" id="SCS10" value=10>
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_avg" id="SCS10" value=10>
                         <label class="form-check-label" for="SCS10">10</label>
                     </div>
                     <div></div>
@@ -183,8 +306,67 @@
             </div>
 
 
-           <!--For the Plus-M score -->
-            
+           <!--For the Socket Comfort Score Scale (Maximum) -->
+            <div class="row justify-content-between">
+                    <h3 class="text-start" style="padding:5px; padding-top: 30px">Socket Comfort Score Scale (Maximum):</h3>
+                <p>Please rate your daily maximum Socket Comfort from 0 to 10</p>
+                <div class="col-md-6 d-flex justify-content-between">
+                    <div class="  form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS0" value=0 required="required">
+                        <label class="form-check-label" for="SCS0">0</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS1" value=1>
+                        <label class="form-check-label" for="SCS1">1</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS2" value=2>
+                        <label class="form-check-label" for="SCS2">2</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS3" value=3>
+                        <label class="form-check-label" for="SCS3">3</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS4" value=4>
+                        <label class="form-check-label" for="SCS4">4</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS5" value=5>
+                        <label class="form-check-label" for="SCS5">5</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-between">
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS6" value=6>
+                        <label class="form-check-label" for="SCS6">6</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS7" value=7>
+                        <label class="form-check-label" for="SCS7">7</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS8" value=8>
+                        <label class="form-check-label" for="SCS8">8</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS9" value=9>
+                        <label class="form-check-label" for="SCS9">9</label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="socket_comfort_score_max" id="SCS10" value=10>
+                        <label class="form-check-label" for="SCS10">10</label>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+
+            <br><br>
+            <div class="row justify-content-between">
+                <button type="submit" class="btn btn-secondary btn-block">Enter Scores</button>
+            </div>
+
         </form>
     </div>
 

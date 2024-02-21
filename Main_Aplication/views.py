@@ -2,12 +2,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .forms import NewPatientForm, TimePointsForm
+from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
 from .models import Patients, Providers, TimePoints
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required # Use @login_required to make a view require login
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+import datetime
 
 def nav(request):
     return render(request, "Base_Template.html")
@@ -63,6 +64,22 @@ def Patient(request):
 
 @login_required
 def Enter_scores(request):
+    if request.method == "POST":
+        form = PatientEntryForm(request.POST or None)  # Obtain data from the form for a patient entry
+        if form.is_valid():
+            patient_entry = form.save(commit=False)
+            if request.user.is_authenticated:  # Check if the user exists
+                patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+                currentDate = datetime.datetime.today()
+                patient_entry.patient_id = patient_id
+                patient_entry.entrydate = currentDate
+                patient_entry.save()
+                messages.success(request, "Scores added successfully")
+                return render(request, "Patient_enter_scores.html")
+            else:
+                messages.success(request, "Error: Unable to add scores. Please try again.")
+        else:
+            messages.success(request, "Error: Unable to add scores. Please try again.")
     return render(request, "Patient_enter_scores.html")
 
 
