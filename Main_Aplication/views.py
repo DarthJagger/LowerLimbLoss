@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -123,11 +124,14 @@ def Patient_Time_Points(request):
 @login_required
 def Patient_Time_Point_Info(request, timepointnum):
     if request.user.is_authenticated:  # Check if the user exists
-        patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
-        time_point = TimePoints.objects.get(patient_id=patient_id, timepointnum=timepointnum) # Get the time_point corresponded to the timepointnum of the page
-        provider_id = time_point.provider_id # get the provider_ID for the associated time_point
-        provider = Providers.objects.get(provider_id=provider_id) # get the provider information associated with the provider_ID form time_point
-        return render(request, "Patient_Time_Point_Info.html",{'time_point': time_point, 'provider': provider})
+        try:
+            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            time_point = TimePoints.objects.get(patient_id=patient_id, timepointnum=timepointnum) # Get the time_point corresponded to the timepointnum of the page
+            provider_id = time_point.provider_id # get the provider_ID for the associated time_point
+            provider = Providers.objects.get(provider_id=provider_id) # get the provider information associated with the provider_ID form time_point
+            return render(request, "Patient_Time_Point_Info.html",{'time_point': time_point, 'provider': provider})
+        except ObjectDoesNotExist:
+            return redirect('/')
     else:
         return redirect('/')
 
