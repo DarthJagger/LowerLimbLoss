@@ -171,7 +171,9 @@ def Patient_Postsurgical_Stabilization(request):
             return render(request, "Patient_Postsurgical_Stabilization.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
-    return render(request, "Patient_Postsurgical_Stabilization.html")
+    else:
+        return redirect('/SignIn')
+    #return render(request, "Patient_Postsurgical_Stabilization.html")
 
 
 @login_required
@@ -191,7 +193,9 @@ def Patient_Preprosthetic_Rehabilitation(request):
             return render(request, "Patient_Preprosthetic_Rehabilitation.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
-    return render(request, "Patient_Preprosthetic_Rehabilitation.html")
+    else:
+        return redirect('/SignIn')
+    #return render(request, "Patient_Preprosthetic_Rehabilitation.html")
 
 
 @login_required
@@ -211,7 +215,9 @@ def Patient_Limb_Healing(request):
             return render(request, "Patient_Limb_Healing.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
-    return render(request, "Patient_Limb_Healing.html")
+    else:
+        return redirect('/SignIn')
+    #return render(request, "Patient_Limb_Healing.html")
 
 
 @login_required
@@ -231,7 +237,9 @@ def Patient_Prosthetic_Fitting(request):
             return render(request, "Patient_Prosthetic_Fitting.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
-    return render(request, "Patient_Prosthetic_Fitting.html")
+    else:
+        return redirect('/SignIn')
+    #return render(request, "Patient_Prosthetic_Fitting.html")
 
 
 @login_required
@@ -251,7 +259,9 @@ def Patient_Prosthetic_Rehabilitation(request):
             return render(request, "Patient_Prosthetic_Rehabilitation.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
-    return render(request, "Patient_Prosthetic_Rehabilitation.html")
+    else:
+        return redirect('/SignIn')
+    #return render(request, "Patient_Prosthetic_Rehabilitation.html")
 
 
 
