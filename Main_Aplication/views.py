@@ -3,12 +3,13 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
-from .models import Patients, Providers, TimePoints
+from .models import Patients, Providers, TimePoints, PatientEntries
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required # Use @login_required to make a view require login
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import datetime
+import json
 
 def nav(request):
     return render(request, "Base_Template.html")
@@ -26,7 +27,7 @@ def SignIn(request):
                 user = authenticate(request, username=id, password=inputPassword) # Authenticate the patient as a user
                 if user is not None:
                     login(request, user) # Log the user into the website if the user is correct
-                    return redirect('/Patient')
+                    return redirect('/home')
                 else: # error for patients who don't have user account
                     messages.success(request, "Login Unsuccessful")
             else: # error for when the password is incorrect
@@ -135,7 +136,7 @@ def Patient_Time_Points(request):
         time_points = TimePoints.objects.filter(patient_id=patient_id).order_by('timepointnum')  # Obtain all of the patient's timepoints
         return render(request, "Patient_Time_Points.html",{'time_points': time_points})
     else:  # If the user isn't authenticated, redirect to home
-        return redirect('/')
+        return redirect('/home')
 
 
 @login_required
@@ -144,17 +145,32 @@ def Patient_Time_Point_Info(request, timepointnum):
         try:
             patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
             time_point = TimePoints.objects.get(patient_id=patient_id, timepointnum=timepointnum) # Get the time_point corresponded to the timepointnum of the page
-            provider_id = time_point.provider_id # get the provider_ID for the associated time_point
+            provider_id = time_point.provider_id  # get the provider_ID for the associated time_point
             provider = Providers.objects.get(provider_id=provider_id) # get the provider information associated with the provider_ID form time_point
             return render(request, "Patient_Time_Point_Info.html",{'time_point': time_point, 'provider': provider})
         except ObjectDoesNotExist:
-            return redirect('/')
+            return redirect('/home')
     else:
-        return redirect('/')
+        return redirect('/home')
 
 
 @login_required
 def Patient_Postsurgical_Stabilization(request):
+    if request.user.is_authenticated:
+        try:
+            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
+            xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+            plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+            plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+            rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+            rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+            scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+            scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+            #time_point = TimePoints.objects.get(patient_id=patient_id)
+            return render(request, "Patient_Postsurgical_Stabilization.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
+        except: # Error in retrieving the patient entries
+            return redirect('/home')
     return render(request, "Patient_Postsurgical_Stabilization.html")
 
 

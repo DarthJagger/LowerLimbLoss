@@ -50,7 +50,41 @@
               <li class="nav-item">
                   <a class="nav-link active" href="/home">Home</a>
               </li>
+          {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Personal Step Tracking</a>
+            <div class="dropdown-menu bg-dark" >
+                <a href="/Patient_Postsurgical_Stabilization" class="dropdown-item text-light">1. Postsurgical Stabilization</a>
+                <a href="/Patient_Preprosthetic_Rehabilitation" class="dropdown-item text-light">2. Preprosthetic Rehabilitation</a>
+                <a href="/Patient_Limb_Healing" class="dropdown-item text-light">3. Limb Healing &  Maturation</a>
+                <a href="/Patient_Prosthetic_Fitting" class="dropdown-item text-light">4. Prosthetic Fitting</a>
+                <a href="/Patient_Prosthetic_Rehabilitation" class="dropdown-item text-light">5. Prosthetic Rehabilitation</a>
+            </div>
+          </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="/Patient_Time_Points">Upcoming Time Points</a>
+            </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="/Enter_Scores">Enter Weekly Scores</a>
+            </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="javascript:void(0)">Sensor Input</a>
+            </li>
+          {% endif %}
       </ul>
+      {% if user.is_authenticated %}
+            <ul class="navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <!-- Eventually links to patient information page -->
+                            <span class="nav-link" >User: {{ user.email }}</span>
+                        </li>
+                    {% endif %}
+                <li class="nav-item">
+                    <a href="/Logout" class="nav-link" >Sign Out</a>
+                </li>
+            </ul>
+        {% else %}
         <ul class="navbar-nav navbar-right">
             <li class="nav-item">
                 <a href="/SignIn" class="nav-link" >Sign In</a>
@@ -59,6 +93,7 @@
                 <a href="/SignUp" class="nav-link " >Sign Up</a>
             </li>
         </ul>
+        {% endif %}
         {% endblock %}
     </div>
   </div>
