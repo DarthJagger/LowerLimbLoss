@@ -37,7 +37,7 @@ class Providers(models.Model):
 
 
 class AmpnoproScores(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
     ampnopro = models.DecimalField(db_column='AmpNoPro', max_digits=10, decimal_places=0)  # Field name made lowercase.
 
@@ -48,7 +48,7 @@ class AmpnoproScores(models.Model):
 
 
 class AmpproScores(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
     amppro = models.DecimalField(db_column='AmpPro', max_digits=10, decimal_places=0)  # Field name made lowercase.
 
@@ -128,7 +128,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Authorizations(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, Provider_ID) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, Provider_ID) found, that is not supported. The first column is selected.
     provider = models.ForeignKey('Providers', models.DO_NOTHING, db_column='Provider_ID')  # Field name made lowercase.
     astatus = models.CharField(db_column='AStatus', max_length=1)  # Field name made lowercase.
 
@@ -184,7 +184,8 @@ class DjangoSession(models.Model):
 
 
 class PatientEntries(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, EntryDate) found, that is not supported. The first column is selected.
+    # , primary_key=True - removed from patient
+    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, EntryDate) found, that is not supported. The first column is selected.
     entrydate = models.DateField(db_column='EntryDate')  # Field name made lowercase.
     phantom_limb_ps_avg = models.DecimalField(db_column='Phantom_Limb_PS_Avg', max_digits=2, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
     phantom_limb_ps_max = models.DecimalField(db_column='Phantom_Limb_PS_Max', max_digits=2, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
@@ -200,7 +201,7 @@ class PatientEntries(models.Model):
 
 
 class PlusMScores(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
     plus_m = models.DecimalField(db_column='Plus_M', max_digits=10, decimal_places=0)  # Field name made lowercase.
 
@@ -211,7 +212,7 @@ class PlusMScores(models.Model):
 
 
 class SensorEntries(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, EntryDate) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, EntryDate) found, that is not supported. The first column is selected.
     entrydate = models.DateField(db_column='EntryDate')  # Field name made lowercase.
     cadence = models.FloatField(db_column='Cadence', blank=True, null=True)  # Field name made lowercase.
     walking_time = models.FloatField(db_column='Walking_Time', blank=True, null=True)  # Field name made lowercase.
@@ -226,7 +227,7 @@ class SensorEntries(models.Model):
 
 
 class SixminwalktestScores(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
     sixminwalktest = models.DecimalField(db_column='SixMinWalkTest', max_digits=10, decimal_places=0)  # Field name made lowercase.
 
@@ -237,7 +238,7 @@ class SixminwalktestScores(models.Model):
 
 
 class TimePoints(models.Model):
-    timepointnum = models.PositiveIntegerField(db_column='TimePointNum', primary_key=True)  # Field name made lowercase. The composite primary key (TimePointNum, Patient_ID, Provider_ID) found, that is not supported. The first column is selected.
+    timepointnum = models.PositiveIntegerField(db_column='TimePointNum')  # Field name made lowercase. The composite primary key (TimePointNum, Patient_ID, Provider_ID) found, that is not supported. The first column is selected.
     patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     provider = models.ForeignKey(Providers, models.DO_NOTHING, db_column='Provider_ID')  # Field name made lowercase.
     specialty = models.CharField(db_column='Specialty', max_length=255, blank=True, null=True)  # Field name made lowercase.
@@ -253,7 +254,7 @@ class TimePoints(models.Model):
 
 
 class TimedupandgoScores(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
     timedupandgo = models.DecimalField(db_column='TimedUpAndGo', max_digits=10, decimal_places=0)  # Field name made lowercase.
 
