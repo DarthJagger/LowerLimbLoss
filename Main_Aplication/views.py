@@ -20,19 +20,20 @@ def SignIn(request):
         inputEmail = request.POST["email"]
         inputPassword = request.POST['ppassword']
         try:
-            user = Patients.objects.get(email=inputEmail) # Find the patient corresponding to the email
-            systemPassword = user.ppassword # Obtain the patient password in the database
-            if (inputPassword == systemPassword): # Check that the password put into the login is the same as the database
-                id = user.patient_id # Obtain the patient ID
-                user = authenticate(request, username=id, password=inputPassword) # Authenticate the patient as a user
+            user = Patients.objects.get(email=inputEmail)  # Find the patient corresponding to the email
+            systemPassword = user.ppassword  # Obtain the patient password in the database
+            if (inputPassword == systemPassword):  # Check that the password put into the login is the same as the database
+                id = user.patient_id  # Obtain the patient ID
+                username = "Patient_" + str(id)
+                user = authenticate(request, username=username, password=inputPassword)  # Authenticate the patient as a user
                 if user is not None:
-                    login(request, user) # Log the user into the website if the user is correct
+                    login(request, user)  # Log the user into the website if the user is correct
                     return redirect('/home')
-                else: # error for patients who don't have user account
+                else:  # error for patients who don't have user account
                     messages.success(request, "Login Unsuccessful")
-            else: # error for when the password is incorrect
+            else:  # error for when the password is incorrect
                 messages.success(request, "Login Unsuccessful")
-        except Patients.DoesNotExist: #error if the patient doesn't exist in the database
+        except Patients.DoesNotExist:  # error if the patient doesn't exist in the database
             messages.success(request, "Login Unsuccessful")
     return render(request, "sign-in.html")
 
@@ -41,15 +42,20 @@ def SignUp(request):
     if request.method == "POST":
         form = NewPatientForm(request.POST or None)
         if form.is_valid():
-            email = form.cleaned_data['email'] # Obtain patient email
-            password = form.cleaned_data['ppassword'] # Obtain patient password
-            # TODO: Requires further error checking for emails (maybe) and passwords
-            form.save() # Creates a provider in the database
-            userTemp = Patients.objects.get(email=email)
-            id = userTemp.patient_id # TODO: Modifier to separate between Patient and Provider users
-            user = User.objects.create_user(id, email, password) # Create a new user in Django
-            user.save() # Creates a user in the django users database corresponding to the Patient
-            return redirect('/SignIn')
+            email = form.cleaned_data['email']  # Obtain patient email
+            password = form.cleaned_data['ppassword']  # Obtain patient password
+            priorUsers = Patients.objects.filter(email=email)
+            if priorUsers.exists():  # Check to see if the email is in use
+                messages.success(request, "Sign Up Unsuccessful")
+                return render(request, "Create-Account.html")
+            else:
+                form.save()  # Creates a provider in the database
+                userTemp = Patients.objects.get(email=email)
+                id = userTemp.patient_id  # TODO: Modifier to separate between Patient and Provider users
+                username = "Patient_" + str(id)  # Construct a backend username that starts with Patient for patients
+                user = User.objects.create_user(username, email, password)  # Create a new user in Django
+                user.save()  # Creates a user in the django users database corresponding to the Patient
+                return redirect('/SignIn')
     return render(request, "Create-Account.html")
 
 
@@ -70,7 +76,7 @@ def Enter_scores(request):
         if form.is_valid():
             patient_entry = form.save(commit=False)
             if request.user.is_authenticated:  # Check if the user exists
-                patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+                patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
                 currentDate = datetime.datetime.today()
                 patient_entry.patient_id = patient_id
                 patient_entry.entrydate = currentDate
@@ -114,17 +120,17 @@ def Patient_Create_Timepoint(request):
             providerTemp = Providers.objects.get(provider_id=id)  # obtain provider corresponding to ID
             specialty = providerTemp.specialty  # Obtain provider specialty
             if request.user.is_authenticated:  # Check if the user exists
-                patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+                patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
                 # Obtain the list of previous timepoints
-                priorTimePoints = TimePoints.objects.filter(patient_id=patient_id).order_by('-timepointnum').values('timepointnum')
+                priorTimePoints = TimePoints.objects.defer(id).filter(patient_id=patient_id).order_by('-timepointnum').values('timepointnum')
                 timePoint.timepointnum = len(priorTimePoints)+1  # Set the current timepointnum to the next timepoint num in the list
                 timePoint.specialty = specialty  # Set specialty in timePoint to the specialty of the provider
                 timePoint.patient_id = patient_id   # Set patient_id in timePoint to the ID of the user.
                 timePoint.save()  # Commit the timePoint into the database
                 return redirect('/Patient_Time_Points')
-            else: # Error if the user isn't authenticated
+            else:  # Error if the user isn't authenticated
                 messages.success(request, "Error. Unable to create time point. Please try again.")
-        else: # Error if the inputted form isn't valid
+        else:  # Error if the inputted form isn't valid
             messages.success(request, "Error. Unable to create time point. Please try again.")
     return render(request, "Patient_Create_Timepoint.html")
 
@@ -132,7 +138,7 @@ def Patient_Create_Timepoint(request):
 @login_required
 def Patient_Time_Points(request):
     if request.user.is_authenticated:  # Check if the user exists
-        patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
         time_points = TimePoints.objects.filter(patient_id=patient_id).order_by('timepointnum')  # Obtain all of the patient's timepoints
         return render(request, "Patient_Time_Points.html",{'time_points': time_points})
     else:  # If the user isn't authenticated, redirect to home
@@ -143,11 +149,11 @@ def Patient_Time_Points(request):
 def Patient_Time_Point_Info(request, timepointnum):
     if request.user.is_authenticated:  # Check if the user exists
         try:
-            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
-            time_point = TimePoints.objects.get(patient_id=patient_id, timepointnum=timepointnum) # Get the time_point corresponded to the timepointnum of the page
+            patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+            time_point = TimePoints.objects.get(patient_id=patient_id, timepointnum=timepointnum)  # Get the time_point corresponded to the timepointnum of the page
             provider_id = time_point.provider_id  # get the provider_ID for the associated time_point
-            provider = Providers.objects.get(provider_id=provider_id) # get the provider information associated with the provider_ID form time_point
-            return render(request, "Patient_Time_Point_Info.html",{'time_point': time_point, 'provider': provider})
+            provider = Providers.objects.get(provider_id=provider_id)  # get the provider information associated with the provider_ID form time_point
+            return render(request, "Patient_Time_Point_Info.html", {'time_point': time_point, 'provider': provider})
         except ObjectDoesNotExist:
             return redirect('/home')
     else:
@@ -158,7 +164,7 @@ def Patient_Time_Point_Info(request, timepointnum):
 def Patient_Postsurgical_Stabilization(request):
     if request.user.is_authenticated:
         try:
-            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
             patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
             xValues = json.dumps([str(item.entrydate) for item in patient_entries])
             plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
@@ -180,7 +186,7 @@ def Patient_Postsurgical_Stabilization(request):
 def Patient_Preprosthetic_Rehabilitation(request):
     if request.user.is_authenticated:
         try:
-            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
             patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
             xValues = json.dumps([str(item.entrydate) for item in patient_entries])
             plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
@@ -202,7 +208,7 @@ def Patient_Preprosthetic_Rehabilitation(request):
 def Patient_Limb_Healing(request):
     if request.user.is_authenticated:
         try:
-            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
             patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
             xValues = json.dumps([str(item.entrydate) for item in patient_entries])
             plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
@@ -224,7 +230,7 @@ def Patient_Limb_Healing(request):
 def Patient_Prosthetic_Fitting(request):
     if request.user.is_authenticated:
         try:
-            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
             patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
             xValues = json.dumps([str(item.entrydate) for item in patient_entries])
             plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
@@ -246,7 +252,7 @@ def Patient_Prosthetic_Fitting(request):
 def Patient_Prosthetic_Rehabilitation(request):
     if request.user.is_authenticated:
         try:
-            patient_id = request.user.username  # Obtain patient_ID for the current User TODO: Fix username handling
+            patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
             patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
             xValues = json.dumps([str(item.entrydate) for item in patient_entries])
             plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])

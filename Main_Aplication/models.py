@@ -18,7 +18,6 @@ class Patients(models.Model):
     class Meta:
         managed = False
         db_table = 'patients'
-        #permissions = (("view_patient_info"),)
 
 
 class Providers(models.Model):
@@ -33,29 +32,28 @@ class Providers(models.Model):
     class Meta:
         managed = False
         db_table = 'providers'
-        #permissions = (("view_provider_info"),)
 
 
 class AmpnoproScores(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.ForeignKey('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
-    ampnopro = models.DecimalField(db_column='AmpNoPro', max_digits=10, decimal_places=0)  # Field name made lowercase.
+    ampnopro = models.PositiveIntegerField(db_column='AmpNoPro')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'ampnopro_scores'
-        unique_together = (('patient', 'scoredate'),)
 
 
 class AmpproScores(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.ForeignKey('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
-    amppro = models.DecimalField(db_column='AmpPro', max_digits=10, decimal_places=0)  # Field name made lowercase.
+    amppro = models.PositiveIntegerField(db_column='AmpPro')  # Field name made lowercase.
+    time_balanced_sound = models.DecimalField(db_column='Time_Balanced_Sound', max_digits=15, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
+    time_balanced_prosthesis = models.DecimalField(db_column='Time_Balanced_Prosthesis', max_digits=15, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'amppro_scores'
-        unique_together = (('patient', 'scoredate'),)
 
 
 class AuthGroup(models.Model):
@@ -89,13 +87,13 @@ class AuthPermission(models.Model):
 
 
 class AuthUser(models.Model):
-    password = models.CharField(max_length=255)
+    password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
     is_superuser = models.IntegerField()
-    username = models.CharField(unique=True, max_length=255)
+    username = models.CharField(unique=True, max_length=150)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=255)
+    email = models.CharField(max_length=254)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
@@ -128,14 +126,13 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Authorizations(models.Model):
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, Provider_ID) found, that is not supported. The first column is selected.
+    patient = models.ForeignKey('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     provider = models.ForeignKey('Providers', models.DO_NOTHING, db_column='Provider_ID')  # Field name made lowercase.
     astatus = models.CharField(db_column='AStatus', max_length=1)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'authorizations'
-        unique_together = (('patient', 'provider'),)
 
 
 class DjangoAdminLog(models.Model):
@@ -184,8 +181,8 @@ class DjangoSession(models.Model):
 
 
 class PatientEntries(models.Model):
-    # , primary_key=True - removed from patient
-    patient = models.OneToOneField('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, EntryDate) found, that is not supported. The first column is selected.
+    id = models.BigAutoField(primary_key=True)
+    patient = models.ForeignKey('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     entrydate = models.DateField(db_column='EntryDate')  # Field name made lowercase.
     phantom_limb_ps_avg = models.DecimalField(db_column='Phantom_Limb_PS_Avg', max_digits=2, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
     phantom_limb_ps_max = models.DecimalField(db_column='Phantom_Limb_PS_Max', max_digits=2, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
@@ -197,22 +194,21 @@ class PatientEntries(models.Model):
     class Meta:
         managed = False
         db_table = 'patient_entries'
-        unique_together = (('patient', 'entrydate'),)
 
 
 class PlusMScores(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
-    plus_m = models.DecimalField(db_column='Plus_M', max_digits=10, decimal_places=0)  # Field name made lowercase.
+    plus_m = models.DecimalField(db_column='Plus_M', max_digits=2, decimal_places=0)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'plus_m_scores'
-        unique_together = (('patient', 'scoredate'),)
 
 
 class SensorEntries(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, EntryDate) found, that is not supported. The first column is selected.
+    id = models.BigAutoField(primary_key=True)
+    patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     entrydate = models.DateField(db_column='EntryDate')  # Field name made lowercase.
     cadence = models.FloatField(db_column='Cadence', blank=True, null=True)  # Field name made lowercase.
     walking_time = models.FloatField(db_column='Walking_Time', blank=True, null=True)  # Field name made lowercase.
@@ -223,22 +219,20 @@ class SensorEntries(models.Model):
     class Meta:
         managed = False
         db_table = 'sensor_entries'
-        unique_together = (('patient', 'entrydate'),)
 
 
 class SixminwalktestScores(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
-    sixminwalktest = models.DecimalField(db_column='SixMinWalkTest', max_digits=10, decimal_places=0)  # Field name made lowercase.
+    sixminwalktest = models.DecimalField(db_column='SixMinWalkTest', max_digits=15, decimal_places=5)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'sixminwalktest_scores'
-        unique_together = (('patient', 'scoredate'),)
 
 
 class TimePoints(models.Model):
-    timepointnum = models.PositiveIntegerField(db_column='TimePointNum')  # Field name made lowercase. The composite primary key (TimePointNum, Patient_ID, Provider_ID) found, that is not supported. The first column is selected.
+    timepointnum = models.PositiveIntegerField(db_column='TimePointNum')  # Field name made lowercase.
     patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     provider = models.ForeignKey(Providers, models.DO_NOTHING, db_column='Provider_ID')  # Field name made lowercase.
     specialty = models.CharField(db_column='Specialty', max_length=255, blank=True, null=True)  # Field name made lowercase.
@@ -250,15 +244,13 @@ class TimePoints(models.Model):
     class Meta:
         managed = False
         db_table = 'time_points'
-        unique_together = (('timepointnum', 'patient', 'provider'),)
 
 
 class TimedupandgoScores(models.Model):
-    patient = models.OneToOneField(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase. The composite primary key (Patient_ID, ScoreDate) found, that is not supported. The first column is selected.
+    patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
     scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
-    timedupandgo = models.DecimalField(db_column='TimedUpAndGo', max_digits=10, decimal_places=0)  # Field name made lowercase.
+    timedupandgo = models.DecimalField(db_column='TimedUpAndGo', max_digits=15, decimal_places=5)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'timedupandgo_scores'
-        unique_together = (('patient', 'scoredate'),)
