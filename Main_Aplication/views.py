@@ -78,8 +78,8 @@ def Enter_scores(request):
             if request.user.is_authenticated:  # Check if the user exists
                 patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
                 currentDate = datetime.datetime.today()
-                patient_entry.patient_id = patient_id
-                patient_entry.entrydate = currentDate
+                defaults = {"phantom_limb_ps_avg":patient_entry.phantom_limb_ps_avg, "phantom_limb_ps_max":patient_entry.phantom_limb_ps_max, "residual_limb_ps_avg":patient_entry.residual_limb_ps_avg, "residual_limb_ps_max":patient_entry.residual_limb_ps_max, "socket_comfort_score_avg":patient_entry.socket_comfort_score_avg, "socket_comfort_score_max":patient_entry.socket_comfort_score_max}
+                patient_entry, created = PatientEntries.objects.update_or_create(patient_id=patient_id, entrydate=currentDate, defaults=defaults)
                 patient_entry.save()
                 messages.success(request, "Scores added successfully")
                 return render(request, "Patient_enter_scores.html")
