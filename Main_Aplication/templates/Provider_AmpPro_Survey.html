@@ -1,0 +1,656 @@
+{% extends "Provider_page_template.html" %}
+
+{% block title %} Score Input {% endblock %}
+
+{% block header %}
+    <h1>Provider's Score Input</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-md">
+        <h1 class="text-center" style="padding: 20px">AmpPro Survey</h1>
+        <form>
+
+            <div class="row justify-content-between" style="font-size: 20px">
+                
+                <!-- Question 1 -->
+                <label>
+                    1. Sitting balance: sit forward in a chair with arms
+                    folded across chest for 60s.
+                </label>
+                <label for="ans1-1">
+                    <input type="radio" id="ans1-1"
+                           name="ans1" autocomplete="off" value="0"> Cannot sit upright independently for 60s
+                      </input>
+                </label>
+                <label for="ans1-2">
+                    <input type="radio" id="ans1-2"
+                           name="ans1" autocomplete="off" value="1"> Can sit upright independently for 60s
+                      </input>
+                </label>
+
+                <!-- Question 2 -->
+                <label></br>
+                    2. Sitting reach: reach forward and grasp the ruler.
+                        (Tester holds ruler 12in beyond extended arms
+                        midline to the sternum.)
+                </label>
+                <label for="ans2-1">
+                    <input type="radio" id="ans2-1"
+                           name="ans2" autocomplete="off" value="0"> Does not attempt
+                      </input>
+                </label>
+                <label for="ans2-2">
+                    <input type="radio" id="ans2-2"
+                           name="ans2" autocomplete="off" value="1"> Cannot grasp or requires arm support
+                      </input>
+                </label>
+                <label for="ans2-3">
+                    <input type="radio" id="ans2-3"
+                           name="ans2" autocomplete="off" value="2"> Reaches forward and successfully grasps item
+                      </input>
+                </label>
+
+                <!-- Question 3 -->
+                <label></br>
+                    3. Chair to chair transfer: 2 chairs at 900. Pt may
+                        choose direction and use their upper extremities.</td>
+                </label>
+                <label for="ans3-1">
+                    <input type="radio" id="ans3-1"
+                           name="ans3" autocomplete="off" value="0"> Cannot do or requires physical assistance
+                      </input>
+                </label>
+                <label for="ans3-2">
+                    <input type="radio" id="ans3-2"
+                           name="ans3" autocomplete="off" value="1"> Performs independently, but appears unsteady
+                      </input>
+                </label>
+                <label for="ans3-3">
+                    <input type="radio" id="ans3-3"
+                           name="ans3" autocomplete="off" value="2"> Performs independently, appears to be steady and safe
+                      </input>
+                </label>
+
+                <!-- Question 4 -->
+                <label></br>
+                    4. Arises from a chair: ask pt to fold arms across
+                        chest and stand. If unable, use arms or assistive
+                        device.
+                </label>
+                <label for="ans4-1">
+                    <input type="radio" id="ans4-1"
+                           name="ans4" autocomplete="off" value="0"> Unable without help (physical assistance)
+                      </input>
+                </label>
+                <label for="ans4-2">
+                    <input type="radio" id="ans4-2"
+                           name="ans4" autocomplete="off" value="1"> Able, uses arms/assist device to help
+                      </input>
+                </label>
+                <label for="ans4-3">
+                    <input type="radio" id="ans4-3"
+                           name="ans4" autocomplete="off" value="2"> Able, without using arms
+                      </input>
+                </label>
+
+                <!-- Question 5 -->
+                <label></br>
+                    5. Attempts to arise from a chair (stopwatch ready):
+                        if attempt in no. 4 was without arms then ignore
+                        and allow another attempt without penalty.
+                </label>
+                <label for="ans5-1">
+                    <input type="radio" id="ans5-1"
+                           name="ans5" autocomplete="off" value="0"> Unable without help (physical assistance)
+                      </input>
+                </label>
+                <label for="ans5-2">
+                    <input type="radio" id="ans5-2"
+                           name="ans5" autocomplete="off" value="1"> Able requires >1 attempt
+                      </input>
+                </label>
+                <label for="ans5-3">
+                    <input type="radio" id="ans5-3"
+                           name="ans5" autocomplete="off" value="2"> Able to rise 1 attempt
+                      </input>
+                </label>
+
+                <!-- Question 6 -->
+                <label></br>
+                    6. Immediate standing balance (first 5s): begin
+                        timing immediately.
+                </label>
+                <label for="ans6-1">
+                    <input type="radio" id="ans6-1"
+                           name="ans6" autocomplete="off" value="0"> Unsteady (staggers, moves foot, sways)
+                      </input>
+                </label>
+                <label for="ans6-2">
+                    <input type="radio" id="ans6-2"
+                           name="ans6" autocomplete="off" value="1"> Steady using walking aid or other support
+                      </input>
+                </label>
+                <label for="ans6-3">
+                    <input type="radio" id="ans6-3"
+                           name="ans6" autocomplete="off" value="2"> Steady without walker or other support
+                      </input>
+                </label>
+
+                <!-- Question 7 -->
+                <label></br>
+                    7. Standing balance (30s) (stopwatch ready): For
+                        items nos. 7 & 8, first attempt is without assistive
+                        device. If support is required, allow after first
+                        attempt.
+                </label>
+                <label for="ans7-1">
+                    <input type="radio" id="ans7-1"
+                           name="ans7" autocomplete="off" value="0"> Unsteady
+                      </input>
+                </label>
+                <label for="ans7-2">
+                    <input type="radio" id="ans7-2"
+                           name="ans7" autocomplete="off" value="1"> Steady but uses walking aid or other support
+                      </input>
+                </label>
+                <label for="ans7-3">
+                    <input type="radio" id="ans7-3"
+                           name="ans7" autocomplete="off" value="2"> Standing without support
+                      </input>
+                </label>
+
+                <!-- Question 8 -->
+                <label></br>
+                    8. Single-limb standing balance (stopwatch ready):
+                        time the duration of single limb standing on both
+                        the sound and prosthetic limb up to 30s. Grade the
+                        quality, not the time.
+                </label>
+                <label></br>
+                    Nonprosthetic side
+                </label>
+                <label for="ans8a-1">
+                    <input type="radio" id="ans8a-1"
+                           name="ans8" autocomplete="off" value="0"> Unsteady
+                      </input>
+                </label>
+                <label for="ans8a-2">
+                    <input type="radio" id="ans8a-2"
+                           name="ans8" autocomplete="off" value="1"> Steady but uses walking aid or other support for 30s
+                      </input>
+                </label>
+                <label for="ans8a-3">
+                    <input type="radio" id="ans8a-3"
+                           name="ans8" autocomplete="off" value="2"> Single-limb standing without support for 30s
+                      </input>
+                </label>
+
+                <p>
+                    <label></br>Sound side (in seconds):
+                        <input type="text" placeholder="" name="soundTime" id="soundTime" autocomplete="off" size="5"/></label>
+                 </p>
+                 <p id="soundTimeError" style="color: red; visibility: hidden;">Please enter a valid number for time taken.</p>
+
+                <label>
+                    Prosthetic side
+                </label>
+                <label for="ans8b-1">
+                    <input type="radio" id="ans8b-1"
+                           name="ans9" autocomplete="off" value="0"> Unsteady
+                      </input>
+                </label>
+                <label for="ans8b-2">
+                    <input type="radio" id="ans8b-2"
+                           name="ans9" autocomplete="off" value="1"> Steady but uses walking aid or other support for 30s
+                      </input>
+                </label>
+                <label for="ans8b-3">
+                    <input type="radio" id="ans8b-3"
+                           name="ans9" autocomplete="off" value="2"> Single-limb standing without support for 30s
+                      </input>
+                </label>
+     
+                <p></br>
+                    <label>Prosthetic side (in seconds):
+                        <input type="text" placeholder="" name="prosTime" id="prosTime" autocomplete="off" size="5"/></label>
+                </p>
+                <p id="prosTimeError" style="color: red; visibility: hidden;">Please enter a valid number for time taken.</p>
+
+               <!--<p>Sound side (in seconds):</p>-->
+               <!--<input type="text" id="timeTaken" name="timeTaken" autocomplete="off" size="5">-->
+               <!--<p id="timeError" style="color: red; display: none;">Please enter a valid number for time taken.</p>-->
+
+                <!-- Question 9 -->
+                <label></br>
+                    9. Standing reach: reach forward and grasp the
+                        ruler.(Tester holds ruler 12in beyond extended
+                        arm(s) midline to the sternum.)
+                </label>
+                <label for="ans9-1">
+                    <input type="radio" id="ans9-1"
+                           name="ans10" autocomplete="off" value="0"> Does not attempt
+                      </input>
+                </label>
+                <label for="ans9-2">
+                    <input type="radio" id="ans9-2"
+                           name="ans10" autocomplete="off" value="1"> Cannot grasp or requires arm support on assistive = 1 device
+                      </input>
+                </label>
+                <label for="ans9-3">
+                    <input type="radio" id="ans9-3"
+                           name="ans10" autocomplete="off" value="2"> Reaches forward and successfully grasps item no = 2 support
+                      </input>
+                </label>
+
+                <!-- Question 10 -->
+                <label></br>
+                    10. Nudge test (subject at maximum position #7):
+                        with feet as close together as possible, examiner
+                        pushes firmly on subjec's sternum with palm of
+                        hand 3 times (toes should rise).
+                </label>
+                <label for="ans10-1">
+                    <input type="radio" id="ans10-1"
+                           name="ans11" autocomplete="off" value="0"> Begins to fall
+                      </input>
+                </label>
+                <label for="ans10-2">
+                    <input type="radio" id="ans10-2"
+                           name="ans11" autocomplete="off" value="1"> Staggers, grabs, catches self, or uses assistive device
+                      </input>
+                </label>
+                <label for="ans10-3">
+                    <input type="radio" id="ans10-3"
+                           name="ans11" autocomplete="off" value="2"> Steady
+                      </input>
+                </label>
+
+                <!-- Question 11 -->
+                <label></br>
+                    11. Eyes closed (at maximum position #7): if support
+                        is required grade as unsteady.
+                </label>
+                <label for="ans11-1">
+                    <input type="radio" id="ans11-1"
+                           name="ans12" autocomplete="off" value="0"> Unsteady or grips assistive device
+                      </input>
+                </label>
+                <label for="ans11-2">
+                    <input type="radio" id="ans11-2"
+                           name="ans12" autocomplete="off" value="1"> Steady without any use of assistive device
+                      </input>
+                </label>
+
+                <!-- Question 12 -->
+                <label></br>
+                    12. Picking up objects off the floor (pick up a pencil
+                        off the floor placed midline 12in in front of foot).
+                </label>
+                <label for="ans12-1">
+                    <input type="radio" id="ans12-1"
+                           name="ans13" autocomplete="off" value="0"> Unable to pick up object and return to standing
+                      </input>
+                </label>
+                <label for="ans12-2">
+                    <input type="radio" id="ans12-2"
+                           name="ans13" autocomplete="off" value="1"> Performs with some help (table, chair, walking aid, etc)
+                      </input>
+                </label>
+                <label for="ans12-3">
+                    <input type="radio" id="ans12-3"
+                           name="ans13" autocomplete="off" value="2"> Performs independently (without help from object or person)
+                      </input>
+                </label>
+
+                <!-- Question 13 -->
+                <label></br>
+                    13. Sitting down: ask pt to fold arms across chest
+                        and sit. If unable, use arm or assistive device.
+                </label>
+                <label for="ans13-1">
+                    <input type="radio" id="ans13-1"
+                           name="ans14" autocomplete="off" value="0"> Unsafe (misjudged distance, falls into chair)
+                      </input>
+                </label>
+                <label for="ans13-2">
+                    <input type="radio" id="ans13-2"
+                           name="ans14" autocomplete="off" value="1"> Uses arms, assistive device, or not a smooth motion
+                      </input>
+                </label>
+                <label for="ans13-3">
+                    <input type="radio" id="ans13-3"
+                           name="ans14" autocomplete="off" value="2"> Safe, smooth motion
+                      </input>
+                </label>
+
+                <!-- Question 14 -->
+                <label></br>
+                    14. Initiation of gait (immediately after told to “go”).
+                </label>
+                <label for="ans14-1">
+                    <input type="radio" id="ans14-1"
+                           name="ans15" autocomplete="off" value="0"> Any hesitancy or multiple attempts to start
+                      </input>
+                </label>
+                <label for="ans14-2">
+                    <input type="radio" id="ans14-2"
+                           name="ans15" autocomplete="off" value="1"> No hesitancy
+                      </input>
+                </label>
+
+                <!-- Question 15 -->
+                <label></br>
+                    15. Step length and height: walk a measured distance
+                        of 12ft twice (up and back). Four scores are
+                        required or 2 scores (a & b) for each leg. “Marked
+                        deviation” is defined as extreme substitute
+                        movements to permit clearing the floor.
+                </label>
+                <label></br>
+                    a. Swing foot (Prosthesis)
+                </label>
+                <label for="ans15ap-1">
+                    <input type="radio" id="ans15ap-1"
+                           name="ans16" autocomplete="off" value="0"> Does not advance a minimum of 12in
+                      </input>
+                </label>
+                <label for="ans15ap-2">
+                    <input type="radio" id="ans15ap-2"
+                           name="ans16" autocomplete="off" value="1"> Advances a minimum of 12in
+                      </input>
+                </label>
+                <label></br>
+                    Swing foot (Sound)
+                </label>
+                <label for="ans15as-1">
+                    <input type="radio" id="ans15as-1"
+                           name="ans17" autocomplete="off" value="0"> Does not advance a minimum of 12in
+                      </input>
+                </label>
+                <label for="ans15as-2">
+                    <input type="radio" id="ans15as-2"
+                           name="ans17" autocomplete="off" value="1"> Advances a minimum of 12in
+                      </input>
+                </label>
+                <label></br>
+                    b. Foot clearance (Prosthesis)
+                </label>
+                <label for="ans15bp-1">
+                    <input type="radio" id="ans15bp-1"
+                           name="ans18" autocomplete="off" value="0"> Foot does not completely clear floor without deviation
+                      </input>
+                </label>
+                <label for="ans15bp-2">
+                    <input type="radio" id="ans15bp-2"
+                           name="ans18" autocomplete="off" value="1"> Foot completely clears floor without marked deviation
+                      </input>
+                </label>
+                <label></br>
+                    Foot clearance (Sound)
+                </label>
+                <label for="ans15bs-1">
+                    <input type="radio" id="ans15bs-1"
+                           name="ans19" autocomplete="off" value="0"> Foot does not completely clear floor without deviation
+                      </input>
+                </label>
+                <label for="ans15bs-2">
+                    <input type="radio" id="ans15bs-2"
+                           name="ans19" autocomplete="off" value="1"> Foot completely clears floor without marked deviation
+                      </input>
+                </label>
+
+                <!-- Question 16 -->
+                <label></br>
+                    16. Step continuity.
+                </label>
+                <label for="ans16-1">
+                    <input type="radio" id="ans16-1"
+                           name="ans20" autocomplete="off" value="0"> Stopping or discontinuity between steps (stop & go gait)
+                      </input>
+                </label>
+                <label for="ans16-2">
+                    <input type="radio" id="ans16-2"
+                           name="ans20" autocomplete="off" value="1"> Steps appear continuous
+                      </input>
+                </label>
+
+                <!-- Question 17 -->
+                <label></br>
+                    17. Turning: 1800 turn when returning to chair.
+                </label>
+                <label for="ans17-1">
+                    <input type="radio" id="ans17-1"
+                           name="ans21" autocomplete="off" value="0"> Unable to turn, requires intervention to prevent falling
+                      </input>
+                </label>
+                <label for="ans17-2">
+                    <input type="radio" id="ans17-2"
+                           name="ans21" autocomplete="off" value="1"> Greater than 3 steps but completes task without intervention
+                      </input>
+                </label>
+                <label for="ans17-3">
+                    <input type="radio" id="ans17-3"
+                           name="ans21" autocomplete="off" value="2"> No more than 3 continuous steps with or without assistive aid
+                      </input>
+                </label>
+
+                <!-- Question 18 -->
+                <label></br>
+                    18. Variable cadence: walk a distance of 12ft fast as
+                        safely as possible 4 times. (Speeds may vary
+                        from slow to fast and fast to slow, varying
+                        cadence.)
+                </label>
+                <label for="ans18-1">
+                    <input type="radio" id="ans18-1"
+                           name="ans22" autocomplete="off" value="0"> Unable to vary cadence in a controlled manner
+                      </input>
+                </label>
+                <label for="ans18-2">
+                    <input type="radio" id="ans18-2"
+                           name="ans22" autocomplete="off" value="1"> Asymmetrical increase in cadence controlled manner
+                      </input>
+                </label>
+                <label for="ans18-3">
+                    <input type="radio" id="ans18-3"
+                           name="ans22" autocomplete="off" value="2"> Symmetrical increase in speed in a controlled manner
+                      </input>
+                </label>
+
+                <!-- Question 19 -->
+                <label></br>
+                    19. Stepping over obstacle: place a movable box of
+                        4in. in height in the walking path.
+                </label>
+                <label for="ans19-1">
+                    <input type="radio" id="ans19-1"
+                           name="ans23" autocomplete="off" value="0"> Cannot step over the box
+                      </input>
+                </label>
+                <label for="ans19-2">
+                    <input type="radio" id="ans19-2"
+                           name="ans23" autocomplete="off" value="1"> Catches foot, interrupts stride
+                      </input>
+                </label>
+                <label for="ans19-3">
+                    <input type="radio" id="ans19-3"
+                           name="ans23" autocomplete="off" value="2"> Steps over without interrupting stride
+                      </input>
+                </label>
+
+                <!-- Question 20 -->
+                <label></br>
+                    20. Stairs (must have at least 2 steps): try to go up
+                        and down these stairs without holding on to the
+                        railing. Don't hesitate to permit pt to hold on to
+                        rail. Safety first, if examiner feels that any risk in
+                        involved omit and score as 0.
+                </label>
+                <label></br>
+                    Ascending
+                </label>
+                <label for="ans20a-1">
+                    <input type="radio" id="ans20a-1"
+                           name="ans24" autocomplete="off" value="0"> Unsteady, cannot do
+                      </input>
+                </label>
+                <label for="ans20a-2">
+                    <input type="radio" id="ans20a-2"
+                           name="ans24" autocomplete="off" value="1"> One step at a time, or must hold on to railing or device
+                      </input>
+                </label>
+                <label for="ans20a-3">
+                    <input type="radio" id="ans20a-3"
+                           name="ans24" autocomplete="off" value="2"> Steps over step, does not hold onto the railing or device
+                      </input>
+                </label>
+                <label></br>
+                    Descending
+                </label>
+                <label for="ans20b-1">
+                    <input type="radio" id="ans20b-1"
+                           name="ans25" autocomplete="off" value="0"> Unsteady, cannot do
+                      </input>
+                </label>
+                <label for="ans20b-2">
+                    <input type="radio" id="ans20b-2"
+                           name="ans25" autocomplete="off" value="1"> One step at a time, or must hold on to railing or device
+                      </input>
+                </label>
+                <label for="ans20b-3">
+                    <input type="radio" id="ans20b-3"
+                           name="ans25" autocomplete="off" value="2"> Steps over step, does not hold onto the railing or device
+                      </input>
+                </label>
+
+                <!-- Question 21 -->
+                <label></br>
+                    21. Assistive device selection: add points for the use
+                        of an assistive device if used for 2 or more items.
+                        If testing without prosthesis use of appropriate
+                        assistive device is mandatory.
+                </label>
+                <label for="ans21-1">
+                    <input type="radio" id="ans21-1"
+                           name="ans26" autocomplete="off" value="0"> Bed bound
+                      </input>
+                </label>
+                <label for="ans21-2">
+                    <input type="radio" id="ans21-2"
+                           name="ans26" autocomplete="off" value="1"> Wheelchair
+                      </input>
+                </label>
+                <label for="ans21-3">
+                    <input type="radio" id="ans21-3"
+                           name="ans26" autocomplete="off" value="2"> Walker
+                      </input>
+                </label>
+                <label for="ans21-4">
+                    <input type="radio" id="ans21-4"
+                           name="ans26" autocomplete="off" value="3"> Crutches (axillary or forearm)
+                      </input>
+                </label>
+                <label for="ans21-5">
+                    <input type="radio" id="ans21-5"
+                           name="ans26" autocomplete="off" value="4"> Cane (straight or quad)
+                      </input>
+                </label>
+                <label for="ans21-6">
+                    <input type="radio" id="ans21-6"
+                           name="ans26" autocomplete="off" value="5"> None
+                      </input></br></br></br></br>
+                </label>
+
+            </div>
+
+            <!-- Total Score -->
+            <p id="totalScore" style="font-size: 25px">Total Score: 0 / 47</p>
+            <button type="button" id="btnSubmit"  style="font-size: 25px" onclick="submitSurvey()">Submit</button>
+            <p id="errorMessage" style="color: red; visibility: hidden; font-size: 20px">Please answer all questions.</p>
+            
+        </form>
+
+        <script>
+            function calculateScore()
+            {
+              var totalScore = 0;
+              
+              // Loop through each question
+              for (var i = 1; i <= 26; i++)
+              {
+                var selectedValue = document.querySelector('input[name="ans' + i + '"]:checked');
+                if (selectedValue)
+                  totalScore += parseInt(selectedValue.value);
+              }
+            
+              document.getElementById("totalScore").innerHTML = "Total Score: " + totalScore + " / 47";
+            }
+            
+            function submitSurvey()
+            {
+              var allQuestionsAnswered = true;
+              
+              // Loop through each question
+              for (var i = 1; i <= 26; i++)
+              {
+                var selectedValue = document.querySelector('input[name="ans' + i + '"]:checked');
+                if (!selectedValue)
+                {
+                  allQuestionsAnswered = false;
+                  break;
+                }
+              }
+
+              var soundTimeInput = document.getElementById("soundTime");
+              var soundTimeError = document.getElementById("soundTimeError");
+              var soundTimeValue = soundTimeInput.value.trim();
+
+              var prosTimeInput = document.getElementById("prosTime");
+              var prosTimeError = document.getElementById("prosTimeError");
+              var prosTimeValue = prosTimeInput.value.trim();
+            
+
+
+              if (allQuestionsAnswered && soundTimeValue && prosTimeValue !== "" && !isNaN(soundTimeValue) && !isNaN(prosTimeValue) && parseInt(soundTimeValue) >= 0 && parseInt(prosTimeValue) >= 0)
+                  window.location.href = "/Provider_AmpNoPro_Survey";
+              else
+              {
+                  if (!allQuestionsAnswered)
+                      document.getElementById("errorMessage").style.visibility = "visible";
+                  else
+                      document.getElementById("errorMessage").style.visibility = "hidden";
+              }
+
+              //if (allQuestionsAnswered)
+              //{
+               // calculateScore();
+                //document.getElementById("errorMessage").style.display = "none";
+              //}
+              //else
+               // document.getElementById("errorMessage").style.display = "block";
+
+              // Validate Sound Time for Question 8
+              if (soundTimeValue === "" || isNaN(soundTimeValue) || parseInt(soundTimeValue) < 0)
+                soundTimeError.style.visibility = "visible";
+              else
+                soundTimeError.style.visibility = "hidden";
+
+              // Validate Prosthetic Time for Question 8
+              if (prosTimeValue === "" || isNaN(prosTimeValue) || parseInt(prosTimeValue) < 0)
+                prosTimeError.style.visibility = "visible";
+              else
+                prosTimeError.style.visibility = "hidden";
+            }
+
+            var radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(function(radioButton)
+            {
+                radioButton.addEventListener('click', function() { calculateScore(); } );
+            });
+        </script>
+
+    </div>
+
+{% endblock %}

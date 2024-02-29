@@ -271,6 +271,21 @@ def Patient_Prosthetic_Rehabilitation(request):
 
 
 
+def Provider(request):
+    return render(request, "Provider_Home.html")
+
+def Provider_AmpPro_Survey(request):
+    return render(request, "Provider_AmpPro_Survey.html")
+
+def Provider_AmpNoPro_Survey(request):
+    return render(request, "Provider_AmpNoPro_Survey.html")
+
+def Provider_TimedGo_Test(request):
+    return render(request, "Provider_TimedGo_Test.html")
+
+def Provider_6Min_Test(request):
+    return render(request, "Provider_6Min_Test.html")
+
 """
 
 Removed while updating to new HTML format 
