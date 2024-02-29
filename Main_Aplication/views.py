@@ -27,21 +27,41 @@ def SignIn(request):
     if request.method == "POST":
         inputEmail = request.POST["email"]
         inputPassword = request.POST['ppassword']
-        try:
-            user = Patients.objects.get(email=inputEmail)  # Find the patient corresponding to the email
-            systemPassword = user.ppassword  # Obtain the patient password in the database
-            if (inputPassword == systemPassword):  # Check that the password put into the login is the same as the database
-                id = user.patient_id  # Obtain the patient ID
-                username = "Patient_" + str(id)
-                user = authenticate(request, username=username, password=inputPassword)  # Authenticate the patient as a user
-                if user is not None:
-                    login(request, user)  # Log the user into the website if the user is correct
-                    return redirect('/home')
-                else:  # error for patients who don't have user account
+        if(Patients.objects.filter(email=inputEmail).exists()):
+            try:
+                userPatient = Patients.objects.get(email=inputEmail)  # Find the patient corresponding to the email
+                systemPassword = userPatient.ppassword  # Obtain the patient password in the database
+                if (inputPassword == systemPassword):  # Check that the password put into the login is the same as the database
+                    id = userPatient.patient_id  # Obtain the patient ID
+                    username = "Patient_" + str(id)
+                    user = authenticate(request, username=username, password=inputPassword)  # Authenticate the patient as a user
+                    if user is not None:
+                        login(request, user)  # Log the user into the website if the user is correct
+                        return redirect('/home')
+                    else:  # error for patients who don't have user account
+                        messages.success(request, "Login Unsuccessful")
+                else:  # error for when the password is incorrect
                     messages.success(request, "Login Unsuccessful")
-            else:  # error for when the password is incorrect
+            except Patient.DoesNotExist:
                 messages.success(request, "Login Unsuccessful")
-        except Patients.DoesNotExist:  # error if the patient doesn't exist in the database
+        elif(Providers.objects.filter(email=inputEmail).exists()):
+            try:
+                userProvider = Providers.objects.get(email=inputEmail)  # Find the provider corresponding to the email
+                systemPassword = userProvider.ppassword  # Obtain the provider password in the database
+                if (inputPassword == systemPassword):  # Check that the password put into the login is the same as the database
+                    id = userProvider.provider_id  # Obtain the provider ID
+                    username = "Provider" + str(id)
+                    user = authenticate(request, username=username, password=inputPassword)  # Authenticate the provider as a user
+                    if user is not None:
+                        login(request, user)  # Log the user into the website if the user is correct
+                        return redirect('/Provider')
+                    else:  # error for providers who don't have user account
+                        messages.success(request, "Login Unsuccessful")
+                else:  # error for when the password is incorrect
+                    messages.success(request, "Login Unsuccessful")
+            except Provider.DoesNotExist:
+                messages.success(request, "Login Unsuccessful")
+        else:  # error for when user doesn't exist
             messages.success(request, "Login Unsuccessful")
     return render(request, "sign-in.html")
 
