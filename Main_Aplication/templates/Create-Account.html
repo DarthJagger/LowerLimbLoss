@@ -63,9 +63,9 @@
         <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" required="required" name="ppassword">
         </div>
-        <!--<div class="form-group">
+        <div class="form-group">
             <input type="password" class="form-control" placeholder="Repeat Password" required="required" name="password_confirm">
-        </div>-->
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-secondary btn-block">Create</button>
             <!-- Using this form button for the proper form manipulation -->
@@ -73,6 +73,13 @@
         <!--<a class="btn btn-secondary" href="/Patient" role="button">Create</a>-->
 
     </form>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
 </body>
 </html>

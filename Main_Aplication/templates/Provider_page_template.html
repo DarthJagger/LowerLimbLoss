@@ -28,8 +28,14 @@
 
     </ul>
     <ul class="navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <!-- Eventually links to patient information page -->
+                    <span class="nav-link" >User: {{ user.email }}</span>
+                </li>
+            {% endif %}
         <li class="nav-item">
-            <a href="/home" class="nav-link" >Sign Out</a>
+            <a href="/Logout" class="nav-link" >Sign Out</a>
         </li>
     </ul>
 

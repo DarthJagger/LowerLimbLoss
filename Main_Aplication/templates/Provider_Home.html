@@ -7,7 +7,10 @@
 {% block content %}
 
 <div class="container-md">
-    <h1 class="text-center" style="padding: 20px">Welcome</h1><br>
+    {% if user.is_authenticated %}
+    <h1 class="text-center" style="padding: 20px">Welcome {{ user.email }}</h1><br>
+    {% endif %}
+    <h2 class="text-center">Authorized Patients</h2><br>
 
     <table id = "patientTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
         <tr>
@@ -20,7 +23,7 @@
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">jsmith@gmail.com</td>
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">2/29/2024</td>
         </tr>
-        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+        <tr onclick="window.location.hre;" style="cursor: pointer;">
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Marie Anne</td>
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">manne@icloud.com</td>
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">1/29/2024</td>

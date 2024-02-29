@@ -26,7 +26,7 @@ urlpatterns = [
     path("Patient_Prosthetic_Rehabilitation", views.Patient_Prosthetic_Rehabilitation, name="Navigation"),
     path("Patient_Time_Points", views.Patient_Time_Points, name="Navigation"),
     path("Patient_Time_Point_Info/<int:timepointnum>", views.Patient_Time_Point_Info, name="Navigation"),
-    path("Patient_Create_Timepoint", views.Patient_Create_Timepoint, name="Navigation")
+    path("Patient_Create_Timepoint", views.Patient_Create_Timepoint, name="Navigation"),
 
     path("Provider_AmpPro_Survey", views.Provider_AmpPro_Survey , name="Navigation"),
     path("Provider_AmpNoPro_Survey", views.Provider_AmpNoPro_Survey , name="Navigation"),

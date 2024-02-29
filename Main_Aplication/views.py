@@ -1,15 +1,23 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from django.utils import timezone
+# from django.utils import timezone
 from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
 from .models import Patients, Providers, TimePoints, PatientEntries
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required # Use @login_required to make a view require login
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required # Use @login_required to make a view require login
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 import datetime
 import json
+
+# Function used to check if the user is a patient
+def is_patient(user):
+    return user.groups.filter(name='Patient').exists()
+
+# Function used to check if the user is a patient
+def is_provider(user):
+    return user.groups.filter(name='Provider').exists()
 
 def nav(request):
     return render(request, "Base_Template.html")
@@ -40,22 +48,33 @@ def SignIn(request):
 
 def SignUp(request):
     if request.method == "POST":
-        form = NewPatientForm(request.POST or None)
-        if form.is_valid():
-            email = form.cleaned_data['email']  # Obtain patient email
-            password = form.cleaned_data['ppassword']  # Obtain patient password
-            priorUsers = Patients.objects.filter(email=email)
-            if priorUsers.exists():  # Check to see if the email is in use
-                messages.success(request, "Sign Up Unsuccessful")
-                return render(request, "Create-Account.html")
-            else:
+        #form = NewPatientForm(request.POST or None)
+        email = request.POST["email"]
+        password = request.POST["ppassword"]
+        password_confirm = request.POST["password_confirm"]
+        priorPatients = Patients.objects.filter(email=email)
+        priorProviders = Providers.objects.filter(email=email)
+        if (priorPatients.exists() or priorProviders.exists() or (not(password == password_confirm))):  # Check to see if the email is in use
+            messages.success(request, "Sign Up Unsuccessful")
+            return render(request, "Create-Account.html")
+        else:
+            # Generate a new form with only the needed data
+            pname = request.POST["pname"]
+            phone_number = request.POST["phone_number"]
+            patient = Patients.objects.create(pname=pname, email=email, phone_number=phone_number, ppassword=password)
+            '''if(patient.is_valid()):  # Check if the generated form is valid
                 form.save()  # Creates a provider in the database
-                userTemp = Patients.objects.get(email=email)
-                id = userTemp.patient_id  # TODO: Modifier to separate between Patient and Provider users
-                username = "Patient_" + str(id)  # Construct a backend username that starts with Patient for patients
-                user = User.objects.create_user(username, email, password)  # Create a new user in Django
-                user.save()  # Creates a user in the django users database corresponding to the Patient
-                return redirect('/SignIn')
+            else:  # Display an error if the form was unable to be created
+                messages.success(request, "Sign Up Unsuccessful")
+                return render(request, "Create-Account.html")'''
+            userTemp = Patients.objects.get(email=email)
+            group = Group.objects.get(name="Patient")
+            id = userTemp.patient_id  # TODO: Modifier to separate between Patient and Provider users (Later signup code)
+            username = "Patient_" + str(id)  # Construct a backend username that starts with Patient for patients
+            user = User.objects.create_user(username, email, password)  # Create a new user in Django
+            user.save()  # Creates a user in the django users database corresponding to the Patient
+            user.groups.add(group)
+            return redirect('/SignIn')
     return render(request, "Create-Account.html")
 
 
@@ -65,11 +84,13 @@ def Logout(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient(request):
     return render(request, "Patient_Home.html")
 
 
 @login_required
+@user_passes_test(is_patient)
 def Enter_scores(request):
     if request.method == "POST":
         form = PatientEntryForm(request.POST or None)  # Obtain data from the form for a patient entry
@@ -111,6 +132,7 @@ def Prosthetic_Rehabilitation(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Create_Timepoint(request):
     if request.method == "POST":
         form = TimePointsForm(request.POST or None)
@@ -136,6 +158,7 @@ def Patient_Create_Timepoint(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Time_Points(request):
     if request.user.is_authenticated:  # Check if the user exists
         patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
@@ -146,6 +169,7 @@ def Patient_Time_Points(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Time_Point_Info(request, timepointnum):
     if request.user.is_authenticated:  # Check if the user exists
         try:
@@ -161,6 +185,7 @@ def Patient_Time_Point_Info(request, timepointnum):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Postsurgical_Stabilization(request):
     if request.user.is_authenticated:
         try:
@@ -183,6 +208,7 @@ def Patient_Postsurgical_Stabilization(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Preprosthetic_Rehabilitation(request):
     if request.user.is_authenticated:
         try:
@@ -205,6 +231,7 @@ def Patient_Preprosthetic_Rehabilitation(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Limb_Healing(request):
     if request.user.is_authenticated:
         try:
@@ -227,6 +254,7 @@ def Patient_Limb_Healing(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Prosthetic_Fitting(request):
     if request.user.is_authenticated:
         try:
@@ -249,6 +277,7 @@ def Patient_Prosthetic_Fitting(request):
 
 
 @login_required
+@user_passes_test(is_patient)
 def Patient_Prosthetic_Rehabilitation(request):
     if request.user.is_authenticated:
         try:
@@ -270,19 +299,28 @@ def Patient_Prosthetic_Rehabilitation(request):
     #return render(request, "Patient_Prosthetic_Rehabilitation.html")
 
 
-
+@login_required
+@user_passes_test(is_provider)
 def Provider(request):
     return render(request, "Provider_Home.html")
 
+@login_required
+@user_passes_test(is_provider)
 def Provider_AmpPro_Survey(request):
     return render(request, "Provider_AmpPro_Survey.html")
 
+@login_required
+@user_passes_test(is_provider)
 def Provider_AmpNoPro_Survey(request):
     return render(request, "Provider_AmpNoPro_Survey.html")
 
+@login_required
+@user_passes_test(is_provider)
 def Provider_TimedGo_Test(request):
     return render(request, "Provider_TimedGo_Test.html")
 
+@login_required
+@user_passes_test(is_provider)
 def Provider_6Min_Test(request):
     return render(request, "Provider_6Min_Test.html")
 
