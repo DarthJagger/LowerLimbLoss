@@ -10,6 +10,7 @@ urlpatterns = [
     path("SignIn", views.SignIn, name="Navigation"),
     path("SignUp", views.SignUp, name="Navigation"),
     path("Patient", views.Patient, name="Navigation"),
+    path("Provider", views.Provider, name="Navigation"),
     path("Enter_Scores", views.Enter_scores, name="Navigation"),
 
     path("Postsurgical_Stabilization", views.Postsurgical_Stabilization, name="Navigation"),
@@ -25,7 +26,10 @@ urlpatterns = [
     path("Patient_Time_Points", views.Patient_Time_Points, name="Navigation"),
     path("Patient_Time_Point_Info", views.Patient_Time_Point_Info, name="Navigation"),
 
-
+    path("Provider_AmpPro_Survey", views.Provider_AmpPro_Survey , name="Navigation"),
+    path("Provider_AmpNoPro_Survey", views.Provider_AmpNoPro_Survey , name="Navigation"),
+    path("Provider_TimedGo_Test", views.Provider_TimedGo_Test , name="Navigation"),
+    path("Provider_6Min_Test", views.Provider_6Min_Test , name="Navigation"),
 
 ]
 
