@@ -1,0 +1,42 @@
+{% extends "Base_Template.html" %}
+{% block title %} Provider's Homepage {% endblock %}
+
+
+
+{% block nav %}
+    <li class="nav-item">
+          <a class="nav-link active" href="/Provider">Home</a>
+        </li>
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Prosthetic Rehabilitation</a>
+        <div class="dropdown-menu bg-dark" >
+            <a href="/Provider_AmpPro_Survey" class="dropdown-item text-light">1. AmpPro Survey</a>
+            <a href="/Provider_AmpNoPro_Survey" class="dropdown-item text-light">2. AmpNoPro Survey</a>
+            <a href="/Provider_TimedGo_Test" class="dropdown-item text-light">3. Timed Up & Go</a>
+            <a href="/Provider_6Min_Test" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
+        </div>
+    </li>
+    <!--<li class="nav-item">
+          <a class="nav-link" href="/Patient_Time_Points">Upcoming Time Points</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="/Enter_Scores">Enter Weekly Scores</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Sensor Input</a>
+    </li>-->
+
+    </ul>
+    <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+            <a href="/home" class="nav-link" >Sign Out</a>
+        </li>
+    </ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+{% endblock %}

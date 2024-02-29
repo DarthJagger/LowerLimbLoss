@@ -1,0 +1,67 @@
+{% extends "Provider_page_template.html" %}
+
+{% block title %} Score Input {% endblock %}
+
+{% block header %}
+    <h1>Provider's Score Input</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-md">
+        <h1 class="text-center" style="padding: 20px">Timed Up & Go</h1>
+        <form>
+            <div class="row justify-content-between" style="font-size: 20px">
+                
+                <label>
+                    <b>Purpose:</b><br> To assess mobility<br><br>
+                    <b>Equipment:</b><br><ul><li> A stopwatch </li></ul>
+                    <b>Directions:</b><br> Patients wear their regular footwear and
+                    can use a walking aid, if needed. Begin by having the
+                    patient sit back in a standard arm chair and identify a
+                    line 3 meters, or 10 feet away, on the floor.<br><br><br>
+
+                    <b>Step 1.</b> Instruct the Patient:<br><br>
+                    <p style="margin-left: 15px;">
+                        When I say “Go,” I want you to:<br>
+                        1. Stand up from the chair.<br>
+                        2. Walk to the line on the floor at your normal pace.<br>
+                        3. Turn.<br>
+                        4. Walk back to the chair at your normal pace.<br>
+                        5. Sit down again.<br>
+                    </p>
+
+                    <b>Step 2.</b> On the word “Go,” begin timing.<br>
+                    <b>Step 3.</b> Stop timing after patient sits back down.<br>
+                    <b>Step 4.</b> Record time.<br><br><br>
+                    <b>NOTE:</b> Always stay by the patient for safety.<br>
+                    <b>WARNING:</b> An older adult who takes ≥12 seconds to complete the TUG is at risk for falling.<br><br><br>
+
+                    <p style="font-size: 20px">Time (in seconds):</p>
+                    <input type="text" placeholder="" name="timedGoTime" id="timedGoTime" autocomplete="off" size="10"/>
+                    <p id="timeError" style="color: red; visibility: hidden;">Please enter a valid number for time taken.</p>
+
+                    <button type="button" id="btnSubmit" style="font-size: 25px" onclick="submitTime()">Submit</button>
+
+                </label>
+            </div>
+        </form>
+        <script>
+            function submitTime()
+            {
+                // Validate Time as a Number
+                var timedGOInput = document.getElementById("timedGoTime");
+                var timedGoError = document.getElementById("timeError");
+                var timedGoValue = timedGOInput.value.trim();
+
+
+                if (timedGoValue === "" || isNaN(timedGoValue) || parseInt(timedGoValue) < 0)
+                    timedGoError.style.visibility = "visible";
+                else
+                    window.location.href = "/Provider_6Min_Test";
+                    //timedGoError.style.visibility = "hidden";
+            }
+        </script>
+    </div>
+
+{% endblock %}

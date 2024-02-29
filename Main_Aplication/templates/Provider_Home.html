@@ -1,0 +1,52 @@
+{% extends "Provider_page_template.html" %}
+
+{% block header %}
+    
+{% endblock %}
+
+{% block content %}
+
+<div class="container-md">
+    <h1 class="text-center" style="padding: 20px">Welcome</h1><br>
+
+    <table id = "patientTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
+        <tr>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Patient</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Date of Last Appointment</th>
+        </tr>
+        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">John Smith</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">jsmith@gmail.com</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">2/29/2024</td>
+        </tr>
+        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Marie Anne</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">manne@icloud.com</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">1/29/2024</td>
+        </tr>
+        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Jacob Emery</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">jemery@gmail.com</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">1/20/2024</td>
+        </tr>
+        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Ryan Fisher</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">rof6234@psu.edu</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">1/12/2024</td>
+        </tr>
+        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Sally Walker</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">swalker23@gmail.com</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">2/20/2024</td>
+        </tr>
+        <tr onclick="window.location.href='/Provider_AmpPro_Survey';" style="cursor: pointer;">
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Taylor Noel</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">tnoel66@gmail.com</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">2/10/2024</td>
+        </tr>
+    </table>
+
+</div>
+
+{% endblock %}
