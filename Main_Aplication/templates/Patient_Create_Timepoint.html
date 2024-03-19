@@ -32,7 +32,19 @@
             <input id="endDate" type="datetime-local" class="form-control" name="enddate">
         </div><br>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Purpose/Type" required="required" name="timepointtype">
+            <!--<input type="text" class="form-control" placeholder="Purpose/Type" required="required" name="timepointtype">
+-->
+                <label for="ttt">Select Timepoint:</label>
+                <select class="form-control" id="ttt"  name="timepointtype" required>
+                    <option value="" hidden selected disabled>Open this select menu</option>
+                    <option value="Surgery">Surgery</option>
+                    <option value="Admission">Admission</option>
+                    <option value="Discharge">Discharge</option>
+                    <option value="Functioning Evaluation">Functioning Evaluation</option>
+                    <option value="Prosthetic Admission">Prosthetic Admission</option>
+                    <option value="Prosthetic Discharge">Prosthetic Discharge</option>
+                </select>
+
         </div><br>
         <div class="form-group">
             <button type="submit" class="btn btn-secondary btn-block">Create Time Point</button>

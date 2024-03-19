@@ -182,11 +182,21 @@ def Patient_Create_Timepoint(request):
 def Patient_Time_Points(request):
     if request.user.is_authenticated:  # Check if the user exists
         patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
-        time_points = TimePoints.objects.filter(patient_id=patient_id).order_by('timepointnum')  # Obtain all of the patient's timepoints
+        time_points = TimePoints.objects.filter(patient_id=patient_id, enddate__gt=datetime.date.today()).order_by('timepointnum')  # Obtain all of the patient's timepoints
         return render(request, "Patient_Time_Points.html",{'time_points': time_points})
     else:  # If the user isn't authenticated, redirect to home
         return redirect('/home')
 
+
+@login_required
+@user_passes_test(is_patient)
+def Patient_Step_Time_Points(request, timepointtype):
+    if request.user.is_authenticated:  # Check if the user exists
+        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+        time_points = TimePoints.objects.filter(patient_id=patient_id, enddate__gt=datetime.date.today(), timepointtype=timepointtype).order_by('timepointnum')  # Obtain all of the patient's timepoints
+        return render(request, "Patient_Time_Points.html",{'time_points': time_points})
+    else:  # If the user isn't authenticated, redirect to home
+        return redirect('/home')
 
 @login_required
 @user_passes_test(is_patient)
@@ -202,6 +212,8 @@ def Patient_Time_Point_Info(request, timepointnum):
             return redirect('/home')
     else:
         return redirect('/home')
+
+
 
 
 @login_required

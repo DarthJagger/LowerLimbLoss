@@ -25,6 +25,7 @@ urlpatterns = [
     path("Patient_Prosthetic_Fitting", views.Patient_Prosthetic_Fitting, name="Navigation"),
     path("Patient_Prosthetic_Rehabilitation", views.Patient_Prosthetic_Rehabilitation, name="Navigation"),
     path("Patient_Time_Points", views.Patient_Time_Points, name="Navigation"),
+    path("Patient_Step_Time_Points/<str:timepointtype>", views.Patient_Step_Time_Points, name="Navigation"),
     path("Patient_Time_Point_Info/<int:timepointnum>", views.Patient_Time_Point_Info, name="Navigation"),
     path("Patient_Create_Timepoint", views.Patient_Create_Timepoint, name="Navigation"),
 
