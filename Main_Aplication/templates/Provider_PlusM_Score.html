@@ -1,0 +1,44 @@
+{% extends "Provider_page_template.html" %}
+
+{% block title %} Score Input {% endblock %}
+
+{% block header %}
+    <h1>Provider's Score Input</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-md">
+        <h1 class="text-center" style="padding: 20px">Plus M</h1>
+        <form>
+            <div class="row justify-content-between" style="font-size: 20px">
+                
+                <label>
+                    <p style="font-size: 20px">Score:</p>
+                    <input type="text" placeholder="" name="plusMTime" id="plusMTime" autocomplete="off" size="10"/>
+                    <p id="plusMError" style="color: red; visibility: hidden;">Please enter a valid number for the score.</p>
+
+                    <button type="button" id="btnSubmit" style="font-size: 25px" onclick="submitTime()">Submit</button>
+
+                </label>
+            </div>
+        </form>
+        <script>
+            function submitTime()
+            {
+                // Validate Time as a Number
+                var plusMInput = document.getElementById("plusMTime");
+                var plusMError = document.getElementById("plusMError");
+                var plusMValue = plusMInput.value.trim();
+
+
+                if (plusMValue === "" || isNaN(plusMValue) || parseInt(plusMValue) < 0)
+                    plusMError.style.visibility = "visible";
+                else
+                    window.location.href = "/Provider";
+                    //timedGoError.style.visibility = "hidden";
+            }
+        </script>
+    </div>
+
+{% endblock %}
