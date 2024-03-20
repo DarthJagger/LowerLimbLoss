@@ -14,23 +14,6 @@
             <div class="row justify-content-between" style="font-size: 20px">
 
                 <label>
-                    <b>Purpose:</b><br> To assess mobility<br><br>
-                    <b>Equipment:</b><br> 
-
-                    <ul>
-                        <li>A Stopwatch</li>
-                        <li>Measuring device for the distance covered</li>
-                        <li>Unimpeded walkway of known length (in meters)</li>
-                        <li>Two markers to show the distance that needs to be covered</li>
-                        <li>Chairs on each end of the walkway and at halfway mark</li>
-                    </ul>
-
-
-                    <b>Directions:</b><br> Patients walk for six minutes in the walkway. They can slow down, stop, or rest
-                    whenever they want. When reaching the end of the walkway, patients will pivot and walk back.<br><br><br>
-
-                    <p style="font-size: 20px">Distance (in meters):</p>
-                    <input type="text" placeholder="" name="minuteTime" id="minuteTime" autocomplete="off" size="10"/>
                     <p id="minuteError" style="color: red; visibility: hidden;">Please enter a valid number for distance walked.</p>
 
                     <button type="button" id="btnSubmit" style="font-size: 25px" onclick="submitDist()">Submit</button>
@@ -50,7 +33,7 @@
                 if (minuteValue === "" || isNaN(minuteValue) || parseInt(minuteValue) < 0)
                     minuteError.style.visibility = "visible";
                 else
-                    window.location.href = "/Provider";
+                    window.location.href = "/Provider_PlusM_Score";
                     //minuteError.style.visibility = "hidden";
             }
         </script>
