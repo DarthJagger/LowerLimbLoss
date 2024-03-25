@@ -28,6 +28,8 @@ urlpatterns = [
     path("Patient_Step_Time_Points/<str:timepointtype>", views.Patient_Step_Time_Points, name="Navigation"),
     path("Patient_Time_Point_Info/<int:timepointnum>", views.Patient_Time_Point_Info, name="Navigation"),
     path("Patient_Create_Timepoint", views.Patient_Create_Timepoint, name="Navigation"),
+    path("Patient_Create_Authorization", views.Patient_Authorize, name="Navigation"),
+    path("Patient_Authorizations", views.Patient_Authorizations, name="Navigation"),
 
     path("Provider_AmpPro_Survey", views.Provider_AmpPro_Survey , name="Navigation"),
     path("Provider_AmpNoPro_Survey", views.Provider_AmpNoPro_Survey , name="Navigation"),

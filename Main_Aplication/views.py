@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 # from django.utils import timezone
 from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
-from .models import Patients, Providers, TimePoints, PatientEntries
+from .models import Patients, Providers, TimePoints, PatientEntries, Authorizations
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required # Use @login_required to make a view require login
 from django.contrib.auth.models import User, Group
@@ -153,6 +153,37 @@ def Prosthetic_Rehabilitation(request):
 
 @login_required
 @user_passes_test(is_patient)
+def Patient_Authorize(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            try:
+                patient_id = request.user.username[8:]
+                provider_email = request.POST['provider']
+                providerTemp = Providers.objects.get(email=provider_email)
+                provider_id = providerTemp.provider_id
+                aStatus = 'P'  # Authorization status of P means that patient provided authorization but Provider hasn't accepted
+                auth_entry, created = Authorizations.objects.get_or_create(patient_id=patient_id, provider_id=provider_id, astatus=aStatus)
+                if(created):
+                    auth_entry.save()
+                    messages.success(request, 'Authorization Sucessful')
+                else:
+                    messages.success(request, 'Provider Already Authorized')
+                return render(request, 'Patient_Create_Authorization.html')
+            except ObjectDoesNotExist:
+                messages.success(request, 'Authorization Unsuccessful')
+                return render(request, 'Patient_Create_Authorization.html')
+        else:
+            return render(request, 'Patient_Create_Authorization.html')
+    else:
+        return redirect('/SignIn')
+
+@login_required
+@user_passes_test(is_patient)
+def Patient_Authorizations(request):
+    return render(request, 'Patient_Authorizations.html')
+
+@login_required
+@user_passes_test(is_patient)
 def Patient_Create_Timepoint(request):
     if request.method == "POST":
         form = TimePointsForm(request.POST or None)
@@ -212,8 +243,6 @@ def Patient_Time_Point_Info(request, timepointnum):
             return redirect('/home')
     else:
         return redirect('/home')
-
-
 
 
 @login_required

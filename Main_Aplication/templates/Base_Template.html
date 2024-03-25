@@ -70,6 +70,13 @@
             <li class="nav-item">
                   <a class="nav-link" href="javascript:void(0)">Sensor Input</a>
             </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Authorizations</a>
+                <div class="dropdown-menu bg-dark" >
+                    <a href="/Patient_Create_Authorization" class="dropdown-item text-light">Authorize Provider</a>
+                    <a href="/Patient_Authorizations" class="dropdown-item text-light">Authorizations</a>
+                </div>
+            </li>
           {% endif %}
       </ul>
       {% if user.is_authenticated %}
