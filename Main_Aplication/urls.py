@@ -14,11 +14,6 @@ urlpatterns = [
     path("Provider", views.Provider, name="Navigation"),
     path("Enter_Scores", views.Enter_scores, name="Navigation"),
 
-    path("Postsurgical_Stabilization", views.Postsurgical_Stabilization, name="Navigation"),
-    path("Preprosthetic_Rehabilitation", views.Preprosthetic_Rehabilitation, name="Navigation"),
-    path("Limb_Healing", views.Limb_Healing, name="Navigation"),
-    path("Prosthetic_Fitting", views.Prosthetic_Fitting, name="Navigation"),
-    path("Prosthetic_Rehabilitation", views.Prosthetic_Rehabilitation, name="Navigation"),
     path("Patient_Postsurgical_Stabilization", views.Patient_Postsurgical_Stabilization, name="Navigation"),
     path("Patient_Preprosthetic_Rehabilitation", views.Patient_Preprosthetic_Rehabilitation, name="Navigation"),
     path("Patient_Limb_Healing", views.Patient_Limb_Healing, name="Navigation"),
