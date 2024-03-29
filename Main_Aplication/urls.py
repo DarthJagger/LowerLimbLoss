@@ -30,6 +30,7 @@ urlpatterns = [
     path("Provider_AmpNoPro_Survey", views.Provider_AmpNoPro_Survey , name="Navigation"),
     path("Provider_TimedGo_Test", views.Provider_TimedGo_Test , name="Navigation"),
     path("Provider_6Min_Test", views.Provider_6Min_Test , name="Navigation"),
+    path("Provider_PlusM_Score", views.Provider_PlusM_Score , name="Navigation"),
 
 ]
 

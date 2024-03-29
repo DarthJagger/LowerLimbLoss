@@ -367,4 +367,9 @@ def Provider_TimedGo_Test(request):
 def Provider_6Min_Test(request):
     return render(request, "Provider_6Min_Test.html")
 
+@login_required
+@user_passes_test(is_provider)
+def Provider_PlusM_Score(request):
+    return render(request, "Provider_PlusM_Score.html")
+
 
