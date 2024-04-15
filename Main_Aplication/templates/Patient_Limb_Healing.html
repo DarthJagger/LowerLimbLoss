@@ -74,14 +74,31 @@
 
             </div>
             <div class="col-4 d-none d-lg-block">
-                <br>
-                <h3 style = "margin-left: 20px; margin-right: 20px">Time Points</h3>
-                <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
-                    <li><b>Admission Date: </b><br>4/10/24, 10:00 AM</li>
-                    <li><b>Discharge Date: </b><br>4/11/24, 10:00 PM</li>
-                    <li><b>Team: </b><br>Surgeon</li>
-                    <li><b> Location: </b><br>HMC</li>
-                </ul>
+                <h1 class="text-center"> Pre-Prosthetic Discharge Points</h1>
+                {% for item in time_point_before %}
+                    <a href="/Patient_Time_Point_Info/{{ item.timepointnum }}" style="text-decoration:none;color:rgb(0,0,0)">
+                    <div class="col align-self-center time_point" >
+                        <p style="font-size: 20px"><b>Start Date:</b> {{ item.startdate}}</p>
+                        <p style="font-size: 20px"><b>End Date:</b> {{ item.enddate}}</p>
+                        <p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
+                        <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>
+            </div>
+                    </a>
+                    <br>
+            {% endfor %}
+            <h1 class="text-center"> Functioning Evaluation Time Points</h1>
+            {% for item in time_point_after %}
+                <a href="/Patient_Time_Point_Info/{{ item.timepointnum }}" style="text-decoration:none">
+                <div class="col align-self-center time_point" >
+                    <p style="font-size: 20px"><b>Start Date:</b> {{ item.startdate}}</p>
+                    <p style="font-size: 20px"><b>End Date:</b> {{ item.enddate}}</p>
+                    <p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
+                    <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>
+                </div>
+                </a>
+                    <br>
+
+            {% endfor %}
             </div>
         </div>
         </div>
@@ -110,27 +127,31 @@ new Chart("PLS_Table", {
   data: {
     labels: xValues,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+        label: 'Daily Average',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: plsAvgValues
     },
-        {
+        {label: 'Daily Max',
       fill: false,
       lineTension: 0,
-      backgroundColor: "rgb(255,147,147)",
-      borderColor: "rgba(0,0,255,0.1)",
+      borderColor: "rgb(199,57,57)",
       data: plsMaxValues
+
     }
     ]
   },
   options: {
-    legend: {display: false},
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 0, max:10}}],
+            yAxes: [{ticks: {min: 0, max: 10},}]
+        },
+        title: {
+            display: true,
+            text: 'Phantom Limb Pain Scale'
+        }
     }
-  }
 });
 
 new Chart("RLS_Table", {
@@ -138,27 +159,31 @@ new Chart("RLS_Table", {
   data: {
     labels: xValues,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+      label: 'Daily Average',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: rlsAvgValues
     },
         {
+      label: 'Daily Max',
       fill: false,
       lineTension: 0,
-      backgroundColor: "rgb(255,147,147)",
-      borderColor: "rgba(0,0,255,0.1)",
+      borderColor: "rgb(199,57,57)",
       data: rlsMaxValues
     }
     ]
   },
   options: {
-    legend: {display: false},
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 0, max:10}}],
+            yAxes: [{ticks: {min: 0, max: 10},}]
+        },
+        title: {
+            display: true,
+            text: 'Residual Limb Pain Scale'
+        }
     }
-  }
 });
 
 new Chart("SCS_Table", {
@@ -166,27 +191,31 @@ new Chart("SCS_Table", {
   data: {
     labels: xValues,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+     label: 'Daily Average',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: scsAvgValues
     },
         {
+      label: 'Daily Max',
       fill: false,
       lineTension: 0,
-      backgroundColor: "rgb(255,147,147)",
-      borderColor: "rgba(0,0,255,0.1)",
+      borderColor: "rgb(199,57,57)",
       data: scsMaxValues
     }
     ]
   },
-  options: {
-    legend: {display: false},
+   options: {
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 0, max:10}}],
+            yAxes: [{ticks: {min: 0, max: 10},}]
+        },
+        title: {
+            display: true,
+            text: 'Socket Comfort Score'
+        }
     }
-  }
 });
 
 const pmValues = [20,27,33,29,28,24,10,25,32,15,25];
@@ -196,19 +225,23 @@ new Chart("PM_Table", {
   data: {
     labels: x2Values,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+       label: 'Plus-M Score',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: pmValues
     }]
   },
   options: {
-    legend: {display: false},
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 7, max:35}}],
+           yAxes: [{ticks: {min: 7, max:35}}],
+        },
+        title: {
+            display: false,
+            text: 'Plus-M Score'
+        }
     }
-  }
 });
 
 const ANPValues = [21,23,38,22,38,34,26,25,32,15,25];
@@ -218,19 +251,23 @@ new Chart("ANP_Table", {
   data: {
     labels: x2Values,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+       label: 'AmpNoPro Scores',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: ANPValues
     }]
   },
   options: {
-    legend: {display: false},
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 0, max:43}}],
+            yAxes: [{ticks: {min: 0, max:43}}],
+        },
+        title: {
+            display: false,
+            text: 'AmpNoPro Scores '
+        }
     }
-  }
 });
 
 const UAGValues = [10,10,10,10,10,10,10,10,10,10,10];
@@ -240,19 +277,23 @@ new Chart("UAG_Table", {
   data: {
     labels: x2Values,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+      label: 'Up and Go Time',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: UAGValues
     }]
   },
-  options: {
-    legend: {display: false},
+ options: {
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 0, max:20}}],
+           yAxes: [{ticks: {min: 0, max:20}}]
+        },
+        title: {
+            display: false,
+            text: 'Up and Go Time'
+        }
     }
-  }
 });
 
 
@@ -263,19 +304,23 @@ new Chart("WT_Table", {
   data: {
     labels: x2Values,
     datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
+      label: '6 Minute Walk Test Score',
+        fill: false,
+        lineTension: 0,
+      borderColor: "rgba(0,0,255,1.0)",
       data: WTValues
     }]
   },
-  options: {
-    legend: {display: false},
+ options: {
+    legend: {display: true},
     scales: {
-      yAxes: [{ticks: {min: 0, max:10}}],
+            yAxes: [{ticks: {min: 0, max: 10},}]
+        },
+        title: {
+            display: false,
+            text: '6 Minute Walk Test Score'
+        }
     }
-  }
 });
 </script>
 
