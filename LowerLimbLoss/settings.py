@@ -76,13 +76,16 @@ WSGI_APPLICATION = 'LowerLimbLoss.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
+'default': {
+        'ENGINE': 'sql_server.pyodbc',
         'NAME': 'llrc_database',
         'USER': 'LLRCadmin',
         'PASSWORD': 'LLRCpasswordPsu@',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'HOST': 'llrc.database.windows.net',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 18 for SQL Server',
+        },
     }
 }
 
