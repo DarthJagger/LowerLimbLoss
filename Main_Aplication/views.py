@@ -426,7 +426,7 @@ def Admin_Create_Provider(request):
                 priorProviders = Providers.objects.filter(email=email)
                 if (priorPatients.exists() or priorProviders.exists() or (not (password == password_confirm))):  # Check to see if the email is in use
                     messages.success(request, "Sign Up Unsuccessful")
-                    return redirect('/Admin')
+                    return render(request, "Admin_Create_Provider.html")
                 else:
                     pname = request.POST["pname"]
                     phone_number = request.POST["phone_number"]
@@ -441,10 +441,10 @@ def Admin_Create_Provider(request):
                     user = User.objects.create_user(username, email, password)  # Create a new user in Django
                     user.save()  # Creates a user in the django users database corresponding to the Patient
                     user.groups.add(group)
-                    return redirect('/Admin')
+                    return redirect('/admin')
             else:
                 return render(request, "Admin_Create_Provider.html")
         except ObjectDoesNotExist:
-            return redirect('/Admin')
+            return render(request, "Admin_Create_Provider.html")
     else:
-        return redirect('/Admin')
+        return redirect('/admin')
