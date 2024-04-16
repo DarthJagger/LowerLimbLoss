@@ -30,34 +30,26 @@ def SignIn(request):
         if(Patients.objects.filter(email=inputEmail).exists()):
             try:
                 userPatient = Patients.objects.get(email=inputEmail)  # Find the patient corresponding to the email
-                systemPassword = userPatient.ppassword  # Obtain the patient password in the database
-                if (inputPassword == systemPassword):  # Check that the password put into the login is the same as the database
-                    id = userPatient.patient_id  # Obtain the patient ID
-                    username = "Patient_" + str(id)
-                    user = authenticate(request, username=username, password=inputPassword)  # Authenticate the patient as a user
-                    if user is not None:
-                        login(request, user)  # Log the user into the website if the user is correct
-                        return redirect('/home')
-                    else:  # error for patients who don't have user account
-                        messages.success(request, "Login Unsuccessful")
-                else:  # error for when the password is incorrect
+                id = userPatient.patient_id  # Obtain the patient ID
+                username = "Patient_" + str(id)
+                user = authenticate(request, username=username, password=inputPassword)  # Authenticate the patient as a user
+                if user is not None:
+                    login(request, user)  # Log the user into the website if the user is correct
+                    return redirect('/home')
+                else:  # error for patients who don't have user account
                     messages.success(request, "Login Unsuccessful")
             except Patient.DoesNotExist:
                 messages.success(request, "Login Unsuccessful")
         elif(Providers.objects.filter(email=inputEmail).exists()):
             try:
                 userProvider = Providers.objects.get(email=inputEmail)  # Find the provider corresponding to the email
-                systemPassword = userProvider.ppassword  # Obtain the provider password in the database
-                if (inputPassword == systemPassword):  # Check that the password put into the login is the same as the database
-                    id = userProvider.provider_id  # Obtain the provider ID
-                    username = "Provider" + str(id)
-                    user = authenticate(request, username=username, password=inputPassword)  # Authenticate the provider as a user
-                    if user is not None:
-                        login(request, user)  # Log the user into the website if the user is correct
-                        return redirect('/Provider')
-                    else:  # error for providers who don't have user account
-                        messages.success(request, "Login Unsuccessful")
-                else:  # error for when the password is incorrect
+                id = userProvider.provider_id  # Obtain the provider ID
+                username = "Provider" + str(id)
+                user = authenticate(request, username=username, password=inputPassword)  # Authenticate the provider as a user
+                if user is not None:
+                    login(request, user)  # Log the user into the website if the user is correct
+                    return redirect('/Provider')
+                else:  # error for providers who don't have user account
                     messages.success(request, "Login Unsuccessful")
             except Provider.DoesNotExist:
                 messages.success(request, "Login Unsuccessful")
@@ -81,7 +73,7 @@ def SignUp(request):
             # Generate a new form with only the needed data
             pname = request.POST["pname"]
             phone_number = request.POST["phone_number"]
-            patient = Patients.objects.create(pname=pname, email=email, phone_number=phone_number, ppassword=password)
+            patient = Patients.objects.create(pname=pname, email=email, phone_number=phone_number)
             '''if(patient.is_valid()):  # Check if the generated form is valid
                 form.save()  # Creates a provider in the database
             else:  # Display an error if the form was unable to be created
@@ -440,7 +432,7 @@ def Admin_Create_Provider(request):
                     phone_number = request.POST["phone_number"]
                     specialty = request.POST["specialty"]
                     organization = request.POST["organization"]
-                    provider = Providers.objects.create(pname=pname, phone_number=phone_number, email=email, specialty=specialty, organization=organization, password=password)
+                    provider = Providers.objects.create(pname=pname, phone_number=phone_number, email=email, specialty=specialty, organization=organization)
                     userTemp = Providers.objects.get(email=email)
                     group = Group.objects.get(name="Provider")
                     id = userTemp.provider_id  # TODO: Modifier to separate between Patient and Provider users (Later signup code)
