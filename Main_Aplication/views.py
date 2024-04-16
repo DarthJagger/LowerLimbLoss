@@ -162,7 +162,62 @@ def Patient_Authorize(request):
 @login_required
 @user_passes_test(is_patient)
 def Patient_Authorizations(request):
-    return render(request, 'Patient_Authorizations.html')
+    if request.user.is_authenticated:
+        try:
+            patient_id = request.user.username[8:]
+            authorizations = Authorizations.objects.filter(patient_id=patient_id, astatus='A')
+            providers = []
+            for authorization in authorizations:
+                providers.append(authorization.provider)
+            authorizationRequests = Authorizations.objects.filter(patient_id=patient_id, astatus='R')
+            requests = []
+            for authorization in authorizationRequests:
+                requests.append(authorization.provider)
+            return render(request, 'Patient_Authorizations.html', {'providers': providers, 'requests': requests})
+        except ObjectDoesNotExist:
+            print("Error")
+            messages.success(request, 'Error with Viewing Authorizations')
+            return redirect('/home')
+    else:
+        return redirect('/SignIn')
+
+@login_required
+@user_passes_test(is_patient)
+def Patient_Provider_Info(request, provider_id):
+    if request.user.is_authenticated:
+        try:
+            provider = Providers.objects.get(provider_id=provider_id)
+            return render(request, 'Patient_Provider_Info.html',{'provider': provider})
+        except ObjectDoesNotExist:
+            messages.success(request, 'Error with Viewing Authorized Provider')
+            return redirect('/Patient_Authorizations')
+    else:
+        return redirect('/SignIn')
+
+@login_required
+@user_passes_test(is_patient)
+def Patient_Auth_Request_Info(request, provider_id):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            try:
+                patient_id = request.user.username[8:]
+                authorization = Authorizations.objects.get(patient_id=patient_id, provider=provider_id)
+                authorization.astatus = 'A'
+                authorization.save()
+                messages.success(request, 'Patient Successfully Authorized')
+                return redirect('/Patient_Authorizations')
+            except ObjectDoesNotExist:
+                messages.success(request, 'Error with Authorizing Provider')
+                return redirect('/Patient_Authorizations')
+        else:
+            try:
+                provider = Providers.objects.get(provider_id=provider_id)
+                return render(request, 'Patient_Auth_Request_Info.html',{'provider': provider})
+            except ObjectDoesNotExist:
+                messages.success(request, 'Error with Viewing Requesting Provider')
+                return redirect('/Patient_Authorizations')
+    else:
+        return redirect('/SignIn')
 
 @login_required
 @user_passes_test(is_patient)
@@ -367,4 +422,37 @@ def Provider_TimedGo_Test(request):
 def Provider_6Min_Test(request):
     return render(request, "Provider_6Min_Test.html")
 
-
+@login_required
+def Admin_Create_Provider(request):
+    if request.user.is_staff:
+        try:
+            if request.method == "POST":
+                email = request.POST["email"]
+                password = request.POST["ppassword"]
+                password_confirm = request.POST["password_confirm"]
+                priorPatients = Patients.objects.filter(email=email)
+                priorProviders = Providers.objects.filter(email=email)
+                if (priorPatients.exists() or priorProviders.exists() or (not (password == password_confirm))):  # Check to see if the email is in use
+                    messages.success(request, "Sign Up Unsuccessful")
+                    return redirect('/Admin')
+                else:
+                    pname = request.POST["pname"]
+                    phone_number = request.POST["phone_number"]
+                    specialty = request.POST["specialty"]
+                    organization = request.POST["organization"]
+                    provider = Providers.objects.create(pname=pname, phone_number=phone_number, email=email, specialty=specialty, organization=organization, password=password)
+                    userTemp = Providers.objects.get(email=email)
+                    group = Group.objects.get(name="Provider")
+                    id = userTemp.provider_id  # TODO: Modifier to separate between Patient and Provider users (Later signup code)
+                    username = "Provider" + str(
+                        id)  # Construct a backend username that starts with Patient for patients
+                    user = User.objects.create_user(username, email, password)  # Create a new user in Django
+                    user.save()  # Creates a user in the django users database corresponding to the Patient
+                    user.groups.add(group)
+                    return redirect('/Admin')
+            else:
+                return render(request, "Admin_Create_Provider.html")
+        except ObjectDoesNotExist:
+            return redirect('/Admin')
+    else:
+        return redirect('/Admin')

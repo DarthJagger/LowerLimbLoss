@@ -25,11 +25,15 @@ urlpatterns = [
     path("Patient_Create_Timepoint", views.Patient_Create_Timepoint, name="Navigation"),
     path("Patient_Create_Authorization", views.Patient_Authorize, name="Navigation"),
     path("Patient_Authorizations", views.Patient_Authorizations, name="Navigation"),
+    path("Patient_Provider_Info/<int:provider_id>", views.Patient_Provider_Info, name="Navigation"),
+    path("Patient_Auth_Request_Info/<int:provider_id>", views.Patient_Auth_Request_Info, name="Navigation"),
 
     path("Provider_AmpPro_Survey", views.Provider_AmpPro_Survey , name="Navigation"),
     path("Provider_AmpNoPro_Survey", views.Provider_AmpNoPro_Survey , name="Navigation"),
     path("Provider_TimedGo_Test", views.Provider_TimedGo_Test , name="Navigation"),
     path("Provider_6Min_Test", views.Provider_6Min_Test , name="Navigation"),
+
+    path("Admin_Create_Provider",views.Admin_Create_Provider , name="Navigation")
 
 ]
 

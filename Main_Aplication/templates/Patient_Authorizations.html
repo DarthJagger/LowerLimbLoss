@@ -1,9 +1,57 @@
 {% extends "Patient_page_template.html" %}
 
+{% block title %} Patient Authorizations {% endblock %}
+
 {% block header %}
     <h1>Authorizations</h1>
 {% endblock %}
 
 {% block content %}
-    <P>Placeholder Text for Authorizations Page</P>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="container-md">
+        <h2 class="text-center">Authorized Providers</h2><br>
+        <table id = "providerTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
+            <tr>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Provider</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Specialty</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Organization</th>
+            </tr>
+            {% for provider in providers %}
+                <tr onclick="window.location.href='/Patient_Provider_Info/{{ provider.provider_id }}';" style="cursor: pointer;">
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.pname }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.email }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.specialty }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.organization }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br><br><br>
+    <div class="container-md">
+        <h2 class="text-center">Providers requesting Authorization</h2><br>
+        <table id = "requestTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
+            <tr>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Provider</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Specialty</th>
+            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Organization</th>
+            </tr>
+            {% for providerR in requests %}
+                <tr onclick="window.location.href='/Patient_Auth_Request_Info/{{ providerR.provider_id }}';" style="cursor: pointer;">
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.pname }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.email }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.specialty }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.organization }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "Patient_page_template.html" %}
+
+{% block title %} Authorized Provider {% endblock %}
+
+{% block header %}
+    <h1>Authorized Provider</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container-lg">
+    <div class="row justify-content-center" style="padding: 15px;">
+        {% if provider %}
+            <div class="col-9 align-self-center">
+                <p style="font-size: 20px"><b>Provider: </b> {{ provider.pname }}</p>
+                <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
+                    <li><b>Phone number: </b> {{ provider.phone_number}} </li>
+                    <li><b>Email: </b> {{ provider.email}} </li>
+                    <li><b>Specialty: </b> {{ provider.specialty }}</li>
+                    <li><b>Organization: </b> {{ provider.organization}} </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
