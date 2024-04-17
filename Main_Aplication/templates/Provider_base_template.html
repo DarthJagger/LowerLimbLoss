@@ -27,7 +27,7 @@
 <div class="row">
 
 <div class="col-5 align-self-start">
-    <img style="align-content: start" src="/static/Health_logo.png" class="img-fluid" alt="Responsive image">
+    <img style="align-content: start" src="{% static 'Health_logo.png' %}" class="img-fluid" alt="Responsive image">
 </div>
 <div class="col-12">
     {% block header %}
@@ -68,11 +68,11 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Prosthetic Rehabilitation</a>
                 <div class="dropdown-menu bg-dark" >
-                    <a href="{% url 'Provider_AmpPro_Survey' patient_email=patient.email%}" class="dropdown-item text-light">1. AmpPro Survey</a>
-                    <a href="{% url 'Provider_AmpNoPro_Survey' patient_email=patient.email%}" class="dropdown-item text-light">2. AmpNoPro Survey</a>
-                    <a href="{% url 'Provider_TimedGo_Test' patient_email=patient.email%}" class="dropdown-item text-light">3. Timed Up & Go</a>
-                    <a href="{% url 'Provider_6Min_Test' patient_email=patient.email%}" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
-                    <a href="{% url 'Provider_PlusM_Score' patient_email=patient.email%}" class="dropdown-item text-light">5. Plus M Score</a>
+                    <a href="/Provider_AmpPro_Survey/&lt;str:patient_email&gt;/" class="dropdown-item text-light">1. AmpPro Survey</a>
+                    <a href="/Provider_AmpNoPro_Survey/&lt;str:patient_email&gt;/" class="dropdown-item text-light">2. AmpNoPro Survey</a>
+                    <a href="/Provider_TimedGo_Test/&lt;str:patient_email&gt;/" class="dropdown-item text-light">3. Timed Up & Go</a>
+                    <a href="/Provider_6Min_Test/&lt;str:patient_email&gt;/" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
+                    <a href="/Provider_PlusM_Score/&lt;str:patient_email&gt;/" class="dropdown-item text-light">5. Plus M Score</a>
                 </div>
             </li>
             <!--<li class="nav-item">
