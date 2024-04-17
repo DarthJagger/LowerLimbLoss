@@ -22,6 +22,7 @@
     </style>
 </head>
 <body>
+{% load static %}
 <div class="container-fluid header">
 <div class="row">
 
@@ -67,11 +68,11 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Prosthetic Rehabilitation</a>
                 <div class="dropdown-menu bg-dark" >
-                    <a href="/Provider_AmpPro_Survey/&lt;str:patient_email&gt;/" class="dropdown-item text-light">1. AmpPro Survey</a>
-                    <a href="/Provider_AmpNoPro_Survey/&lt;str:patient_email&gt;/" class="dropdown-item text-light">2. AmpNoPro Survey</a>
-                    <a href="/Provider_TimedGo_Test/&lt;str:patient_email&gt;/" class="dropdown-item text-light">3. Timed Up & Go</a>
-                    <a href="/Provider_6Min_Test/&lt;str:patient_email&gt;/" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
-                    <a href="/Provider_PlusM_Score/&lt;str:patient_email&gt;/" class="dropdown-item text-light">5. Plus M Score</a>
+                    <a href="{% url 'Provider_AmpPro_Survey' patient_email=patient.email%}" class="dropdown-item text-light">1. AmpPro Survey</a>
+                    <a href="{% url 'Provider_AmpNoPro_Survey' patient_email=patient.email%}" class="dropdown-item text-light">2. AmpNoPro Survey</a>
+                    <a href="{% url 'Provider_TimedGo_Test' patient_email=patient.email%}" class="dropdown-item text-light">3. Timed Up & Go</a>
+                    <a href="{% url 'Provider_6Min_Test' patient_email=patient.email%}" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
+                    <a href="{% url 'Provider_PlusM_Score' patient_email=patient.email%}" class="dropdown-item text-light">5. Plus M Score</a>
                 </div>
             </li>
             <!--<li class="nav-item">
@@ -171,7 +172,7 @@ patients complete their journey across the care delivery steps in a timely and e
 
             </div>
             <div class="col-lg-5 ">
-                    <img  src="/static/HomepageImage.png" class="img-fluid mx-auto" alt="Responsive image">
+                    <img  src="{% static 'HomepageImage.png' %}" class="img-fluid mx-auto" alt="Responsive image">
             </div>
 
         </div>
@@ -182,70 +183,70 @@ patients complete their journey across the care delivery steps in a timely and e
         <div class="col-1"></div>
         <div class="col-2">
             <!-- needs to be changed to verify sign in-->
-            <a href="/Provider_Postsurgical_Stabilization">
-            <img style="align-content: center" src="/static/Hori_PostsurgicalStabilization.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Postsurgical_Stabilization">
+            <img style="align-content: center" src="{% static 'Hori_PostsurgicalStabilization.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Preprosthetic_Rehabilitation">
-            <img style="align-content: center" src="/static/Hori_Pre-prostheticRehab.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Preprosthetic_Rehabilitation">
+            <img style="align-content: center" src="{% static 'Hori_Pre-prostheticRehab.png' %}" class="w-100" alt="Responsive image">
         </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Limb_Healing">
-            <img style="align-content: center" src="/static/Hori_LimbHeal.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Limb_Healing">
+            <img style="align-content: center" src="{% static 'Hori_LimbHeal.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Prosthetic_Fitting">
-            <img style="align-content: center" src="/static/Hori_ProstheticFitting.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Prosthetic_Fitting">
+            <img style="align-content: center" src="{% static 'Hori_ProstheticFitting.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Prosthetic_Rehabilitation">
-            <img style="align-content: center" src="/static/Hori_ProstheticRehab.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Prosthetic_Rehabilitation">
+            <img style="align-content: center" src="{% static 'Hori_ProstheticRehab.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
     </div>
     <div class="row">
         <div class="col-2">
             <!-- needs to be changed to verify signin and to correct time point -->
-            <a href="/Provider_Step_Time_Points/Surgery">
-            <img style="align-content: center" src="/static/Hori_Surgery.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Step_Time_Points/Surgery">
+            <img style="align-content: center" src="{% static 'Hori_Surgery.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin and to correct time point -->
-            <a href="/Provider_Step_Time_Points/Admission">
-            <img style="align-content: center" src="/static/Hori_Admission.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Step_Time_Points/Pre-Prosthetic Admission">
+            <img style="align-content: center" src="{% static 'Hori_Admission.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin and to correct time point -->
-            <a href="/Provider_Step_Time_Points/Discharge">
-            <img style="align-content: center" src="/static/Hori_Discharge.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Step_Time_Points/Pre-Prosthetic Discharge">
+            <img style="align-content: center" src="{% static 'Hori_Discharge.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin and to correct time point -->
-            <a href="/Provider_Step_Time_Points/Functioning Evaluation">
-            <img style="align-content: center" src="/static/Hori_FunctioningEval.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Step_Time_Points/Functioning Evaluation">
+            <img style="align-content: center" src="{% static  'Hori_FunctioningEval.png'%}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin and to correct time point -->
-            <a href="/Provider_Step_Time_Points/Prosthetic Admission">
-            <img style="align-content: center" src="/static/Hori_Admission.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Step_Time_Points/Prosthetic Admission">
+            <img style="align-content: center" src="{% static 'Hori_Admission.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-2">
             <!-- needs to be changed to verify signin and to correct time point -->
-            <a href="/Provider_Step_Time_Points/Prosthetic Discharge">
-            <img style="align-content: center" src="/static/Hori_Discharge.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Step_Time_Points/Prosthetic Discharge">
+            <img style="align-content: center" src="{% static 'Hori_Discharge.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
     </div>
@@ -277,16 +278,16 @@ patients complete their journey across the care delivery steps in a timely and e
             </div>
                 <div class="col-7">
                     <!-- needs to be changed to verify signin and to correct time point -->
-                    <a href="/Provider_Step_Time_Points/Surgery">
-                    <img style="align-content: center" src="/static/Vert_Surgery.png" class="w-100" alt="Responsive image">
+                    <a href="/Patient_Step_Time_Points/Surgery">
+                    <img style="align-content: center" src="{%  static 'Vert_Surgery.png' %}" class="w-100" alt="Responsive image">
                     </a>
                 </div>
         </div>
     <div class="row">
         <div class="col-3">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Postsurgical_Stabilization">
-            <img style="align-content: center" src="/static/Vert_PostsurgicalStablilization.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Postsurgical_Stabilization">
+            <img style="align-content: center" src="{% static 'Vert_PostsurgicalStablilization.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-9">
@@ -303,8 +304,8 @@ patients complete their journey across the care delivery steps in a timely and e
             </div>
                 <div class="col-7">
                     <!-- needs to be changed to verify signin and to correct time point -->
-                    <a href="/Provider_Step_Time_Points/Admission">
-                    <img style="align-content: center" src="/static/Vert_Admission.png" class="w-100" alt="Responsive image">
+                    <a href="/Patient_Step_Time_Points/Pre-Prosthetic Admission">
+                    <img style="align-content: center" src="{% static 'Vert_Admission.png' %}" class="w-100" alt="Responsive image">
                     </a>
                 </div>
         </div>
@@ -312,8 +313,8 @@ patients complete their journey across the care delivery steps in a timely and e
     <div class="row">
         <div class="col-3" >
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Preprosthetic_Rehabilitation">
-            <img style="align-content: center;object-fit: cover;" src="/static/Vert_Pre-prosthetic.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Preprosthetic_Rehabilitation">
+            <img style="align-content: center;object-fit: cover;" src="{% static 'Vert_Pre-prosthetic.pn' %}g" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-9" >
@@ -332,8 +333,8 @@ patients complete their journey across the care delivery steps in a timely and e
             </div>
                 <div class="col-7">
                     <!-- needs to be changed to verify signin and to correct time point -->
-                    <a href="/Provider_Step_Time_Points/Discharge">
-                        <img style="align-content: center" src="/static/Vert_Discharge.png" class="w-100" alt="Responsive image">
+                    <a href="/Patient_Step_Time_Points/Pre-Prosthetic Discharge">
+                        <img style="align-content: center" src="{% static 'Vert_Discharge.png' %}" class="w-100" alt="Responsive image">
                     </a>
                 </div>
         </div>
@@ -341,8 +342,8 @@ patients complete their journey across the care delivery steps in a timely and e
     <div class="row">
         <div class="col-3">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Limb_Healing">
-            <img style="align-content: center" src="/static/Vert_LimbHeal.png" class="h-auto w-100" alt="Responsive image">
+            <a href="/Patient_Limb_Healing">
+            <img style="align-content: center" src="{% static 'Vert_LimbHeal.png' %}" class="h-auto w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-9">
@@ -361,8 +362,8 @@ patients complete their journey across the care delivery steps in a timely and e
             </div>
                 <div class="col-7">
                     <!-- needs to be changed to verify signin and to correct time point -->
-                    <a href="/Provider_Step_Time_Points/Functioning Evaluation">
-                    <img style="align-content: center" src="/static/Vert_FunctioningEval.png" class="w-100" alt="Responsive image">
+                    <a href="/Patient_Step_Time_Points/Functioning Evaluation">
+                    <img style="align-content: center" src="{% static 'Vert_FunctioningEval.png' %}" class="w-100" alt="Responsive image">
                     </a>
                 </div>
         </div>
@@ -370,8 +371,8 @@ patients complete their journey across the care delivery steps in a timely and e
     <div class="row">
         <div class="col-3">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Prosthetic_Fitting">
-            <img style="align-content: center" src="/static/Vert_ProstheticFitting.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Prosthetic_Fitting">
+            <img style="align-content: center" src="{% static 'Vert_ProstheticFitting.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-9">
@@ -388,16 +389,16 @@ patients complete their journey across the care delivery steps in a timely and e
             </div>
                 <div class="col-7">
                     <!-- needs to be changed to verify signin and to correct time point -->
-                    <a href="/Provider_Step_Time_Points/Prosthetic Admission">
-                    <img style="align-content: center" src="/static/Vert_Admission.png" class="w-100" alt="Responsive image">
+                    <a href="/Patient_Step_Time_Points/Prosthetic Admission">
+                    <img style="align-content: center" src="{% static 'Vert_Admission.png' %}" class="w-100" alt="Responsive image">
                     </a>
                 </div>
         </div>
     <div class="row">
         <div class="col-3">
             <!-- needs to be changed to verify signin -->
-            <a href="/Provider_Prosthetic_Rehabilitation">
-            <img style="align-content: center" src="/static/Vert_ProstheticRehab.png" class="w-100" alt="Responsive image">
+            <a href="/Patient_Prosthetic_Rehabilitation">
+            <img style="align-content: center" src="{% static 'Vert_ProstheticRehab.png' %}" class="w-100" alt="Responsive image">
             </a>
         </div>
         <div class="col-9">
@@ -415,8 +416,8 @@ patients complete their journey across the care delivery steps in a timely and e
             </div>
                 <div class="col-7">
                     <!-- needs to be changed to verify signin and to correct time point -->
-                    <a href="/Provider_Step_Time_Points/Prosthetic Discharge">
-                    <img style="align-content: center" src="/static/Vert_Discharge.png" class="w-100" alt="Responsive image">
+                    <a href="/Patient_Step_Time_Points/Prosthetic Discharge">
+                    <img style="align-content: center" src="{% static 'Vert_Discharge.png' %}" class="w-100" alt="Responsive image">
                     </a>
                 </div>
         </div>

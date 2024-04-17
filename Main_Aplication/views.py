@@ -423,27 +423,27 @@ def Provider(request):
 
 @login_required
 @user_passes_test(is_provider)
-def Provider_AmpPro_Survey(request):
+def Provider_AmpPro_Survey(request, patient_email):
     return render(request, "Provider_AmpPro_Survey.html")
 
 @login_required
 @user_passes_test(is_provider)
-def Provider_AmpNoPro_Survey(request):
+def Provider_AmpNoPro_Survey(request, patient_email):
     return render(request, "Provider_AmpNoPro_Survey.html")
 
 @login_required
 @user_passes_test(is_provider)
-def Provider_TimedGo_Test(request):
+def Provider_TimedGo_Test(request, patient_email):
     return render(request, "Provider_TimedGo_Test.html")
 
 @login_required
 @user_passes_test(is_provider)
-def Provider_6Min_Test(request):
+def Provider_6Min_Test(request, patient_email):
     return render(request, "Provider_6Min_Test.html")
 
 @login_required
 @user_passes_test(is_provider)
-def Provider_PlusM_Score(request):
+def Provider_PlusM_Score(request, patient_email):
     return render(request, "Provider_PlusM_Score.html")
 
 @login_required
