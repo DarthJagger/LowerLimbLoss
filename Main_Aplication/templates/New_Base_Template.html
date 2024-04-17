@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} Home {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <style>
+        body {margin:0;font-family:"Sitka Display"}
+
+        .header {
+            background-color: rgb(1, 29, 66);
+            background-image: linear-gradient(rgb(0, 47, 135), rgb(1, 29, 66));
+            color: white;
+            padding: 20px;
+            font-size: 3vw;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container-fluid header">
+<div class="row">
+
+<div class="col-5 align-self-start">
+    <img style="align-content: start" src="/static/Health_logo.png" class="img-fluid" alt="Responsive image">
+</div>
+<div class="col-12">
+    {% block header %}
+    <h1 style="color: rgb(150,190, 230); text-align: end"> Limb Loss & Preservation Rehabilitation Continuum</h1>
+    {% endblock %}
+</div>
+</div>
+</div>
+
+<nav class="navbar navbar-expand-sm  navbar-dark sticky-top" style="background-color: rgb(0,0,0);">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+            {% block nav %}
+                
+            {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Authorizations</a>
+                  <div class="dropdown-menu bg-dark" >
+                      <a href="/Provider_Create_Authorization" class="dropdown-item text-light">Authorize Provider</a>
+                      <a href="/Provider_Authorizations" class="dropdown-item text-light">Authorizations</a>
+                  </div>
+              </li>
+            {% endif %}
+        </ul>
+        {% if user.is_authenticated %}
+              <ul class="navbar-nav navbar-right">
+                      {% if user.is_authenticated %}
+                          <li class="nav-item">
+                              <!-- Eventually links to patient information page -->
+                              <span class="nav-link" >User: {{ user.email }}</span>
+                          </li>
+                      {% endif %}
+                  <li class="nav-item">
+                      <a href="/Logout" class="nav-link" >Sign Out</a>
+                  </li>
+              </ul>
+          {% else %}
+          <ul class="navbar-nav navbar-right">
+              <li class="nav-item">
+                  <a href="/SignIn" class="nav-link" >Sign In</a>
+              </li>
+              <li class="nav-item">
+                  <a href="/SignUp" class="nav-link " >Sign Up</a>
+              </li>
+          </ul>
+          {% endif %}
+          {% endblock %}
+      </div>
+    </div>
+  </nav>
+
+{% block content %}
+
+
+    <!-- Desktop homepage-->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row" style="padding: 25px">
+            <div class="col-7">
+                <h2 class="text-start " style="color: rgb(30, 64, 124)">
+                    <strong class="fw-bold"> The Patient Journey: </strong>
+                    From Amputation Surgery to Independence
+                </h2>
+                <br>
+                <h3 class="text-start " style="color: rgb(30, 64, 124)">
+                     Limb Loss Rehabilitation Continuum
+                </h3>
+                <p>
+                    The Penn State Health Limb Loss Rehabilitation Continuum (LLRC) is a structured framework to help
+patients complete their journey across the care delivery steps in a timely and effective manner.
+                </p>
+                <br>
+                <p >
+                    <strong > 1. Postsurgical stabilization</strong>
+                    (acute care hospital): postsurgical
+                    care is provided to ensure medical stability.
+                </p>
+                <p >
+                    <strong> 2. Pre-prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/
+                    outpatient therapy): independence in mobility and daily
+                    activities is achieved with use of assistive devices (e.g.,
+                    wheelchair or walker for lower limb loss).
+                </p>
+                <p >
+                    <strong> 3. Limb healing and maturation </strong>
+                    (surgeon and Physical
+                    Medicine and Rehabilitation clinic visits, outpatient therapy
+                    if needed): sutures are removed, scabs resolve, functional
+                    evaluation for prosthetic device prescription is completed.
+                </p>
+                <p >
+                    <strong> 4. Prosthetic fitting </strong>
+                    (through O&P clinic): prosthetic device is
+                    made and fitted to patient.
+                </p>
+                <p >
+                    <strong > 5. Prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/outpatient
+                    therapy): independence in mobility and daily activities is
+                    achieved with use of the prosthetic device.
+                </p>
+
+            </div>
+            <div class="col-lg-5 ">
+                    <img  src="/static/HomepageImage.png" class="img-fluid mx-auto" alt="Responsive image">
+            </div>
+
+        </div>
+        <h2 class="" style="color: rgb(30, 64, 124); text-align: center">
+            <strong class="fw-bold"> Steps and Timepoints:</strong>
+        </h2>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-2">
+            <!-- needs to be changed to verify sign in-->
+            <a href="/Provider_Postsurgical_Stabilization">
+            <img style="align-content: center" src="/static/Hori_PostsurgicalStabilization.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Preprosthetic_Rehabilitation">
+            <img style="align-content: center" src="/static/Hori_Pre-prostheticRehab.png" class="w-100" alt="Responsive image">
+        </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Limb_Healing">
+            <img style="align-content: center" src="/static/Hori_LimbHeal.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Prosthetic_Fitting">
+            <img style="align-content: center" src="/static/Hori_ProstheticFitting.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Prosthetic_Rehabilitation">
+            <img style="align-content: center" src="/static/Hori_ProstheticRehab.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <!-- needs to be changed to verify signin and to correct time point -->
+            <a href="/Provider_Step_Time_Points/Surgery">
+            <img style="align-content: center" src="/static/Hori_Surgery.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin and to correct time point -->
+            <a href="/Provider_Step_Time_Points/Admission">
+            <img style="align-content: center" src="/static/Hori_Admission.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin and to correct time point -->
+            <a href="/Provider_Step_Time_Points/Discharge">
+            <img style="align-content: center" src="/static/Hori_Discharge.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin and to correct time point -->
+            <a href="/Provider_Step_Time_Points/Functioning Evaluation">
+            <img style="align-content: center" src="/static/Hori_FunctioningEval.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin and to correct time point -->
+            <a href="/Provider_Step_Time_Points/Prosthetic Admission">
+            <img style="align-content: center" src="/static/Hori_Admission.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-2">
+            <!-- needs to be changed to verify signin and to correct time point -->
+            <a href="/Provider_Step_Time_Points/Prosthetic Discharge">
+            <img style="align-content: center" src="/static/Hori_Discharge.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+    </div>
+
+    </div>
+
+
+<!-- mobile homepage-->
+    <div class="container-fluid d-block d-lg-none">
+
+        <h2 class="" style="color: rgb(30, 64, 124); text-align: center">
+                    <strong class="fw-bold"> The Patient Journey: </strong>
+                    From Amputation Surgery to Independence
+                </h2>
+                <br>
+        <p style="text-align: center">
+            The Penn State Health Limb Loss Rehabilitation Continuum
+            (LLRC) is a structured framework to help
+            patients complete their journey across the care
+            delivery steps in a timely and effective manner.
+        </p>
+        <br>
+        <h2 class="" style="color: rgb(30, 64, 124); text-align: center">
+                    <strong class="fw-bold"> Steps and Timepoints:</strong>
+                </h2>
+        <div class="row">
+            <div class="col-2">
+                <p></p>
+            </div>
+                <div class="col-7">
+                    <!-- needs to be changed to verify signin and to correct time point -->
+                    <a href="/Provider_Step_Time_Points/Surgery">
+                    <img style="align-content: center" src="/static/Vert_Surgery.png" class="w-100" alt="Responsive image">
+                    </a>
+                </div>
+        </div>
+    <div class="row">
+        <div class="col-3">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Postsurgical_Stabilization">
+            <img style="align-content: center" src="/static/Vert_PostsurgicalStablilization.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-9">
+            <p >
+                <strong > 1. Postsurgical stabilization</strong>
+                (acute care hospital): postsurgical
+                care is provided to ensure medical stability.
+            </p>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-2">
+                <p></p>
+            </div>
+                <div class="col-7">
+                    <!-- needs to be changed to verify signin and to correct time point -->
+                    <a href="/Provider_Step_Time_Points/Admission">
+                    <img style="align-content: center" src="/static/Vert_Admission.png" class="w-100" alt="Responsive image">
+                    </a>
+                </div>
+        </div>
+
+    <div class="row">
+        <div class="col-3" >
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Preprosthetic_Rehabilitation">
+            <img style="align-content: center;object-fit: cover;" src="/static/Vert_Pre-prosthetic.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-9" >
+                <p >
+                    <strong> 2. Pre-prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/
+                    outpatient therapy): independence in mobility and daily
+                    activities is achieved with use of assistive devices (e.g.,
+                    wheelchair or walker for lower limb loss).
+                </p>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-2">
+                <p></p>
+            </div>
+                <div class="col-7">
+                    <!-- needs to be changed to verify signin and to correct time point -->
+                    <a href="/Provider_Step_Time_Points/Discharge">
+                        <img style="align-content: center" src="/static/Vert_Discharge.png" class="w-100" alt="Responsive image">
+                    </a>
+                </div>
+        </div>
+
+    <div class="row">
+        <div class="col-3">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Limb_Healing">
+            <img style="align-content: center" src="/static/Vert_LimbHeal.png" class="h-auto w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong> 3. Limb healing and maturation </strong>
+                    (surgeon and Physical
+                    Medicine and Rehabilitation clinic visits, outpatient therapy
+                    if needed): sutures are removed, scabs resolve, functional
+                    evaluation for prosthetic device prescription is completed.
+                </p>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-2">
+                <p></p>
+            </div>
+                <div class="col-7">
+                    <!-- needs to be changed to verify signin and to correct time point -->
+                    <a href="/Provider_Step_Time_Points/Functioning Evaluation">
+                    <img style="align-content: center" src="/static/Vert_FunctioningEval.png" class="w-100" alt="Responsive image">
+                    </a>
+                </div>
+        </div>
+
+    <div class="row">
+        <div class="col-3">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Prosthetic_Fitting">
+            <img style="align-content: center" src="/static/Vert_ProstheticFitting.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong> 4. Prosthetic fitting </strong>
+                    (through O&P clinic): prosthetic device is
+                    made and fitted to patient.
+                </p>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-2">
+                <p></p>
+            </div>
+                <div class="col-7">
+                    <!-- needs to be changed to verify signin and to correct time point -->
+                    <a href="/Provider_Step_Time_Points/Prosthetic Admission">
+                    <img style="align-content: center" src="/static/Vert_Admission.png" class="w-100" alt="Responsive image">
+                    </a>
+                </div>
+        </div>
+    <div class="row">
+        <div class="col-3">
+            <!-- needs to be changed to verify signin -->
+            <a href="/Provider_Prosthetic_Rehabilitation">
+            <img style="align-content: center" src="/static/Vert_ProstheticRehab.png" class="w-100" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-9">
+                <p >
+                    <strong > 5. Prosthetic rehabilitation </strong>
+                    (inpatient rehabilitation/outpatient
+                    therapy): independence in mobility and daily activities is
+                    achieved with use of the prosthetic device.
+                </p>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-2">
+                <p></p>
+            </div>
+                <div class="col-7">
+                    <!-- needs to be changed to verify signin and to correct time point -->
+                    <a href="/Provider_Step_Time_Points/Prosthetic Discharge">
+                    <img style="align-content: center" src="/static/Vert_Discharge.png" class="w-100" alt="Responsive image">
+                    </a>
+                </div>
+        </div>
+
+</div>
+
+
+{% endblock %}
+
+<div style="margin-bottom: 120px"></div>
+    <footer>
+        {% block footer %}
+        {% endblock %}
+    </footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "New_Base_Template.html" %}
+
+{% block header %}
+    
+{% endblock %}
+
+{% block content %}
+
+<div class="container-md">
+    {% if user.is_authenticated %}
+    <h1 class="text-center" style="padding: 20px">Welcome {{ user.email }}</h1><br>
+    {% endif %}
+    <h2 class="text-center">Authorized Patients</h2><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Name</th>
+                <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
+                <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Phone Number</th>
+                <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Information</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in confirmedPatients %}
+            <tr>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patient.pname }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patient.email }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patient.phone_number }}</td>
+                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;"><button class="view-info-btn" data-patient-email="{{ patient.email }}">View Info</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function()
+        {
+            var btns = document.querySelectorAll('.view-info-btn');
+            btns.forEach(function(btn)
+            {
+                btn.addEventListener('click', function()
+                {
+                    var patientEmail = this.getAttribute('data-patient-email');
+                    window.location.href = '/Provider_Home/' + patientEmail + '/';
+                });
+            });
+        });
+    </script>
+    
+
+</div>
+
+{% endblock %}

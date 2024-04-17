@@ -1,9 +1,10 @@
-{% extends "Base_Template.html" %}
+{% extends "Provider_base_Template.html" %}
 {% block title %} Provider's Homepage {% endblock %}
 
 
 
 {% block nav %}
+    <!--
     <li class="nav-item">
           <a class="nav-link active" href="/Provider">Home</a>
         </li>
@@ -14,9 +15,10 @@
             <a href="/Provider_AmpNoPro_Survey" class="dropdown-item text-light">2. AmpNoPro Survey</a>
             <a href="/Provider_TimedGo_Test" class="dropdown-item text-light">3. Timed Up & Go</a>
             <a href="/Provider_6Min_Test" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
+            <a href="/Provider_PlusM_Score" class="dropdown-item text-light">5. Plus M Score</a>
         </div>
     </li>
-    <!--<li class="nav-item">
+    <li class="nav-item">
           <a class="nav-link" href="/Patient_Time_Points">Upcoming Time Points</a>
     </li>
     <li class="nav-item">
@@ -24,13 +26,13 @@
     </li>
     <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)">Sensor Input</a>
-    </li>-->
+    </li>
 
     </ul>
     <ul class="navbar-nav navbar-right">
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <!-- Eventually links to patient information page -->
+                    Eventually links to patient information page
                     <span class="nav-link" >User: {{ user.email }}</span>
                 </li>
             {% endif %}
@@ -38,7 +40,7 @@
             <a href="/Logout" class="nav-link" >Sign Out</a>
         </li>
     </ul>
-
+-->
 {% endblock %}
 
 
