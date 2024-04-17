@@ -20,7 +20,7 @@
     {% for item in time_points %} <!-- Dynamic render all time_points from the list-->
     <a href="/Patient_Time_Point_Info/{{ item.timepointnum }}" style="text-decoration:none;color:rgb(0,0,0)">
         <div class="row justify-content-center" style="padding: 15px">
-            <div class="col-9 align-self-center" style="border-style:groove;border-color:rgb(173, 188, 204);background-color: rgb(173, 188, 204)">
+            <div class="col-9 align-self-center time_point" >
                 <h1 class="text-center"> {{ item.timepointtype }} Time Point</h1>
                 <p style="font-size: 20px"><b>Start Date:</b> {{ item.startdate}}</p>
                 <p style="font-size: 20px"><b>End Date:</b> {{ item.enddate}}</p>
