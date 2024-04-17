@@ -5,7 +5,7 @@ from .models import Patients, TimePoints, PatientEntries
 class NewPatientForm(forms.ModelForm):
     class Meta:
         model = Patients
-        fields = ['pname', 'phone_number', 'email', 'ppassword']
+        fields = ['pname', 'phone_number', 'email']
 
 class TimePointsForm(forms.ModelForm):
     class Meta:

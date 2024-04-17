@@ -13,7 +13,6 @@ class Patients(models.Model):
     pname = models.CharField(db_column='PName', max_length=255)  # Field name made lowercase.
     phone_number = models.CharField(db_column='Phone_Number', max_length=11, blank=True, null=True)  # Field name made lowercase.
     email = models.CharField(db_column='Email', unique=True, max_length=255, blank=True, null=True)  # Field name made lowercase.
-    ppassword = models.CharField(db_column='PPassword', max_length=255)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -27,7 +26,6 @@ class Providers(models.Model):
     email = models.CharField(db_column='Email', unique=True, max_length=255, blank=True, null=True)  # Field name made lowercase.
     specialty = models.CharField(db_column='Specialty', max_length=255, blank=True, null=True)  # Field name made lowercase.
     organization = models.CharField(db_column='Organization', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    ppassword = models.CharField(db_column='PPassword', max_length=255)  # Field name made lowercase.
 
     class Meta:
         managed = False
