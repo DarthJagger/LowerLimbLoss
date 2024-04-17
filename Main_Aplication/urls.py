@@ -26,11 +26,18 @@ urlpatterns = [
     path("Patient_Create_Authorization", views.Patient_Authorize, name="Navigation"),
     path("Patient_Authorizations", views.Patient_Authorizations, name="Navigation"),
 
-    path("Provider_AmpPro_Survey", views.Provider_AmpPro_Survey , name="Navigation"),
-    path("Provider_AmpNoPro_Survey", views.Provider_AmpNoPro_Survey , name="Navigation"),
-    path("Provider_TimedGo_Test", views.Provider_TimedGo_Test , name="Navigation"),
-    path("Provider_6Min_Test", views.Provider_6Min_Test , name="Navigation"),
-    path("Provider_PlusM_Score", views.Provider_PlusM_Score , name="Navigation"),
+    path("Provider_AmpPro_Survey/<str:patient_email>/", views.Provider_AmpPro_Survey , name="Navigation"),
+    path("Provider_AmpNoPro_Survey/<str:patient_email>/", views.Provider_AmpNoPro_Survey , name="Navigation"),
+    path("Provider_TimedGo_Test/<str:patient_email>/", views.Provider_TimedGo_Test , name="Navigation"),
+    path("Provider_6Min_Test/<str:patient_email>/", views.Provider_6Min_Test , name="Navigation"),
+    path("Provider_PlusM_Score/<str:patient_email>/", views.Provider_PlusM_Score , name="Navigation"),
+
+    path('Provider_Home/<str:patient_email>/', views.Provider_Home, name='provider_home'),
+    path("Provider_Postsurgical_Stabilization/<str:patient_email>/", views.Provider_Postsurgical_Stabilization, name="provider_postsurgical_stabilization"),
+    path("Provider_Preprosthetic_Rehabilitation/<str:patient_email>/", views.Provider_Preprosthetic_Rehabilitation, name="provider_preprosthetic_rehabilitation"),
+    path("Provider_Limb_Healing/<str:patient_email>/", views.Provider_Limb_Healing, name="provider_limb_healing"),
+    path("Provider_Prosthetic_Fitting/<str:patient_email>/", views.Provider_Prosthetic_Fitting, name="provider_prosthetic_fitting"),
+    path("Provider_Prosthetic_Rehabilitation/<str:patient_email>/", views.Provider_Prosthetic_Rehabilitation, name="provider_prosthetic_rehabilitation"),
 
 ]
 
