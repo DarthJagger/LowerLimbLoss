@@ -36,11 +36,12 @@
     </style>
 </head>
 <body >
+{% load static %}
 <div class="container-fluid header">
 <div class="row">
 
 <div class="col-5 align-self-start">
-    <img style="align-content: start" src="/static/Health_logo.png" class="img-fluid" alt="Responsive image">
+    <img style="align-content: start" src="{% static 'Health_logo.png' %}" class="img-fluid" alt="Responsive image">
 </div>
 <div class="col-12">
     {% block header %}
