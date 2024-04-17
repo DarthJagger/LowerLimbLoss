@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.utils import timezone
 from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
 from .models import Patients, Providers, TimePoints, PatientEntries, Authorizations
@@ -345,7 +345,10 @@ def Patient_Prosthetic_Rehabilitation(request):
 @login_required
 @user_passes_test(is_provider)
 def Provider(request):
-    return render(request, "Provider_Home.html")
+    provider_id = request.user.username[8:]
+    confirmedAuths = Authorizations.objects.filter(provider = provider_id, astatus = 'C')
+    confirmedPatients = [auth.patient for auth in confirmedAuths]
+    return render(request, "Provider_Table.html", {'provider': provider_id, 'confirmedPatients': confirmedPatients})
 
 @login_required
 @user_passes_test(is_provider)
@@ -373,3 +376,222 @@ def Provider_PlusM_Score(request):
     return render(request, "Provider_PlusM_Score.html")
 
 
+
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Postsurgical_Stabilization(request, patient_email):
+    if request.user.is_authenticated:
+        try:
+            # Retrieve patient information using the provided email
+            patient = get_object_or_404(Patients, email=patient_email)
+            # Retrieve patient entries for the specified patient
+            patient_entries = PatientEntries.objects.filter(patient_id=patient.patient_id).order_by('entrydate')
+            # Process patient entries and prepare data for rendering
+            xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+            plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+            plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+            rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+            rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+            scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+            scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+            return render(request, "Provider_Postsurgical_Stabilization.html", {'patient': patient, 'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})
+        except ObjectDoesNotExist: # Error in retrieving the patient entries
+            return redirect('/home')  # Redirect to home page if patient entries not found
+    else:
+        return redirect('/SignIn')
+    #if request.user.is_authenticated:
+    #    try:
+    #        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+    #        patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
+    #        xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+    #        plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+    #        plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+    #        rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+    #        rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+    #        scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+    #        scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+    #        #time_point = TimePoints.objects.get(patient_id=patient_id)
+    #        return render(request, "Provider_Postsurgical_Stabilization.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
+    #    except ObjectDoesNotExist: # Error in retrieving the patient entries
+    #        return redirect('/home')
+    #else:
+    #    return redirect('/SignIn')
+    ##return render(request, "Patient_Postsurgical_Stabilization.html")
+
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Preprosthetic_Rehabilitation(request, patient_email):
+    if request.user.is_authenticated:
+        try:
+            # Retrieve patient information using the provided email
+            patient = get_object_or_404(Patients, email=patient_email)
+            # Retrieve patient entries for the specified patient
+            patient_entries = PatientEntries.objects.filter(patient_id=patient.patient_id).order_by('entrydate')
+            # Process patient entries and prepare data for rendering
+            xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+            plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+            plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+            rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+            rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+            scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+            scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+            return render(request, "Provider_Preprosthetic_Rehabilitation.html", {'patient': patient, 'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})
+        except ObjectDoesNotExist: # Error in retrieving the patient entries
+            return redirect('/home')  # Redirect to home page if patient entries not found
+    else:
+        return redirect('/SignIn')
+    #if request.user.is_authenticated:
+    #    try:
+    #        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+    #        patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
+    #        xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+    #        plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+    #        plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+    #        rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+    #        rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+    #        scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+    #        scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+    #        #time_point = TimePoints.objects.get(patient_id=patient_id)
+    #        return render(request, "Provider_Preprosthetic_Rehabilitation.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
+    #    except ObjectDoesNotExist: # Error in retrieving the patient entries
+    #        return redirect('/home')
+    #else:
+    #    return redirect('/SignIn')
+    ##return render(request, "Patient_Preprosthetic_Rehabilitation.html")
+
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Limb_Healing(request, patient_email):
+    if request.user.is_authenticated:
+        try:
+            # Retrieve patient information using the provided email
+            patient = get_object_or_404(Patients, email=patient_email)
+            # Retrieve patient entries for the specified patient
+            patient_entries = PatientEntries.objects.filter(patient_id=patient.patient_id).order_by('entrydate')
+            # Process patient entries and prepare data for rendering
+            xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+            plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+            plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+            rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+            rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+            scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+            scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+            return render(request, "Provider_Limb_Healing.html", {'patient': patient, 'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})
+        except ObjectDoesNotExist: # Error in retrieving the patient entries
+            return redirect('/home')  # Redirect to home page if patient entries not found
+    else:
+        return redirect('/SignIn')
+    #if request.user.is_authenticated:
+    #    try:
+    #        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+    #        patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
+    #        xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+    #        plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+    #        plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+    #        rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+    #        rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+    #        scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+    #        scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+    #        #time_point = TimePoints.objects.get(patient_id=patient_id)
+    #        return render(request, "Provider_Limb_Healing.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
+    #    except ObjectDoesNotExist: # Error in retrieving the patient entries
+    #        return redirect('/home')
+    #else:
+    #    return redirect('/SignIn')
+    #return render(request, "Patient_Limb_Healing.html")
+
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Prosthetic_Fitting(request, patient_email):
+    if request.user.is_authenticated:
+        try:
+            # Retrieve patient information using the provided email
+            patient = get_object_or_404(Patients, email=patient_email)
+            # Retrieve patient entries for the specified patient
+            patient_entries = PatientEntries.objects.filter(patient_id=patient.patient_id).order_by('entrydate')
+            # Process patient entries and prepare data for rendering
+            xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+            plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+            plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+            rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+            rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+            scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+            scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+            return render(request, "Provider_Prosthetic_Fitting.html", {'patient': patient, 'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})
+        except ObjectDoesNotExist: # Error in retrieving the patient entries
+            return redirect('/home')  # Redirect to home page if patient entries not found
+    else:
+        return redirect('/SignIn')
+    #if request.user.is_authenticated:
+    #    try:
+    #        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+    #        patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
+    #        xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+    #        plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+    #        plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+    #        rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+    #        rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+    #        scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+    #        scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+    #        #time_point = TimePoints.objects.get(patient_id=patient_id)
+    #        return render(request, "Provider_Prosthetic_Fitting.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
+    #    except ObjectDoesNotExist: # Error in retrieving the patient entries
+    #        return redirect('/home')
+    #else:
+    #    return redirect('/SignIn')
+    ##return render(request, "Patient_Prosthetic_Fitting.html")
+
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Prosthetic_Rehabilitation(request, patient_email):
+    if request.user.is_authenticated:
+        try:
+            # Retrieve patient information using the provided email
+            patient = get_object_or_404(Patients, email=patient_email)
+            # Retrieve patient entries for the specified patient
+            patient_entries = PatientEntries.objects.filter(patient_id=patient.patient_id).order_by('entrydate')
+            # Process patient entries and prepare data for rendering
+            xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+            plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+            plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+            rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+            rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+            scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+            scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+            return render(request, "Provider_Prosthetic_Rehabilitation.html", {'patient': patient, 'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})
+        except ObjectDoesNotExist: # Error in retrieving the patient entries
+            return redirect('/home')  # Redirect to home page if patient entries not found
+    else:
+        return redirect('/SignIn')
+    #if request.user.is_authenticated:
+    #    try:
+    #        patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
+    #        patient_entries = PatientEntries.objects.filter(patient_id=patient_id).order_by('entrydate')
+    #        xValues = json.dumps([str(item.entrydate) for item in patient_entries])
+    #        plsAvgValues = json.dumps([int(item.phantom_limb_ps_avg) for item in patient_entries])
+    #        plsMaxValues = json.dumps([int(item.phantom_limb_ps_max) for item in patient_entries])
+    #        rlsAvgValues = json.dumps([int(item.residual_limb_ps_avg) for item in patient_entries])
+    #        rlsMaxValues = json.dumps([int(item.residual_limb_ps_max) for item in patient_entries])
+    #        scsAvgValues = json.dumps([int(item.socket_comfort_score_avg) for item in patient_entries])
+    #        scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
+    #        #time_point = TimePoints.objects.get(patient_id=patient_id)
+    #        return render(request, "Provider_Prosthetic_Rehabilitation.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues})  # , 'time_point': time_point
+    #    except ObjectDoesNotExist: # Error in retrieving the patient entries
+    #        return redirect('/home')
+    #else:
+    #    return redirect('/SignIn')
+    ##return render(request, "Patient_Prosthetic_Rehabilitation.html")
+
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Home(request, patient_email):
+    patient = get_object_or_404(Patients, email=patient_email)
+    return render(request, 'Provider_base_template.html', {'patient': patient})#Provider_Home.html
+    #patient = Patient.objects.get(pk=patient)
+    #return render(request, 'Provider_Home.html', {'patient': patient})
