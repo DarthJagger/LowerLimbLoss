@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
-# from django.utils import timezone
+from django.utils import timezone
 from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
 from .models import Patients, Providers, TimePoints, PatientEntries, Authorizations
 from django.contrib import messages
@@ -215,7 +215,16 @@ def Patient_Auth_Request_Info(request, provider_id):
 @user_passes_test(is_patient)
 def Patient_Create_Timepoint(request):
     if request.method == "POST":
-        form = TimePointsForm(request.POST or None)
+        updateRequest = request.POST.copy() # Create a copy of the post request info
+        startdate = request.POST['startdate']
+        enddate = request.POST['enddate']
+        # Modify the start and end date strings to not include the pseudo timezone consideration "T"
+        startdate = startdate.replace("T", " ")
+        enddate = enddate.replace("T", " ")
+        # Update the copy of the post request info
+        updateRequest.update({'startdate': startdate, 'enddate':enddate})
+        # Create the TimePoints form based on the updated copy
+        form = TimePointsForm(updateRequest or None)
         if form.is_valid():
             timePoint = form.save(commit=False)  # Save new TimePoint into timePoint
             id = form.cleaned_data['provider'].provider_id  # Obtain provider ID
@@ -233,7 +242,7 @@ def Patient_Create_Timepoint(request):
             else:  # Error if the user isn't authenticated
                 messages.success(request, "Error. Unable to create time point. Please try again.")
         else:  # Error if the inputted form isn't valid
-            messages.success(request, "Error. Unable to create time point. Please try again.")
+            messages.success(request, "Error. Unable to create time point. Please try again. Form Invalid")
     return render(request, "Patient_Create_Timepoint.html")
 
 
