@@ -1,4 +1,5 @@
 {% extends "New_Base_Template.html" %}
+{% load custom_filters %}
 
 {% block header %}
     
@@ -53,7 +54,7 @@
         {% for patientR in requestedPatients %}
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patientR.pname }}</td>
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patientR.email }}</td>
-            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patientR.phone_number }}</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patient.phone_number|format_phone_number }}</td>
             <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;"><button onclick="window.location.href='/Provider_Auth_Request_Info/{{ patientR.patient_id }}';" type="button">View Request</button></td>
         {% endfor %}
     </table>
