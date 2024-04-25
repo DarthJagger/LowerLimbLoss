@@ -17,40 +17,35 @@
     <br>
     <div class="container-md">
         <h2 class="text-center">Authorized Providers</h2><br>
-        <table id = "providerTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
-            <tr>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Provider</th>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Specialty</th>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Organization</th>
-            </tr>
             {% for provider in providers %}
-                <tr onclick="window.location.href='/Patient_Provider_Info/{{ provider.provider_id }}';" style="cursor: pointer;">
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.pname }}</td>
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.email }}</td>
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.specialty }}</td>
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ provider.organization }}</td>
-                </tr>
+                <a href="/Patient_Provider_Info/{{ provider.provider_id }}" style="text-decoration:none;color:rgb(0,0,0)">
+                    <div class="row justify-content-center" style="padding: 15px">
+                        <div class="col-9 align-self-center time_point" >
+                            <p style="font-size: 20px"><b>Provider Name:</b> {{ provider.pname }}</p>
+                            <p style="font-size: 20px"><b>Provider Email:</b> {{ provider.email }}</p>
+                            <p style="font-size: 20px"><b>Provider specialty:</b> {{ provider.specialty }}</p>
+                            <p style="font-size: 20px"><b>organization:</b> {{ provider.organization }}</p>
+                        </div>
+                    </div>
+                </a>
+
             {% endfor %}
         </table>
     </div>
     <br><br><br>
     <div class="container-md">
         <h2 class="text-center">Providers requesting Authorization</h2><br>
-        <table id = "requestTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
-            <tr>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Provider</th>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Specialty</th>
-            <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Organization</th>
-            </tr>
             {% for providerR in requests %}
-                <tr onclick="window.location.href='/Patient_Auth_Request_Info/{{ providerR.provider_id }}';" style="cursor: pointer;">
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.pname }}</td>
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.email }}</td>
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.specialty }}</td>
-                <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ providerR.organization }}</td>
-                </tr>
+               <a href="/Patient_Provider_Info/{{ provider.provider_id }}" style="text-decoration:none;color:rgb(0,0,0)">
+                    <div class="row justify-content-center" style="padding: 15px">
+                        <div class="col-9 align-self-center time_point" >
+                            <p style="font-size: 20px"><b>Provider Name:</b> {{ provider.pname }}</p>
+                            <p style="font-size: 20px"><b>Provider Email:</b> {{ provider.email }}</p>
+                            <p style="font-size: 20px"><b>Provider specialty:</b> {{ provider.specialty }}</p>
+                            <p style="font-size: 20px"><b>organization:</b> {{ provider.organization }}</p>
+                        </div>
+                    </div>
+                </a>
             {% endfor %}
         </table>
     </div>
