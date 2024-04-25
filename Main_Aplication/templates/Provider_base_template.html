@@ -76,16 +76,16 @@
             </div>
           </li>
             <li class="nav-item">
-                  <a class="nav-link" href="/Provider_Time_Points/&lt;str:patient_email&gt;/">Upcoming Time Points</a>
+                  <a class="nav-link" href="/Provider_Time_Points/{{ patient.email }}/">Upcoming Time Points</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Prosthetic Rehabilitation</a>
                 <div class="dropdown-menu bg-dark" >
-                    <a href="/Provider_AmpPro_Survey/&lt;str:patient_email&gt;/" class="dropdown-item text-light">1. AmpPro Survey</a>
-                    <a href="/Provider_AmpNoPro_Survey/&lt;str:patient_email&gt;/" class="dropdown-item text-light">2. AmpNoPro Survey</a>
-                    <a href="/Provider_TimedGo_Test/&lt;str:patient_email&gt;/" class="dropdown-item text-light">3. Timed Up & Go</a>
-                    <a href="/Provider_6Min_Test/&lt;str:patient_email&gt;/" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
-                    <a href="/Provider_PlusM_Score/&lt;str:patient_email&gt;/" class="dropdown-item text-light">5. Plus M Score</a>
+                    <a href="/Provider_AmpPro_Survey/{{ patient.email }}/" class="dropdown-item text-light">1. AmpPro Survey</a>
+                    <a href="/Provider_AmpNoPro_Survey/{{ patient.email }}/" class="dropdown-item text-light">2. AmpNoPro Survey</a>
+                    <a href="/Provider_TimedGo_Test/{{ patient.email }}/" class="dropdown-item text-light">3. Timed Up & Go</a>
+                    <a href="/Provider_6Min_Test/{{ patient.email }}/" class="dropdown-item text-light">4. 6 Minute Walk Test</a>
+                    <a href="/Provider_PlusM_Score/{{ patient.email }}/" class="dropdown-item text-light">5. Plus M Score</a>
                 </div>
             </li>
             <!--<li class="nav-item">

@@ -627,12 +627,12 @@ def Provider_Auth_Request_Info(request, patient_id):
 def Provider_AmpPro_Survey(request, patient_email):
     patient = get_object_or_404(Patients, email=patient_email)
     if request.method == 'POST':
-        total_score = request.POST.get('totalScore')
-        score = int(total_score)
+        total_score = int(request.POST.get('totalScore_'))
+        score = int( total_score )
         sound_time_input = request.POST.get('soundTimeInput')
         pros_time_input = request.POST.get('prosTimeInput')
-        sound_time = int(sound_time_input)
-        pros_time = int(pros_time_input)
+        sound_time = int(0 if sound_time_input is None else sound_time_input)
+        pros_time = int(0 if pros_time_input is None else pros_time_input)
         if score >= 0 and sound_time >= 0 and pros_time >= 0:
             patient = Patients.objects.get(email=patient_email)
             AmpproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), amppro=score, time_balanced_sound=sound_time, time_balanced_prosthesis=pros_time)
@@ -646,14 +646,13 @@ def Provider_AmpPro_Survey(request, patient_email):
 def Provider_AmpNoPro_Survey(request, patient_email):
     patient = get_object_or_404(Patients, email=patient_email)
     if request.method == 'POST':
-        total_score = request.POST.get('totalScore')
-        if total_score.isdigit():
-            score = int(total_score)
-            if score >= 0:
-                patient = Patients.objects.get(email=patient_email)
-                AmpnoproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), ampnopro=score)
-                messages.success(request, "Scores added successfully")
-                return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
+        total_score = int(request.POST.get('totalScore_'))
+
+        if total_score >= 0:
+            patient = Patients.objects.get(email=patient_email)
+            AmpnoproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), ampnopro=total_score)
+            messages.success(request, "Scores added successfully")
+            return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
     else:
         return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
 

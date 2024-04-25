@@ -568,6 +568,7 @@
 
             <!-- Total Score -->
             <p id="totalScore" style="font-size: 25px">Total Score: 0 / 47</p>
+            <input id="totalScore_" type="hidden" name="totalScore_" value=0>
             <button type="button" id="btnSubmit"  style="font-size: 25px" onclick="submitSurvey()">Submit</button>
             <p id="errorMessage" style="color: red; visibility: hidden; font-size: 20px">Please answer all questions.</p>
             
@@ -601,8 +602,11 @@
                 if (selectedValue)
                   totalScore += parseInt(selectedValue.value);
               }
-            
-              return totalScore;
+                var Myelement = document.getElementById("totalScore_");
+                console.log(Myelement.value);
+                Myelement.value = parseInt(totalScore);
+                console.log(Myelement.value);
+                return parseInt(totalScore);
             }
             
             function submitSurvey()
@@ -629,6 +633,7 @@
               var prosTimeValue = prosTimeInput.value.trim();
 
               var totalScore = calculateTotalScore();
+
             
               var form = document.getElementById('surveyForm');
 
