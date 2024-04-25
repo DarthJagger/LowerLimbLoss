@@ -1,4 +1,4 @@
-{% extends "Provider_page_template.html" %}
+{% extends "Provider_base_template.html" %}
 
 {% block title %} Score Input {% endblock %}
 
@@ -10,7 +10,8 @@
 
     <div class="container-md">
         <h1 class="text-center" style="padding: 20px">Timed Up & Go</h1>
-        <form>
+        <form method="POST" action="{% url 'provider_timedgo_test' patient_email=patient.email %}">
+            {% csrf_token %}
             <div class="row justify-content-between" style="font-size: 20px">
                 
                 <label>
@@ -35,7 +36,8 @@
                 if (timedGoValue === "" || isNaN(timedGoValue) || parseInt(timedGoValue) < 0)
                     timedGoError.style.visibility = "visible";
                 else
-                    window.location.href = "/Provider_6Min_Test";
+                    document.forms[0].submit();
+                    //window.location.href = "/Provider_6Min_Test";
                     //timedGoError.style.visibility = "hidden";
             }
         </script>
