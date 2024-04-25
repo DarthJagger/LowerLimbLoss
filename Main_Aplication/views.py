@@ -637,9 +637,9 @@ def Provider_AmpPro_Survey(request, patient_email):
             patient = Patients.objects.get(email=patient_email)
             AmpproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), amppro=score, time_balanced_sound=sound_time, time_balanced_prosthesis=pros_time)
             messages.success(request, "Scores added successfully")
-            return render(request, 'Provider_Amppro_Survey.html', {'patient': patient})
+            return render(request, 'Provider_AmpPro_Survey.html', {'patient': patient})
     else:
-        return render(request, 'Provider_Amppro_Survey.html', {'patient': patient})
+        return render(request, 'Provider_AmpPro_Survey.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
@@ -652,9 +652,9 @@ def Provider_AmpNoPro_Survey(request, patient_email):
             patient = Patients.objects.get(email=patient_email)
             AmpnoproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), ampnopro=total_score)
             messages.success(request, "Scores added successfully")
-            return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
+            return render(request, 'Provider_AmpNoPro_Survey.html', {'patient': patient})
     else:
-        return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
+        return render(request, 'Provider_AmpNoPro_Survey.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
