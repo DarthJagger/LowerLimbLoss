@@ -1,5 +1,5 @@
 from django import forms
-from .models import Patients, TimePoints, PatientEntries
+from .models import *
 
 
 class NewPatientForm(forms.ModelForm):
