@@ -1,4 +1,4 @@
-{% extends "Provider_page_template.html" %}
+{% extends "Provider_base_template.html" %}
 
 {% block title %} Score Input {% endblock %}
 
@@ -10,7 +10,8 @@
 
     <div class="container-md">
         <h1 class="text-center" style="padding: 20px">Plus M</h1>
-        <form>
+        <form method="POST" action="{% url 'provider_plusm_score' patient_email=patient.email %}">
+            {% csrf_token %}
             <div class="row justify-content-between" style="font-size: 20px">
                 
                 <label>
@@ -36,10 +37,14 @@
                 if (plusMValue === "" || isNaN(plusMValue) || parseInt(plusMValue) < 0)
                     plusMError.style.visibility = "visible";
                 else
-                    window.location.href = "/Provider";
+                {
+                    document.forms[0].submit();
+                    //window.location.href = "/Provider";
                     //timedGoError.style.visibility = "hidden";
+                }
             }
         </script>
     </div>
+    
 
 {% endblock %}
