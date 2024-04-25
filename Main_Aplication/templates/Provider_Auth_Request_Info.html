@@ -1,0 +1,29 @@
+{% extends "New_Base_Template.html" %}
+
+{% block title %} Authorization Request {% endblock %}
+
+{% block header %}
+    <h1>Pending Patient Authorization</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-md">
+    <div class="row justify-content-center" style="padding: 15px;">
+    {% if patient %}
+        <div class="col-9 align-self-center">
+            <p style="font-size: 20px"><b>Patient: </b> {{ patient.pname }}</p>
+            <ul style = "font-size: 20px; margin-left: 20px; margin-right: 20px">
+                <li><b>Email: </b> {{ patient.email}} </li>
+                <li><b>Phone number: </b> {{ patient.phone_number}} </li>
+            </ul>
+        </div>
+        <form method="POST" action="/Provider_Auth_Request_Info/{{ patient.patient_id }}/">
+            {% csrf_token %} <!-- Form  Security Token, I think-->
+            <div class="form-group">
+                <button type="submit" class="btn btn-secondary btn-block">Authorize</button>
+            </div>
+        </form>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

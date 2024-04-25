@@ -1,7 +1,9 @@
-{% extends "Patient_page_template.html" %}
+{% extends "New_Base_Template.html" %}
+
+{% block title %} Authorize Patient {% endblock %}
 
 {% block header %}
-    <h1>Authorize Provider</h1>
+    <h1>Request Patient Authorization</h1>
 {% endblock %}
 
 {% block content %}
@@ -15,12 +17,12 @@
             {% endfor %}
         {% endif %}
 
-        <form method="POST" action="/Patient_Create_Authorization">
+        <form method="POST" action="/Provider_Create_Authorization">
             {% csrf_token %} <!-- Form  Security Token, I think-->
-            <h1 class="text-center">Authorize Provider to Access Information</h1>
+            <h1 class="text-center">Request Authorization from Patient to Access Information</h1>
             <div class="form-group">
-                <label for="provider">Healthcare Provider Email</label>
-            <input id="provider" type="text" class="form-control" placeholder="Healthcare Provider Email" required="required" name="provider">
+                <label for="patient">Patient Email</label>
+            <input id="patient" type="text" class="form-control" placeholder="Patient Email" required="required" name="patient">
             </div><br>
             <div class="form-group">
                 <button type="submit" class="btn btn-secondary btn-block">Authorize</button>

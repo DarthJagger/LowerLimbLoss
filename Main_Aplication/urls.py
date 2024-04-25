@@ -44,6 +44,8 @@ urlpatterns = [
          name="provider_prosthetic_fitting"),
     path("Provider_Prosthetic_Rehabilitation/<str:patient_email>/", views.Provider_Prosthetic_Rehabilitation,
          name="provider_prosthetic_rehabilitation"),
+    path("Provider_Create_Authorization", views.Provider_Create_Authorization, name="Navigation"),
+    path("Provider_Auth_Request_Info/<int:patient_id>/", views.Provider_Auth_Request_Info, name="Navigation"),
 
     path("Admin_Create_Provider",views.Admin_Create_Provider , name="Navigation")
 

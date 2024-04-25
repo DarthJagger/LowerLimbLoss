@@ -10,9 +10,18 @@
     {% if user.is_authenticated %}
     <h1 class="text-center" style="padding: 20px">Welcome {{ user.email }}</h1><br>
     {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <h2 class="text-center">Authorized Patients</h2><br>
 
-    <table>
+    <table id = "confirmedTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
         <thead>
             <tr>
                 <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Name</th>
@@ -31,6 +40,22 @@
             </tr>
             {% endfor %}
         </tbody>
+    </table>
+    <br><br><br>
+    <h2 class="text-center">Pending Patient Authorizations</h2><br>
+    <table id = "requestTable" style="font-size: 25px; border: 1px solid black; border-collapse: collapse;">
+        <tr>
+        <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Name</th>
+        <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Email</th>
+        <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Phone Number</th>
+        <th style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">Authorize Request</th>
+        </tr>
+        {% for patientR in requestedPatients %}
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patientR.pname }}</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patientR.email }}</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;">{{ patientR.phone_number }}</td>
+            <td style="border: 2px solid black; width: 500px; height: 50px; text-align: center;"><button onclick="window.location.href='/Provider_Auth_Request_Info/{{ patientR.patient_id }}';" type="button">View Request</button></td>
+        {% endfor %}
     </table>
 
     <script>

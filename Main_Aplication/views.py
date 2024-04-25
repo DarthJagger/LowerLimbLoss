@@ -139,7 +139,7 @@ def Patient_Authorize(request):
                 auth_entry, created = Authorizations.objects.get_or_create(patient_id=patient_id, provider_id=provider_id, astatus=aStatus)
                 if(created):
                     auth_entry.save()
-                    messages.success(request, 'Authorization Sucessful')
+                    messages.success(request, 'Authorization Successful')
                 else:
                     messages.success(request, 'Provider Already Authorized')
                 return render(request, 'Patient_Create_Authorization.html')
@@ -244,7 +244,6 @@ def Patient_Create_Timepoint(request):
         else:  # Error if the inputted form isn't valid
             messages.success(request, "Error. Unable to create time point. Please try again. Form Invalid")
     return render(request, "Patient_Create_Timepoint.html")
-
 
 @login_required
 @user_passes_test(is_patient)
@@ -428,7 +427,60 @@ def Provider(request):
     provider_id = request.user.username[8:]
     confirmedAuths = Authorizations.objects.filter(provider=provider_id, astatus='A')
     confirmedPatients = [auth.patient for auth in confirmedAuths]
-    return render(request, "Provider_Table.html", {'provider': provider_id, 'confirmedPatients': confirmedPatients})
+    requestedAuths = Authorizations.objects.filter(provider=provider_id, astatus='P')
+    requestedPatients = [auth.patient for auth in requestedAuths]
+    return render(request, "Provider_Table.html", {'provider': provider_id, 'confirmedPatients': confirmedPatients, 'requestedPatients':requestedPatients})
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Create_Authorization(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            try:
+                provider_id = request.user.username[8:]
+                patient_email = request.POST['patient']
+                patientTemp = Patients.objects.get(email=patient_email)
+                patient_id = patientTemp.patient_id
+                aStatus = 'R'  # Authorization status of R means that Provider requested authorization but Patient hasn't accepted
+                auth_entry, created = Authorizations.objects.get_or_create(patient_id=patient_id, provider_id=provider_id, astatus=aStatus)
+                if(created):
+                    auth_entry.save()
+                    messages.success(request, 'Authorization Successful')
+                else:
+                    messages.success(request, 'Patient Already Authorized')
+                return render(request, 'Provider_Create_Authorization.html')
+            except ObjectDoesNotExist:
+                messages.success(request, 'Authorization Unsuccessful')
+                return render(request, 'Provider_Create_Authorization.html')
+        else:
+            return render(request, 'Provider_Create_Authorization.html')
+    else:
+        return redirect('/SignIn')
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Auth_Request_Info(request, patient_id):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            try:
+                provider_id = request.user.username[8:]
+                authorization = Authorizations.objects.get(patient_id=patient_id, provider=provider_id)
+                authorization.astatus = 'A'
+                authorization.save()
+                messages.success(request, 'Patient Authorization Successful')
+                return redirect('/Provider')
+            except ObjectDoesNotExist:
+                messages.success(request, 'Error with Accepting Patient Authorization')
+                return redirect('/Provider')
+        else:
+            try:
+                patient = Patients.objects.get(patient_id=patient_id)
+                return render(request, 'Provider_Auth_Request_Info.html', {'patient': patient})
+            except ObjectDoesNotExist:
+                messages.success(request, 'Error with Viewing Requesting Provider')
+                return redirect('/Provider')
+    else:
+        return redirect('/SignIn')
 
 @login_required
 @user_passes_test(is_provider)
