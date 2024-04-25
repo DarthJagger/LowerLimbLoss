@@ -625,27 +625,85 @@ def Provider_Auth_Request_Info(request, patient_id):
 @login_required
 @user_passes_test(is_provider)
 def Provider_AmpPro_Survey(request, patient_email):
-    return render(request, "Provider_AmpPro_Survey.html")
+    patient = get_object_or_404(Patients, email=patient_email)
+    if request.method == 'POST':
+        total_score = request.POST.get('totalScore')
+        score = int(total_score)
+        sound_time_input = request.POST.get('soundTimeInput')
+        pros_time_input = request.POST.get('prosTimeInput')
+        sound_time = int(sound_time_input)
+        pros_time = int(pros_time_input)
+        if score >= 0 and sound_time >= 0 and pros_time >= 0:
+            patient = Patients.objects.get(email=patient_email)
+            AmpproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), amppro=score, time_balanced_sound=sound_time, time_balanced_prosthesis=pros_time)
+            messages.success(request, "Scores added successfully")
+            return render(request, 'Provider_Amppro_Survey.html', {'patient': patient})
+    else:
+        return render(request, 'Provider_Amppro_Survey.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
 def Provider_AmpNoPro_Survey(request, patient_email):
-    return render(request, "Provider_AmpNoPro_Survey.html")
+    patient = get_object_or_404(Patients, email=patient_email)
+    if request.method == 'POST':
+        total_score = request.POST.get('totalScore')
+        if total_score.isdigit():
+            score = int(total_score)
+            if score >= 0:
+                patient = Patients.objects.get(email=patient_email)
+                AmpnoproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), ampnopro=score)
+                messages.success(request, "Scores added successfully")
+                return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
+    else:
+        return render(request, 'Provider_AmpNopro_Survey.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
 def Provider_TimedGo_Test(request, patient_email):
-    return render(request, "Provider_TimedGo_Test.html")
+    patient = get_object_or_404(Patients, email=patient_email)
+    if request.method == 'POST':
+        timed_go_time = request.POST.get('timedGoTime')
+        if timed_go_time.isdigit():
+            timed_go = int(timed_go_time)
+            if timed_go >= 0:
+                patient = Patients.objects.get(email=patient_email)
+                TimedupandgoScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), timedupandgo=timed_go)
+                messages.success(request, "Score added successfully")
+                return render(request, 'Provider_TimedGo_Test.html', {'patient': patient})
+    else:
+        return render(request, 'Provider_TimedGo_Test.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
 def Provider_6Min_Test(request, patient_email):
-    return render(request, "Provider_6Min_Test.html")
+    patient = get_object_or_404(Patients, email=patient_email)
+    if request.method == 'POST':
+        six_min_time = request.POST.get('timedGoTime')
+        if six_min_time.isdigit():
+            six_min = int(six_min_time)
+            if six_min >= 0:
+                patient = Patients.objects.get(email=patient_email)
+                SixminwalktestScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), sixminwalktest=six_min)
+                messages.success(request, "Score added successfully")
+                return render(request, 'Provider_6Min_Test.html', {'patient': patient})
+    else:
+        return render(request, 'Provider_6Min_Test.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
 def Provider_PlusM_Score(request, patient_email):
-    return render(request, "Provider_PlusM_Score.html")
+    patient = get_object_or_404(Patients, email=patient_email)
+    if request.method == 'POST':
+        plus_m_time = request.POST.get('plusMTime')
+        if plus_m_time.isdigit():
+            plus_m = int(plus_m_time)
+            if plus_m >= 0:
+                patient = Patients.objects.get(email=patient_email)
+                PlusMScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), plus_m=plus_m)
+                messages.success(request, "Score added successfully")
+                return render(request, 'Provider_PlusM_Score.html', {'patient': patient})
+    else:
+        return render(request, 'Provider_PlusM_Score.html', {'patient': patient})
 
 @login_required
 @user_passes_test(is_provider)
