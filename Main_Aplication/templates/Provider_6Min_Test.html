@@ -1,4 +1,4 @@
-{% extends "Provider_page_template.html" %}
+{% extends "Provider_base_template.html" %}
 
 {% block title %} Score Input {% endblock %}
 
@@ -10,19 +10,18 @@
 
     <div class="container-md">
         <h1 class="text-center" style="padding: 20px">6 Minute Walk test</h1>
-        <form>
+        <form method="POST" action="{% url 'provider_6min_test' patient_email=patient.email %}">
+            {% csrf_token %}
             <div class="row justify-content-between" style="font-size: 20px">
 
                 <label>
-                    <p style="font-size: 20px">Time (in seconds):</p>
+                    <p style="font-size: 20px">Distance (in meters):</p>
                     <input type="text" placeholder="" name="timedGoTime" id="timedGoTime" autocomplete="off" size="10"/>
                     <p id="minuteError" style="color: red; visibility: hidden;">Please enter a valid number for distance walked.</p>
 
                     <button type="button" id="btnSubmit" style="font-size: 25px" onclick="submitDist()">Submit</button>
 
-
                 </label>
-
             </div>
         </form>
         <script>
@@ -32,10 +31,13 @@
                 var minuteInput = document.getElementById("minuteTime");
                 var minuteError = document.getElementById("minuteError");
                 var minuteValue = minuteInput.value.trim();
+
+
                 if (minuteValue === "" || isNaN(minuteValue) || parseInt(minuteValue) < 0)
                     minuteError.style.visibility = "visible";
                 else
-                    window.location.href = "/Provider_PlusM_Score";
+                    document.forms[0].submit();
+                    //window.location.href = "/Provider_PlusM_Score";
                     //minuteError.style.visibility = "hidden";
             }
         </script>
