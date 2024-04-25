@@ -1,4 +1,4 @@
-{% extends "Provider_page_template.html" %}
+{% extends "Provider_base_template.html" %}
 
 {% block title %} Score Input {% endblock %}
 
@@ -10,7 +10,8 @@
 
     <div class="container-md">
         <h1 class="text-center" style="padding: 20px">AmpNoPro Survey</h1>
-        <form>
+        <form method="POST" id="surveyForm" action ="{% url 'provider_ampnopro_survey' patient_email=patient.email %}">
+            {% csrf_token %}
 
             <div class="row justify-content-between" style="font-size: 20px">
                 
@@ -526,6 +527,21 @@
             
               document.getElementById("totalScore").innerHTML = "Total Score: " + totalScore + " / 43";
             }
+
+            function calculateTotalScore()
+            {
+              var totalScore = 0;
+              
+              // Loop through each question
+              for (var i = 1; i <= 26; i++)
+              {
+                var selectedValue = document.querySelector('input[name="ans' + i + '"]:checked');
+                if (selectedValue)
+                  totalScore += parseInt(selectedValue.value);
+              }
+            
+              return totalScore;
+            }
             
             function submitSurvey()
             {
@@ -542,8 +558,13 @@
                 }
               }
 
+
+
               if (allQuestionsAnswered)
-                window.location.href = "/Provider_TimedGo_Test";
+              {
+                var totalScore = calculateTotalScore();
+                document.forms[0].submit();
+              }
               else
               {
                 if (!allQuestionsAnswered)
