@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .forms import NewPatientForm, TimePointsForm, PatientEntryForm
-from .models import Patients, Providers, TimePoints, PatientEntries, Authorizations
+from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required # Use @login_required to make a view require login
 from django.contrib.auth.models import User, Group
@@ -305,7 +305,37 @@ def Patient_Postsurgical_Stabilization(request):
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
                                                                timepointtype='Pre-Prosthetic Admission',
                                                                enddate__gt=datetime.date.today())
-            return render(request, "Patient_Postsurgical_Stabilization.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues, 'time_point_before':time_point_before, 'time_point_after':time_point_after})
+
+            pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
+            pmY = json.dumps([int(item.plus_m) for item in pmModel])
+            pmX = json.dumps([str(item.scoredate) for item in pmModel])
+
+            ANPModel = AmpnoproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            ANPY = json.dumps([int(item.ampnopro) for item in ANPModel])
+            ANPX = json.dumps([str(item.scoredate) for item in ANPModel])
+
+            APModel = AmpproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            APY = json.dumps([int(item.amppro) for item in APModel])
+            APX = json.dumps([str(item.scoredate) for item in APModel])
+
+            UAGModel = TimedupandgoScores.objects.filter(patient=patient_id).order_by('scoredate')
+            UAGY = json.dumps([int(item.timedupandgo) for item in UAGModel])
+            UAGX = json.dumps([str(item.scoredate) for item in UAGModel])
+
+            WTModel = SixminwalktestScores.objects.filter(patient=patient_id).order_by('scoredate')
+            WTY = json.dumps([int(item.sixminwalktest) for item in WTModel])
+            WTX = json.dumps([str(item.scoredate) for item in WTModel])
+
+
+            return render(request, "Patient_Postsurgical_Stabilization.html",
+                          {'xValues': xValues, 'plsAvgValues': plsAvgValues,
+                           'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues,
+                           'rlsMaxValues': rlsMaxValues, 'scsAvgValues': scsAvgValues,
+                           'scsMaxValues': scsMaxValues, 'time_point_before': time_point_before,
+                           'time_point_after': time_point_after, 'pmY': pmY,
+                           'pmX': pmX, 'ANPY': ANPY, 'ANPX': ANPX, 'APY': APY,
+                           'APX': APX, 'UAGY':UAGY,'UAGX':UAGX,'WTY':WTY,'WTX':WTX })
+
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
     else:
@@ -332,7 +362,34 @@ def Patient_Preprosthetic_Rehabilitation(request):
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
                                                                timepointtype='Pre-Prosthetic Discharge',
                                                                enddate__gt=datetime.date.today())
-            return render(request, "Patient_Preprosthetic_Rehabilitation.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues, 'time_point_before':time_point_before, 'time_point_after':time_point_after})
+            pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
+            pmY = json.dumps([int(item.plus_m) for item in pmModel])
+            pmX = json.dumps([str(item.scoredate) for item in pmModel])
+
+            ANPModel = AmpnoproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            ANPY = json.dumps([int(item.ampnopro) for item in ANPModel])
+            ANPX = json.dumps([str(item.scoredate) for item in ANPModel])
+
+            APModel = AmpproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            APY = json.dumps([int(item.amppro) for item in APModel])
+            APX = json.dumps([str(item.scoredate) for item in APModel])
+
+            UAGModel = TimedupandgoScores.objects.filter(patient=patient_id).order_by('scoredate')
+            UAGY = json.dumps([int(item.timedupandgo) for item in UAGModel])
+            UAGX = json.dumps([str(item.scoredate) for item in UAGModel])
+
+            WTModel = SixminwalktestScores.objects.filter(patient=patient_id).order_by('scoredate')
+            WTY = json.dumps([int(item.sixminwalktest) for item in WTModel])
+            WTX = json.dumps([str(item.scoredate) for item in WTModel])
+            return render(request, "Patient_Preprosthetic_Rehabilitation.html",
+                          {'xValues': xValues, 'plsAvgValues': plsAvgValues,
+                           'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues,
+                           'rlsMaxValues': rlsMaxValues, 'scsAvgValues': scsAvgValues,
+                           'scsMaxValues': scsMaxValues, 'time_point_before': time_point_before,
+                           'time_point_after': time_point_after, 'pmY': pmY,
+                           'pmX': pmX, 'ANPY': ANPY, 'ANPX': ANPX, 'APY': APY,
+                           'APX': APX, 'UAGY':UAGY,'UAGX':UAGX,'WTY':WTY,'WTX':WTX })
+
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
     else:
@@ -359,7 +416,34 @@ def Patient_Limb_Healing(request):
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
                                                                timepointtype='Functioning Evaluation',
                                                                enddate__gt=datetime.date.today())
-            return render(request, "Patient_Limb_Healing.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues, 'time_point_before':time_point_before, 'time_point_after':time_point_after})
+            pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
+            pmY = json.dumps([int(item.plus_m) for item in pmModel])
+            pmX = json.dumps([str(item.scoredate) for item in pmModel])
+
+            ANPModel = AmpnoproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            ANPY = json.dumps([int(item.ampnopro) for item in ANPModel])
+            ANPX = json.dumps([str(item.scoredate) for item in ANPModel])
+
+            APModel = AmpproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            APY = json.dumps([int(item.amppro) for item in APModel])
+            APX = json.dumps([str(item.scoredate) for item in APModel])
+
+            UAGModel = TimedupandgoScores.objects.filter(patient=patient_id).order_by('scoredate')
+            UAGY = json.dumps([int(item.timedupandgo) for item in UAGModel])
+            UAGX = json.dumps([str(item.scoredate) for item in UAGModel])
+
+            WTModel = SixminwalktestScores.objects.filter(patient=patient_id).order_by('scoredate')
+            WTY = json.dumps([int(item.sixminwalktest) for item in WTModel])
+            WTX = json.dumps([str(item.scoredate) for item in WTModel])
+            return render(request, "Patient_Limb_Healing.html",
+                          {'xValues': xValues, 'plsAvgValues': plsAvgValues,
+                           'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues,
+                           'rlsMaxValues': rlsMaxValues, 'scsAvgValues': scsAvgValues,
+                           'scsMaxValues': scsMaxValues, 'time_point_before': time_point_before,
+                           'time_point_after': time_point_after, 'pmY': pmY,
+                           'pmX': pmX, 'ANPY': ANPY, 'ANPX': ANPX, 'APY': APY,
+                           'APX': APX, 'UAGY':UAGY,'UAGX':UAGX,'WTY':WTY,'WTX':WTX })
+
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
     else:
@@ -386,7 +470,34 @@ def Patient_Prosthetic_Fitting(request):
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
                                                                timepointtype='Prosthetic Admission',
                                                                enddate__gt=datetime.date.today())
-            return render(request, "Patient_Prosthetic_Fitting.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues, 'time_point_before':time_point_before, 'time_point_after':time_point_after})
+            pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
+            pmY = json.dumps([int(item.plus_m) for item in pmModel])
+            pmX = json.dumps([str(item.scoredate) for item in pmModel])
+
+            ANPModel = AmpnoproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            ANPY = json.dumps([int(item.ampnopro) for item in ANPModel])
+            ANPX = json.dumps([str(item.scoredate) for item in ANPModel])
+
+            APModel = AmpproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            APY = json.dumps([int(item.amppro) for item in APModel])
+            APX = json.dumps([str(item.scoredate) for item in APModel])
+
+            UAGModel = TimedupandgoScores.objects.filter(patient=patient_id).order_by('scoredate')
+            UAGY = json.dumps([int(item.timedupandgo) for item in UAGModel])
+            UAGX = json.dumps([str(item.scoredate) for item in UAGModel])
+
+            WTModel = SixminwalktestScores.objects.filter(patient=patient_id).order_by('scoredate')
+            WTY = json.dumps([int(item.sixminwalktest) for item in WTModel])
+            WTX = json.dumps([str(item.scoredate) for item in WTModel])
+            return render(request, "Patient_Prosthetic_Fitting.html",
+                          {'xValues': xValues, 'plsAvgValues': plsAvgValues,
+                           'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues,
+                           'rlsMaxValues': rlsMaxValues, 'scsAvgValues': scsAvgValues,
+                           'scsMaxValues': scsMaxValues, 'time_point_before': time_point_before,
+                           'time_point_after': time_point_after, 'pmY': pmY,
+                           'pmX': pmX, 'ANPY': ANPY, 'ANPX': ANPX, 'APY': APY,
+                           'APX': APX, 'UAGY':UAGY,'UAGX':UAGX,'WTY':WTY,'WTX':WTX })
+
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
     else:
@@ -413,7 +524,36 @@ def Patient_Prosthetic_Rehabilitation(request):
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
                                                                timepointtype='Prosthetic Discharge',
                                                                enddate__gt=datetime.date.today())
-            return render(request, "Patient_Prosthetic_Rehabilitation.html",{'xValues': xValues, 'plsAvgValues': plsAvgValues, 'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues, 'rlsMaxValues': rlsMaxValues, 'scsAvgValues':scsAvgValues, 'scsMaxValues':scsMaxValues, 'time_point_before':time_point_before, 'time_point_after':time_point_after})
+
+            pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
+            pmY = json.dumps([int(item.plus_m) for item in pmModel])
+            pmX = json.dumps([str(item.scoredate) for item in pmModel])
+
+            ANPModel = AmpnoproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            ANPY = json.dumps([int(item.ampnopro) for item in ANPModel])
+            ANPX = json.dumps([str(item.scoredate) for item in ANPModel])
+
+            APModel = AmpproScores.objects.filter(patient=patient_id).order_by('scoredate')
+            APY = json.dumps([int(item.amppro) for item in APModel])
+            APX = json.dumps([str(item.scoredate) for item in APModel])
+
+            UAGModel = TimedupandgoScores.objects.filter(patient=patient_id).order_by('scoredate')
+            UAGY = json.dumps([int(item.timedupandgo) for item in UAGModel])
+            UAGX = json.dumps([str(item.scoredate) for item in UAGModel])
+
+            WTModel = SixminwalktestScores.objects.filter(patient=patient_id).order_by('scoredate')
+            WTY = json.dumps([int(item.sixminwalktest) for item in WTModel])
+            WTX = json.dumps([str(item.scoredate) for item in WTModel])
+
+            return render(request, "Patient_Prosthetic_Rehabilitation.html",
+                          {'xValues': xValues, 'plsAvgValues': plsAvgValues,
+                           'plsMaxValues': plsMaxValues, 'rlsAvgValues': rlsAvgValues,
+                           'rlsMaxValues': rlsMaxValues, 'scsAvgValues': scsAvgValues,
+                           'scsMaxValues': scsMaxValues, 'time_point_before': time_point_before,
+                           'time_point_after': time_point_after, 'pmY': pmY,
+                           'pmX': pmX, 'ANPY': ANPY, 'ANPX': ANPX, 'APY': APY,
+                           'APX': APX, 'UAGY':UAGY,'UAGX':UAGX,'WTY':WTY,'WTX':WTX })
+
         except ObjectDoesNotExist: # Error in retrieving the patient entries
             return redirect('/home')
     else:
