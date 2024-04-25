@@ -28,11 +28,11 @@ urlpatterns = [
     path("Patient_Provider_Info/<int:provider_id>", views.Patient_Provider_Info, name="Navigation"),
     path("Patient_Auth_Request_Info/<int:provider_id>", views.Patient_Auth_Request_Info, name="Navigation"),
 
-    path("Provider_AmpPro_Survey/<str:patient_email>/", views.Provider_AmpPro_Survey, name="Navigation"),
-    path("Provider_AmpNoPro_Survey/<str:patient_email>/", views.Provider_AmpNoPro_Survey, name="Navigation"),
-    path("Provider_TimedGo_Test/<str:patient_email>/", views.Provider_TimedGo_Test, name="Navigation"),
-    path("Provider_6Min_Test/<str:patient_email>/", views.Provider_6Min_Test, name="Navigation"),
-    path("Provider_PlusM_Score/<str:patient_email>/", views.Provider_PlusM_Score, name="Navigation"),
+    path("Provider_AmpPro_Survey/<str:patient_email>/", views.Provider_AmpPro_Survey, name="provider_amppro_survey"),
+    path("Provider_AmpNoPro_Survey/<str:patient_email>/", views.Provider_AmpNoPro_Survey, name="provider_ampnopro_survey"),
+    path("Provider_TimedGo_Test/<str:patient_email>/", views.Provider_TimedGo_Test, name="provider_timedgo_test"),
+    path("Provider_6Min_Test/<str:patient_email>/", views.Provider_6Min_Test, name="provider_6min_test"),
+    path("Provider_PlusM_Score/<str:patient_email>/", views.Provider_PlusM_Score, name="provider_plusm_score"),
 
     path('Provider_Home/<str:patient_email>/', views.Provider_Home, name='provider_home'),
     path("Provider_Postsurgical_Stabilization/<str:patient_email>/", views.Provider_Postsurgical_Stabilization,
