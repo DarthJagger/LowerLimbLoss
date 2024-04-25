@@ -677,14 +677,13 @@ def Provider_TimedGo_Test(request, patient_email):
 def Provider_6Min_Test(request, patient_email):
     patient = get_object_or_404(Patients, email=patient_email)
     if request.method == 'POST':
-        six_min_time = request.POST.get('timedGoTime')
-        if six_min_time.isdigit():
-            six_min = int(six_min_time)
-            if six_min >= 0:
-                patient = Patients.objects.get(email=patient_email)
-                SixminwalktestScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), sixminwalktest=six_min)
-                messages.success(request, "Score added successfully")
-                return render(request, 'Provider_6Min_Test.html', {'patient': patient})
+        six_min_time = int(request.POST.get('minuteTime'))
+
+        if six_min_time >= 0:
+            patient = Patients.objects.get(email=patient_email)
+            SixminwalktestScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), sixminwalktest=six_min_time)
+            messages.success(request, "Score added successfully")
+            return render(request, 'Provider_6Min_Test.html', {'patient': patient})
     else:
         return render(request, 'Provider_6Min_Test.html', {'patient': patient})
 
