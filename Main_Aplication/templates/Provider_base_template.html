@@ -61,7 +61,7 @@
       <ul class="navbar-nav me-auto">
           {% block nav %}
               <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'provider_home' patient_email=patient.email %}">Home</a>
+                  <a class="nav-link active" href="/Provider">Home</a>
               </li>
           {% if user.is_authenticated %}
               <li class="nav-item dropdown">
