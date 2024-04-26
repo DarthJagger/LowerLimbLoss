@@ -635,7 +635,7 @@ def Provider_AmpPro_Survey(request, patient_email):
         pros_time = int(0 if pros_time_input is None else pros_time_input)
         if score >= 0 and sound_time >= 0 and pros_time >= 0:
             patient = Patients.objects.get(email=patient_email)
-            AmpproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), amppro=score, time_balanced_sound=sound_time, time_balanced_prosthesis=pros_time)
+            AmpproScores.objects.create(patient=patient, scoredate=datetime.date.today(), amppro=score, time_balanced_sound=sound_time, time_balanced_prosthesis=pros_time)
             messages.success(request, "Scores added successfully")
             return render(request, 'Provider_AmpPro_Survey.html', {'patient': patient})
     else:
@@ -650,7 +650,7 @@ def Provider_AmpNoPro_Survey(request, patient_email):
 
         if total_score >= 0:
             patient = Patients.objects.get(email=patient_email)
-            AmpnoproScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), ampnopro=total_score)
+            AmpnoproScores.objects.create(patient=patient, scoredate=datetime.date.today(), ampnopro=total_score)
             messages.success(request, "Scores added successfully")
             return render(request, 'Provider_AmpNoPro_Survey.html', {'patient': patient})
     else:
@@ -666,7 +666,7 @@ def Provider_TimedGo_Test(request, patient_email):
             timed_go = int(timed_go_time)
             if timed_go >= 0:
                 patient = Patients.objects.get(email=patient_email)
-                TimedupandgoScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), timedupandgo=timed_go)
+                TimedupandgoScores.objects.create(patient=patient, scoredate=datetime.date.today(), timedupandgo=timed_go)
                 messages.success(request, "Score added successfully")
                 return render(request, 'Provider_TimedGo_Test.html', {'patient': patient})
     else:
@@ -681,7 +681,7 @@ def Provider_6Min_Test(request, patient_email):
 
         if six_min_time >= 0:
             patient = Patients.objects.get(email=patient_email)
-            SixminwalktestScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), sixminwalktest=six_min_time)
+            SixminwalktestScores.objects.create(patient=patient, scoredate=datetime.date.today(), sixminwalktest=six_min_time)
             messages.success(request, "Score added successfully")
             return render(request, 'Provider_6Min_Test.html', {'patient': patient})
     else:
@@ -697,7 +697,7 @@ def Provider_PlusM_Score(request, patient_email):
             plus_m = int(plus_m_time)
             if plus_m >= 0:
                 patient = Patients.objects.get(email=patient_email)
-                PlusMScores.objects.create(patient=patient, scoredate=datetime.datetime.today(), plus_m=plus_m)
+                PlusMScores.objects.create(patient=patient, scoredate=datetime.date.today(), plus_m=plus_m)
                 messages.success(request, "Score added successfully")
                 return render(request, 'Provider_PlusM_Score.html', {'patient': patient})
     else:

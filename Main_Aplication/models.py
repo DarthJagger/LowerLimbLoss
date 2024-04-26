@@ -34,7 +34,7 @@ class Providers(models.Model):
 
 class AmpnoproScores(models.Model):
     patient = models.ForeignKey('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
-    scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
+    scoredate = models.DateField(db_column='ScoreDate')  # Field name made lowercase.
     ampnopro = models.PositiveIntegerField(db_column='AmpNoPro')  # Field name made lowercase.
 
     class Meta:
@@ -44,7 +44,7 @@ class AmpnoproScores(models.Model):
 
 class AmpproScores(models.Model):
     patient = models.ForeignKey('Patients', models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
-    scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
+    scoredate = models.DateField(db_column='ScoreDate')  # Field name made lowercase.
     amppro = models.PositiveIntegerField(db_column='AmpPro')  # Field name made lowercase.
     time_balanced_sound = models.DecimalField(db_column='Time_Balanced_Sound', max_digits=15, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
     time_balanced_prosthesis = models.DecimalField(db_column='Time_Balanced_Prosthesis', max_digits=15, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
@@ -196,7 +196,7 @@ class PatientEntries(models.Model):
 
 class PlusMScores(models.Model):
     patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
-    scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
+    scoredate = models.DateField(db_column='ScoreDate')  # Field name made lowercase.
     plus_m = models.DecimalField(db_column='Plus_M', max_digits=2, decimal_places=0)  # Field name made lowercase.
 
     class Meta:
@@ -221,7 +221,7 @@ class SensorEntries(models.Model):
 
 class SixminwalktestScores(models.Model):
     patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
-    scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
+    scoredate = models.DateField(db_column='ScoreDate')  # Field name made lowercase.
     sixminwalktest = models.DecimalField(db_column='SixMinWalkTest', max_digits=15, decimal_places=5)  # Field name made lowercase.
 
     class Meta:
@@ -246,7 +246,7 @@ class TimePoints(models.Model):
 
 class TimedupandgoScores(models.Model):
     patient = models.ForeignKey(Patients, models.DO_NOTHING, db_column='Patient_ID')  # Field name made lowercase.
-    scoredate = models.DateTimeField(db_column='ScoreDate')  # Field name made lowercase.
+    scoredate = models.DateField(db_column='ScoreDate')  # Field name made lowercase.
     timedupandgo = models.DecimalField(db_column='TimedUpAndGo', max_digits=15, decimal_places=5)  # Field name made lowercase.
 
     class Meta:
