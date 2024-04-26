@@ -705,6 +705,16 @@ def Provider_PlusM_Score(request, patient_email):
 
 @login_required
 @user_passes_test(is_provider)
+def Provider_Time_Points(request, patient_email):
+    if request.user.is_authenticated:  # Check if the user exists
+        patient = Patients.objects.get(email=patient_email)
+        time_points = TimePoints.objects.filter(patient_id=patient.patient_id, enddate__gt=datetime.date.today()).order_by('timepointnum')  # Obtain all of the patient's timepoints
+        return render(request, "Provider_Time_Points.html",{'time_points': time_points, 'patient':patient })
+    else:  # If the user isn't authenticated, redirect to home
+        return redirect('/Provider')
+
+@login_required
+@user_passes_test(is_provider)
 def Provider_Postsurgical_Stabilization(request, patient_email):
     if request.user.is_authenticated:
         try:

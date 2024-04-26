@@ -47,6 +47,8 @@ urlpatterns = [
     path("Provider_Create_Authorization", views.Provider_Create_Authorization, name="Navigation"),
     path("Provider_Auth_Request_Info/<int:patient_id>/", views.Provider_Auth_Request_Info, name="Navigation"),
 
+    path("Provider_Time_Points/<str:patient_email>/", views.Provider_Time_Points, name="Navigation"),
+
     path("Admin_Create_Provider",views.Admin_Create_Provider , name="Navigation")
 
 ]
