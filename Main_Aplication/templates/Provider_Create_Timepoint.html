@@ -1,4 +1,6 @@
-{% extends "Patient_page_template.html" %}
+{% extends "Provider_base_template.html" %}
+
+<!-- UNFINISHED AND UNIMPLEMENTED -->
 
 {% block header %}
     <h1 style="color: rgb(150,190, 230); text-align: end">Create Time Point</h1>
@@ -14,11 +16,11 @@
                 </div>
             {% endfor %}
         {% endif %}
-    <form method="POST" action="/Patient_Create_Timepoint">
+    <form method="POST" action="/Provider_Create_Timepoint">
         {% csrf_token %} <!-- Form  Security Token, I think-->
         <h1 class="text-center">Create Time Point</h1>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Healthcare Provider Email" required="required" name="email">
+            <input type="text" class="form-control" placeholder="Patient Email" required="required" name="email">
         </div><br>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Location" required="required" name="tplocation">

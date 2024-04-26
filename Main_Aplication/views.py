@@ -227,8 +227,9 @@ def Patient_Create_Timepoint(request):
         form = TimePointsForm(updateRequest or None)
         if form.is_valid():
             timePoint = form.save(commit=False)  # Save new TimePoint into timePoint
-            id = form.cleaned_data['provider'].provider_id  # Obtain provider ID
-            providerTemp = Providers.objects.get(provider_id=id)  # obtain provider corresponding to ID
+            # id = form.cleaned_data['provider'].provider_id  # Obtain provider ID
+            # providerTemp = Providers.objects.get(provider_id=id)  # obtain provider corresponding to ID
+            providerTemp = Providers.objects.get(email=request.POST['email'])
             specialty = providerTemp.specialty  # Obtain provider specialty
             if request.user.is_authenticated:  # Check if the user exists
                 patient_id = request.user.username[8:]  # Obtain patient_ID for the current User
@@ -237,6 +238,7 @@ def Patient_Create_Timepoint(request):
                 timePoint.timepointnum = len(priorTimePoints)+1  # Set the current timepointnum to the next timepoint num in the list
                 timePoint.specialty = specialty  # Set specialty in timePoint to the specialty of the provider
                 timePoint.patient_id = patient_id   # Set patient_id in timePoint to the ID of the user.
+                timePoint.provider_id = providerTemp.provider_id
                 timePoint.save()  # Commit the timePoint into the database
                 return redirect('/Patient_Time_Points')
             else:  # Error if the user isn't authenticated

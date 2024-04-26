@@ -11,7 +11,7 @@ class NewPatientForm(forms.ModelForm):
 class TimePointsForm(forms.ModelForm):
     class Meta:
         model = TimePoints
-        fields = ['provider', 'tplocation', 'startdate', 'enddate', 'timepointtype']
+        fields = ['tplocation', 'startdate', 'enddate', 'timepointtype']
 
 
 class PatientEntryForm(forms.ModelForm):

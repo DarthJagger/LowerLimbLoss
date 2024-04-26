@@ -86,8 +86,11 @@
                     <div class="col align-self-center time_point" >
                         <p style="font-size: 20px"><b>Start Date:</b> {{ item.startdate}}</p>
                         <p style="font-size: 20px"><b>End Date:</b> {{ item.enddate}}</p>
-                        <p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
-                        <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>
+                        <!--<p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
+                        <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>-->
+                        <p style="font-size: 20px"><b>Patient:</b> {{ patient.pname }}</p>
+                        <p style="font-size: 20px"><b>Email:</b> {{ patient.email }}</p>
+                        <p style="font-size: 20px"><b>Phone Number:</b> {{ patient.phone_number }}</p>
             </div>
                     </a>
                     <br>
@@ -98,8 +101,11 @@
                 <div class="col align-self-center time_point" >
                     <p style="font-size: 20px"><b>Start Date:</b> {{ item.startdate}}</p>
                     <p style="font-size: 20px"><b>End Date:</b> {{ item.enddate}}</p>
-                    <p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
-                    <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>
+                    <!--<p style="font-size: 20px"><b>Team Member:</b> {{ item.specialty }}</p>
+                    <p style="font-size: 20px"><b>Location:</b> {{ item.tplocation }}</p>-->
+                    <p style="font-size: 20px"><b>Patient:</b> {{ patient.pname }}</p>
+                    <p style="font-size: 20px"><b>Email:</b> {{ patient.email }}</p>
+                    <p style="font-size: 20px"><b>Phone Number:</b> {{ patient.phone_number }}</p>
                 </div>
                 </a>
                     <br>
@@ -332,7 +338,7 @@ new Chart("UAG_Table", {
  options: {
     legend: {display: true},
     scales: {
-           yAxes: [{ticks: {min: 0, max:20}}]
+           yAxes: [{ticks: {min: 0, max:60}}]
         },
         title: {
             display: false,
@@ -360,7 +366,7 @@ new Chart("WT_Table", {
  options: {
     legend: {display: true},
     scales: {
-            yAxes: [{ticks: {min: 0, max: 10},}]
+            yAxes: [{ticks: {min: 0, max: 20},}]
         },
         title: {
             display: false,
