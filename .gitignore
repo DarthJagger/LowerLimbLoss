@@ -2,3 +2,5 @@
 /Design Diagrams and Files/
 /Main_Aplication/migrations/0002_remove_ampnoproscores_patient_and_more.py
 /.idea/
+/__pycache__/
+/Main_Aplication/__pycache__/

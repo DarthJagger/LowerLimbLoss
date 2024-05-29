@@ -710,7 +710,19 @@ def Provider_PlusM_Score(request, patient_email):
 def Provider_Time_Points(request, patient_email):
     if request.user.is_authenticated:  # Check if the user exists
         patient = Patients.objects.get(email=patient_email)
-        time_points = TimePoints.objects.filter(patient_id=patient.patient_id, enddate__gt=datetime.date.today()).order_by('timepointnum')  # Obtain all of the patient's timepoints
+        provider_id = request.user.username[8:]  # Obtain patient_ID for the current User
+        time_points = TimePoints.objects.filter(patient_id=patient.patient_id, provider_id=provider_id, enddate__gt=datetime.date.today()).order_by('timepointnum')  # Obtain all of the patient's timepoints
+        return render(request, "Provider_Time_Points.html",{'time_points': time_points, 'patient':patient })
+    else:  # If the user isn't authenticated, redirect to home
+        return redirect('/Provider')
+
+@login_required
+@user_passes_test(is_provider)
+def Provider_Step_Time_Points(request, timepointtype, patient_email):
+    if request.user.is_authenticated:  # Check if the user exists
+        patient = Patients.objects.get(email=patient_email)
+        provider_id = request.user.username[8:]  # Obtain provider_ID for the current User
+        time_points = TimePoints.objects.filter(patient_id=patient.patient_id, provider_id=provider_id, enddate__gt=datetime.date.today(), timepointtype=timepointtype).order_by('timepointnum')  # Obtain patient's timepoints for specific time point type
         return render(request, "Provider_Time_Points.html",{'time_points': time_points, 'patient':patient })
     else:  # If the user isn't authenticated, redirect to home
         return redirect('/Provider')
@@ -719,6 +731,7 @@ def Provider_Time_Points(request, patient_email):
 @user_passes_test(is_provider)
 def Provider_Postsurgical_Stabilization(request, patient_email):
     if request.user.is_authenticated:
+        provider_id = request.user.username[8:]  # Obtain provider_ID for the current User
         try:
             # Retrieve patient information using the provided email
             patient_id = get_object_or_404(Patients, email=patient_email)
@@ -734,10 +747,12 @@ def Provider_Postsurgical_Stabilization(request, patient_email):
             scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
 
             time_point_before = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                                timepointtype='Prosthetic Admission',
+                                                                provider_id=provider_id,
+                                                                timepointtype='Surgery',
                                                                 enddate__gt=datetime.date.today())
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                               timepointtype='Prosthetic Discharge',
+                                                               provider_id=provider_id,
+                                                               timepointtype='Pre-Prosthetic Admission',
                                                                enddate__gt=datetime.date.today())
 
             pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
@@ -795,6 +810,7 @@ def Provider_Postsurgical_Stabilization(request, patient_email):
 @user_passes_test(is_provider)
 def Provider_Preprosthetic_Rehabilitation(request, patient_email):
     if request.user.is_authenticated:
+        provider_id = request.user.username[8:]  # Obtain provider_ID for the current User
         try:
             # Retrieve patient information using the provided email
             patient_id = get_object_or_404(Patients, email=patient_email)
@@ -810,10 +826,12 @@ def Provider_Preprosthetic_Rehabilitation(request, patient_email):
             scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
 
             time_point_before = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                                timepointtype='Prosthetic Admission',
+                                                                provider_id=provider_id,
+                                                                timepointtype='Pre-Prosthetic Admission',
                                                                 enddate__gt=datetime.date.today())
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                               timepointtype='Prosthetic Discharge',
+                                                               provider_id=provider_id,
+                                                               timepointtype='Pre-Prosthetic Discharge',
                                                                enddate__gt=datetime.date.today())
 
             pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
@@ -871,6 +889,7 @@ def Provider_Preprosthetic_Rehabilitation(request, patient_email):
 @user_passes_test(is_provider)
 def Provider_Limb_Healing(request, patient_email):
     if request.user.is_authenticated:
+        provider_id = request.user.username[8:]  # Obtain provider_ID for the current User
         try:
             # Retrieve patient information using the provided email
             patient_id = get_object_or_404(Patients, email=patient_email)
@@ -886,10 +905,12 @@ def Provider_Limb_Healing(request, patient_email):
             scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
 
             time_point_before = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                                timepointtype='Prosthetic Admission',
+                                                                provider_id=provider_id,
+                                                                timepointtype='Pre-Prosthetic Discharge',
                                                                 enddate__gt=datetime.date.today())
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                               timepointtype='Prosthetic Discharge',
+                                                               provider_id=provider_id,
+                                                               timepointtype='Functioning Evaluation',
                                                                enddate__gt=datetime.date.today())
 
             pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
@@ -947,6 +968,7 @@ def Provider_Limb_Healing(request, patient_email):
 @user_passes_test(is_provider)
 def Provider_Prosthetic_Fitting(request, patient_email):
     if request.user.is_authenticated:
+        provider_id = request.user.username[8:]  # Obtain provider_ID for the current User
         try:
             # Retrieve patient information using the provided email
             patient_id = get_object_or_404(Patients, email=patient_email)
@@ -962,10 +984,12 @@ def Provider_Prosthetic_Fitting(request, patient_email):
             scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
 
             time_point_before = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                                timepointtype='Prosthetic Admission',
+                                                                provider_id=provider_id,
+                                                                timepointtype='Functioning Evaluation',
                                                                 enddate__gt=datetime.date.today())
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
-                                                               timepointtype='Prosthetic Discharge',
+                                                               provider_id=provider_id,
+                                                               timepointtype='Prosthetic Admission',
                                                                enddate__gt=datetime.date.today())
 
             pmModel = PlusMScores.objects.filter(patient=patient_id).order_by('scoredate')
@@ -1023,6 +1047,7 @@ def Provider_Prosthetic_Fitting(request, patient_email):
 @user_passes_test(is_provider)
 def Provider_Prosthetic_Rehabilitation(request, patient_email):
     if request.user.is_authenticated:
+        provider_id = request.user.username[8:]  # Obtain provider_ID for the current User
         try:
             # Retrieve patient information using the provided email
             patient_id = get_object_or_404(Patients, email=patient_email)
@@ -1038,9 +1063,11 @@ def Provider_Prosthetic_Rehabilitation(request, patient_email):
             scsMaxValues = json.dumps([int(item.socket_comfort_score_max) for item in patient_entries])
 
             time_point_before = TimePoints.objects.all().filter(patient_id=patient_id,
+                                                                provider_id=provider_id,
                                                                 timepointtype='Prosthetic Admission',
                                                                 enddate__gt=datetime.date.today())
             time_point_after = TimePoints.objects.all().filter(patient_id=patient_id,
+                                                               provider_id=provider_id,
                                                                timepointtype='Prosthetic Discharge',
                                                                enddate__gt=datetime.date.today())
 
